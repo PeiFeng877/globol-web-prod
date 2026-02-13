@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale, name } = await params;
   const t = getDictionary(locale);
   const profile = findProfileBySlug(name);
-  const baseUrl = 'https://globol.im';
+  const baseUrl = 'https://www.globol.im';
 
   if (!profile) return { title: 'Profile Not Found | Globol' };
 
@@ -160,7 +160,7 @@ export default async function ProfileDetailPage({ params }: PageProps) {
 
   const homeLink = locale === 'en' ? '/' : `/${locale}`;
   const datingLink = locale === 'en' ? '/international-dating' : `/${locale}/international-dating`;
-  const baseUrl = 'https://globol.im';
+  const baseUrl = 'https://www.globol.im';
   const avatarUrl = profile.avatar.startsWith('http') ? profile.avatar : `${baseUrl}${profile.avatar}`;
 
   const jsonLd = {

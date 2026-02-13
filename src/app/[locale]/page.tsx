@@ -48,12 +48,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     alternates: {
       canonical: locale === 'en' ? '/' : `/${locale}/`,
-      languages: Object.fromEntries(
-        locales.map(loc => [
+      languages: Object.fromEntries([
+        ['x-default', '/'],
+        ...locales.map(loc => [
           loc,
           loc === 'en' ? '/' : `/${loc}/`
         ])
-      )
+      ])
     },
   };
 }

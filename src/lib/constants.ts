@@ -9,4 +9,4 @@
  * 职责: 集中管理全局常量（域名、默认配置等）。
  */
 
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://globol.im';
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globol.im';

@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = getDictionary(locale);
   const gender = slug?.[0];
   const country = slug?.[1];
-  const baseUrl = 'https://globol.im';
+  const baseUrl = 'https://www.globol.im';
 
   // Construct Canonical URL
   const langPrefix = locale === 'en' ? '' : `/${locale}`;
@@ -149,7 +149,7 @@ export default async function InternationalDatingPage({ params }: PageProps) {
 
   const homeLink = locale === 'en' ? '/' : `/${locale}`;
   const datingLink = locale === 'en' ? '/international-dating' : `/${locale}/international-dating`;
-  const baseUrl = 'https://globol.im';
+  const baseUrl = 'https://www.globol.im';
 
   const breadcrumbs = [
     {

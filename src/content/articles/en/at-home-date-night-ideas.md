@@ -35,7 +35,7 @@ Clear the coffee table away. Lay down a blanket on the floor. Serve finger foods
 ### 4. "Around the World" Theme Night
 Pick a country. Cook a dish from there. Listen to music from there. Watch a movie set there. It’s a vacation without the jet lag.
 
-![A couple sitting on a living room picnic blanket with cheese boards, wine, and candles](/assets/articles/at-home-date-night-ideas/body-1.avif)
+
 
 ## The "Playful & Competitive" Nights
 *A little rivalry is healthy.*
@@ -68,7 +68,7 @@ Dreaming together is a powerful bonding agent.
 ### 11. Read to Each Other
 It sounds old-fashioned, but it’s incredibly intimate. Pick a book (poetry or a novel) and take turns reading a chapter aloud.
 
-![A couple in bathrobes and face masks clinking wine glasses in a dimly lit bathroom](/assets/articles/at-home-date-night-ideas/body-2.avif)
+
 
 ## The Golden Rule for At-Home Dates
 **Dress up.**

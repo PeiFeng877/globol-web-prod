@@ -9,14 +9,12 @@
  * 职责: 定义全局骨架、字体与基础布局，并挂载客户端统计。
  */
 import type { Metadata } from "next";
-import { headers } from "next/headers";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { FirebaseAnalytics } from "@/components/analytics/FirebaseAnalytics";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { defaultLocale, locales } from "@/i18n/settings";
+import { defaultLocale } from "@/i18n/settings";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -25,32 +23,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://globol.im'),
+  metadataBase: new URL('https://www.globol.im'),
   title: "Globol - Connect with Global Friends",
   description: "Globol - Connect with friends worldwide, share your moments, chat in your language with real-time translation",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const requestHeaders = await headers();
-  const activeLocaleHeader = requestHeaders.get("x-locale");
-  const activeLocale = locales.includes(activeLocaleHeader as (typeof locales)[number])
-    ? activeLocaleHeader!
-    : defaultLocale;
-
   return (
-    <html lang={activeLocale}>
+    <html lang={defaultLocale}>
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
         <FirebaseAnalytics />
-        <PageViewTracker />
-        <Navbar />
-        <main className="flex-grow pt-20">
-          {children}
-        </main>
-        <Footer />
+        <Suspense fallback={null}>
+          <PageViewTracker />
+        </Suspense>
+        {children}
       </body>
     </html>
   );

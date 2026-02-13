@@ -85,7 +85,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const { prev, next } = getAdjacentArticles(locale, slug);
   const relatedPosts = getRelatedArticles(locale, article, 4);
   const canonicalPath = locale === 'en' ? `/date-ideas/${slug}` : `/${locale}/date-ideas/${slug}`;
-  const canonicalUrl = `https://globol.im${canonicalPath}`;
+  const canonicalUrl = `https://www.globol.im${canonicalPath}`;
 
   const homeLink = locale === 'en' ? '/' : `/${locale}`;
   const dateIdeasLink = locale === 'en' ? '/date-ideas' : `/${locale}/date-ideas`;

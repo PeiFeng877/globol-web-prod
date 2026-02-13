@@ -69,7 +69,7 @@ export default async function DateListPage({ params }: PageProps) {
   const { locale } = await params;
   const articles = getAllArticles(locale);
   const t = getDictionary(locale);
-  const canonicalBase = locale === 'en' ? 'https://globol.im' : `https://globol.im/${locale}`;
+  const canonicalBase = locale === 'en' ? 'https://www.globol.im' : `https://www.globol.im/${locale}`;
   const layoutPatterns: LayoutPattern[] = [
     {
       className: "pattern-a",
