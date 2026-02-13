@@ -14,26 +14,35 @@ import { locales } from '@/i18n/settings';
 import { BASE_URL } from '@/lib/constants';
 import { profiles, getCountries } from '@/data/profiles';
 
+import type { MetadataRoute } from "next";
+import { getAllArticles } from '@/lib/content';
+import { locales } from '@/i18n/settings';
+import { BASE_URL } from '@/lib/constants';
+import { profiles, getCountries } from '@/data/profiles';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles('en');
   const staticPages = ['about', 'contact', 'privacy', 'terms'];
-  
+
+  // Helper to ensure trailing slash
+  const withSlash = (url: string) => url.endsWith('/') ? url : `${url}/`;
+
   // 1. Generate article URLs
-  const articleUrls = articles.flatMap(article => 
+  const articleUrls = articles.flatMap(article =>
     locales.map(locale => ({
-      url: locale === 'en' 
-        ? `${BASE_URL}/date-ideas/${article.slug}`
-        : `${BASE_URL}/${locale}/date-ideas/${article.slug}`,
+      url: locale === 'en'
+        ? withSlash(`${BASE_URL}/date-ideas/${article.slug}`)
+        : withSlash(`${BASE_URL}/${locale}/date-ideas/${article.slug}`),
       lastModified: new Date(article.publishedAt),
       priority: 0.8,
       alternates: {
         languages: Object.fromEntries([
-          ['x-default', `${BASE_URL}/date-ideas/${article.slug}`],
+          ['x-default', withSlash(`${BASE_URL}/date-ideas/${article.slug}`)],
           ...locales.map(loc => [
             loc,
-            loc === 'en' 
-              ? `${BASE_URL}/date-ideas/${article.slug}`
-              : `${BASE_URL}/${loc}/date-ideas/${article.slug}`
+            loc === 'en'
+              ? withSlash(`${BASE_URL}/date-ideas/${article.slug}`)
+              : withSlash(`${BASE_URL}/${loc}/date-ideas/${article.slug}`)
           ])
         ])
       }
@@ -46,18 +55,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const localizedPath = locale === 'en' ? `/${page}` : `/${locale}/${page}`;
 
       return {
-        url: `${BASE_URL}${localizedPath}`,
+        url: withSlash(`${BASE_URL}${localizedPath}`),
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.6,
         alternates: {
           languages: Object.fromEntries([
-            ['x-default', `${BASE_URL}/${page}`],
+            ['x-default', withSlash(`${BASE_URL}/${page}`)],
             ...locales.map((loc) => [
               loc,
               loc === 'en'
-                ? `${BASE_URL}/${page}`
-                : `${BASE_URL}/${loc}/${page}`,
+                ? withSlash(`${BASE_URL}/${page}`)
+                : withSlash(`${BASE_URL}/${loc}/${page}`),
             ]),
           ]),
         },
@@ -77,28 +86,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Gender Filter
     genders.forEach(gender => {
       combinations.push({ urlPath: `/international-dating/${gender}`, priority: 0.8 });
-      
+
       // Gender + Country Filter
       countries.forEach(country => {
         combinations.push({ urlPath: `/international-dating/${gender}/${country}`, priority: 0.8 });
       });
     });
 
-    return combinations.flatMap(({ urlPath, priority }) => 
+    return combinations.flatMap(({ urlPath, priority }) =>
       locales.map(locale => {
         const fullUrl = locale === 'en' ? `${BASE_URL}${urlPath}` : `${BASE_URL}/${locale}${urlPath}`;
-        
+
         return {
-          url: fullUrl,
+          url: withSlash(fullUrl),
           lastModified: new Date(),
           changeFrequency: 'daily' as const,
           priority,
           alternates: {
             languages: Object.fromEntries([
-              ['x-default', `${BASE_URL}${urlPath}`],
+              ['x-default', withSlash(`${BASE_URL}${urlPath}`)],
               ...locales.map(loc => [
                 loc,
-                loc === 'en' ? `${BASE_URL}${urlPath}` : `${BASE_URL}/${loc}${urlPath}`
+                loc === 'en' ? withSlash(`${BASE_URL}${urlPath}`) : withSlash(`${BASE_URL}/${loc}${urlPath}`)
               ])
             ])
           }
@@ -113,18 +122,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return locales.map(locale => {
       const urlPath = `/international-dating/profile/${nameSlug}`;
       const fullUrl = locale === 'en' ? `${BASE_URL}${urlPath}` : `${BASE_URL}/${locale}${urlPath}`;
-      
+
       return {
-        url: fullUrl,
+        url: withSlash(fullUrl),
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
         alternates: {
           languages: Object.fromEntries([
-            ['x-default', `${BASE_URL}${urlPath}`],
+            ['x-default', withSlash(`${BASE_URL}${urlPath}`)],
             ...locales.map(loc => [
               loc,
-              loc === 'en' ? `${BASE_URL}${urlPath}` : `${BASE_URL}/${loc}${urlPath}`
+              loc === 'en' ? withSlash(`${BASE_URL}${urlPath}`) : withSlash(`${BASE_URL}/${loc}${urlPath}`)
             ])
           ])
         }
@@ -135,36 +144,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     // Homepage
     ...locales.map(locale => ({
-      url: locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}`,
+      url: locale === 'en' ? withSlash(BASE_URL) : withSlash(`${BASE_URL}/${locale}`),
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 1,
       alternates: {
         languages: Object.fromEntries([
-          ['x-default', BASE_URL],
+          ['x-default', withSlash(BASE_URL)],
           ...locales.map(loc => [
             loc,
-            loc === 'en' ? BASE_URL : `${BASE_URL}/${loc}`
+            loc === 'en' ? withSlash(BASE_URL) : withSlash(`${BASE_URL}/${loc}`)
           ])
         ])
       }
     })),
     // Date ideas list
     ...locales.map(locale => ({
-      url: locale === 'en' 
-        ? `${BASE_URL}/date-ideas`
-        : `${BASE_URL}/${locale}/date-ideas`,
+      url: locale === 'en'
+        ? withSlash(`${BASE_URL}/date-ideas`)
+        : withSlash(`${BASE_URL}/${locale}/date-ideas`),
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
       alternates: {
         languages: Object.fromEntries([
-          ['x-default', `${BASE_URL}/date-ideas`],
+          ['x-default', withSlash(`${BASE_URL}/date-ideas`)],
           ...locales.map(loc => [
             loc,
-            loc === 'en' 
-              ? `${BASE_URL}/date-ideas`
-              : `${BASE_URL}/${loc}/date-ideas`
+            loc === 'en'
+              ? withSlash(`${BASE_URL}/date-ideas`)
+              : withSlash(`${BASE_URL}/${loc}/date-ideas`)
           ])
         ])
       }
@@ -174,3 +183,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...profileUrls,
   ];
 }
+
