@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "Accueil",
+    "dateIdeas": "Idées de Rendez-vous",
+    "internationalDating": "Rencontres Internationales",
+    "language": "Français",
+    "signIn": "Se connecter",
+    "join": "Rejoindre Globol",
+    "readMore": "Lire la suite",
+    "share": "Partager cet article",
+    "moreDateIdeas": "Plus d'idées de sorties",
+    "signUp": "S'inscrire"
+  },
+  "footer": {
+    "brandSlogan": "Connectez-vous sans frontières",
+    "discover": "Découvrir",
+    "popular": "Populaire",
+    "company": "Entreprise",
+    "aboutUs": "À propos",
+    "rights": "© 2026 Globol. Tous droits réservés.",
+    "contact": "Contact & Support",
+    "privacy": "Confidentialité",
+    "terms": "Conditions d'utilisation"
+  },
+  "article": {
+    "prev": "Précédent",
+    "next": "Suivant",
+    "faq": "Questions Fréquemment Posées",
+    "home": "Accueil",
+    "dateIdeas": "Idées de Sorties"
+  },
+  "homepage": {
+    "title": "Connectez-vous sans frontières",
+    "intro": "Globol est votre porte d'entrée vers des amitiés internationales. Notre plateforme brise les barrières linguistiques, vous permettant de vous connecter, de discuter et de partager des moments avec des personnes du monde entier.",
+    "whyChooseTitle": "Pourquoi choisir Globol ?",
+    "languageLearningTitle": "Apprentissage des langues :",
+    "languageLearning": "Pratiquez avec des locuteurs natifs en temps réel.",
+    "culturalExchangeTitle": "Échange culturel :",
+    "culturalExchange": "Comprenez diverses cultures directement auprès des habitants.",
+    "effortlessConnectionTitle": "Connexion sans effort :",
+    "effortlessConnection": "Faites-vous des amis dans le monde entier sans barrière linguistique.",
+    "globalCommunityTitle": "Communauté mondiale",
+    "globalCommunityDesc": "Rejoignez une communauté diversifiée d'utilisateurs partageant leur vie quotidienne et leurs perspectives uniques depuis plus de 100 pays.",
+    "realTimeTranslationTitle": "Traduction en temps réel",
+    "realTimeTranslationDesc": "Discutez naturellement dans votre langue maternelle. Notre technologie de traduction avancée garantit que vous êtes toujours compris.",
+    "authenticConnectionsTitle": "Connexions authentiques",
+    "authenticConnectionsDesc": "Allez au-delà du simple balayage. Établissez des relations significatives basées sur des intérêts communs et des conversations sincères.",
+    "exploreGuidesTitle": "Explorez nos guides",
+    "exploreGuidesDesc": "En quête d'inspiration ? Consultez nos guides sur les rencontres, les relations et l'étiquette culturelle.",
+    "readDateIdeas": "Lire les idées de sorties"
+  },
+  "about": {
+    "title": "À propos de nous",
+    "intro1": "Globol est plus qu'une simple application ; c'est un mouvement pour connecter le monde sans frontières.",
+    "intro2": "Dans un monde de plus en plus connecté mais souvent divisé par des barrières linguistiques et culturelles, Globol s'érige en pont. Nous croyons que la véritable compréhension naît de la communication directe et des expériences partagées.",
+    "missionTitle": "Notre Mission",
+    "missionDesc": "Briser les barrières linguistiques et favoriser des amitiés mondiales authentiques grâce à une technologie innovante et un engagement communautaire.",
+    "visionTitle": "Notre Vision",
+    "visionDesc": "Un monde où n'importe qui, n'importe où, peut se connecter, partager et se comprendre, quelle que soit la langue parlée."
+  },
+  "contact": {
+    "title": "Contact & Support",
+    "intro": "Nous sommes là pour vous aider. Si vous avez des questions, des commentaires ou des demandes de partenariat, n'hésitez pas à nous contacter.",
+    "emailTitle": "Envoyez-nous un e-mail",
+    "emailDesc": "Pour le support et les demandes générales"
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "comingSoon": "Contenu à venir prochainement."
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "comingSoon": "Contenu à venir prochainement."
+  },
+  "notFound": {
+    "title": "404 - Page Non Trouvée",
+    "description": "Oups ! La page que vous recherchez n'existe pas ou a été déplacée.",
+    "backHome": "Retour à l'accueil"
+  },
+  "download": {
+    "appStoreLine1": "Télécharger dans l'",
+    "appStoreLine2": "App Store",
+    "apkLine1": "Téléchargement Officiel",
+    "apkLine2": "Installer l'App"
+  },
+  "datingChat": {
+    "sayHi": "Dire bonjour",
+    "title": "Chat",
+    "close": "Fermer le chat",
+    "youLabel": "Vous",
+    "placeholder": "Envoyer un message...",
+    "send": "Envoyer",
+    "sending": "Envoi en cours...",
+    "emptyState": "Commencez par un petit bonjour.",
+    "errorReply": "Désolé, je ne peux pas répondre pour le moment. Veuillez réessayer dans un instant.",
+    "limitReached": "Vous avez atteint la limite web. Téléchargez l'application pour continuer à discuter.",
+    "limitCounter": "{count}/{max} messages utilisés",
+    "locked": "Verrouillé"
+  },
+  "dating": {
+    "recommendedMembers": "Membres Recommandés"
+  },
+  "carousel": {
+    "slide1": "Connectez-vous avec des amis du monde entier",
+    "slide2": "Partagez vos moments",
+    "slide3": "Chattez dans votre langue",
+    "slide4": "Comprenez chaque voix"
+  },
+  "footerArticles": {
+    "atHomeDate": "20 Idées de Soirées en Amoureux à la Maison qui Valent le Détour",
+    "bestFirstDate": "15 Meilleures Idées de Premier Rendez-vous pour une Vraie Connexion",
+    "cheapDate": "20 Idées de Rendez-vous Pas Chers qui en Jettent (Moins de 20 €)",
+    "cuteDate": "20 Idées de Rendez-vous Adorables Sorties d'une Comédie Romantique",
+    "funDate": "20 Idées de Rendez-vous Amusantes où l'Ennui n'a pas sa Place"
+  },
+  "seo": {
+    "homeTitle": "Globol - Connectez-vous avec des amis du monde entier | Chat avec traduction en temps réel",
+    "homeDescription": "Brisez les barrières linguistiques et connectez-vous avec des amis dans le monde entier. Globol propose une traduction en temps réel pour une communication mondiale fluide, des échanges culturels et des amitiés authentiques.",
+    "dateIdeasDescription": "Découvrez des idées de rendez-vous uniques, des conseils relationnels et des guides de rencontres locaux du monde entier.",
+    "aboutDescription": "Découvrez la mission de Globol : connecter le monde grâce à la traduction en temps réel et à des amitiés mondiales authentiques.",
+    "contactDescription": "Contactez l'équipe Globol pour toute assistance, commentaire ou demande de partenariat.",
+    "privacyDescription": "Découvrez comment Globol collecte, utilise et protège vos données personnelles.",
+    "termsDescription": "Consultez les conditions générales qui régissent votre utilisation de Globol et de ses services."
+  }
+}

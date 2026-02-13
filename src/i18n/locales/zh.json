@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "首页",
+    "dateIdeas": "约会灵感",
+    "internationalDating": "国际交友",
+    "language": "简体中文",
+    "signIn": "登录",
+    "join": "加入 Globol",
+    "readMore": "阅读更多",
+    "share": "分享文章",
+    "moreDateIdeas": "更多约会灵感",
+    "signUp": "注册"
+  },
+  "footer": {
+    "brandSlogan": "无边界连接",
+    "discover": "发现",
+    "popular": "热门",
+    "company": "公司",
+    "aboutUs": "关于我们",
+    "rights": "© 2026 Globol. 版权所有。",
+    "contact": "联系与支持",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "article": {
+    "prev": "上一篇",
+    "next": "下一篇",
+    "faq": "常见问题",
+    "home": "首页",
+    "dateIdeas": "约会灵感"
+  },
+  "homepage": {
+    "title": "无边界连接",
+    "intro": "Globol 是您通往国际友谊的门户。我们的平台打破语言障碍，让您能够与来自世界各个角落的人们联系、聊天和分享时刻。",
+    "whyChooseTitle": "为什么选择 Globol？",
+    "languageLearningTitle": "语言学习：",
+    "languageLearning": "与母语人士实时练习。",
+    "culturalExchangeTitle": "文化交流：",
+    "culturalExchange": "直接从当地人那里了解多元文化。",
+    "effortlessConnectionTitle": "轻松连接：",
+    "effortlessConnection": "在没有语言障碍的情况下结交全球朋友。",
+    "globalCommunityTitle": "全球社区",
+    "globalCommunityDesc": "加入一个多元化的用户社区，分享他们来自 100 多个国家的日常生活和独特视角。",
+    "realTimeTranslationTitle": "实时翻译",
+    "realTimeTranslationDesc": "用您的母语无缝聊天。我们先进的翻译技术确保您始终被理解。",
+    "authenticConnectionsTitle": "真实连接",
+    "authenticConnectionsDesc": "超越滑动。基于共同兴趣和真诚对话建立有意义的关系。",
+    "exploreGuidesTitle": "探索我们的指南",
+    "exploreGuidesDesc": "寻找灵感？查看我们精心策划的约会、关系和文化礼仪指南。",
+    "readDateIdeas": "阅读约会灵感"
+  },
+  "about": {
+    "title": "关于我们",
+    "intro1": "Globol 不仅仅是一个应用；它是一场连接世界、打破边界的运动。",
+    "intro2": "在一个日益互联但往往因语言和文化障碍而分裂的世界中，Globol 是一座桥梁。我们相信，真正的理解源于直接的交流和共同的经历。",
+    "missionTitle": "我们的使命",
+    "missionDesc": "通过创新技术和社区驱动的参与，打破语言障碍，培养真实的全球友谊。",
+    "visionTitle": "我们的愿景",
+    "visionDesc": "一个任何人、在任何地方都能相互连接、分享和理解的世界，无论他们讲什么语言。"
+  },
+  "contact": {
+    "title": "联系与支持",
+    "intro": "我们随时为您提供帮助。如果您有任何问题、反馈或合作咨询，请随时与我们联系。",
+    "emailTitle": "给我们发邮件",
+    "emailDesc": "获取支持和一般咨询"
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "comingSoon": "内容即将上线。"
+  },
+  "terms": {
+    "title": "服务条款",
+    "comingSoon": "内容即将上线。"
+  },
+  "notFound": {
+    "title": "404 - 页面未找到",
+    "description": "糟糕！您要查找的页面不存在或已被移动。",
+    "backHome": "返回首页"
+  },
+  "download": {
+    "appStoreLine1": "App Store",
+    "appStoreLine2": "下载应用",
+    "apkLine1": "官方下载",
+    "apkLine2": "安装应用"
+  },
+  "datingChat": {
+    "sayHi": "Say Hi",
+    "title": "聊天窗口",
+    "close": "关闭聊天",
+    "youLabel": "You",
+    "placeholder": "输入消息...",
+    "send": "发送",
+    "sending": "发送中...",
+    "emptyState": "先发一句你好吧。",
+    "errorReply": "抱歉，我暂时无法回复，请稍后再试。",
+    "limitReached": "你已达到网页端上限，下载 App 可继续聊天。",
+    "limitCounter": "已发送 {count}/{max} 条",
+    "locked": "已锁定"
+  },
+  "dating": {
+    "recommendedMembers": "推荐用户"
+  },
+  "carousel": {
+    "slide1": "连接全球好友",
+    "slide2": "分享你的精彩时刻",
+    "slide3": "用母语畅聊",
+    "slide4": "听懂每一种声音"
+  },
+  "footerArticles": {
+    "atHomeDate": "20个居家约会夜创意，比出门约会更有情调",
+    "bestFirstDate": "15个最佳初次约会创意，真正产生化学反应",
+    "cheapDate": "20个便宜却显贵的约会创意（20美元以下）",
+    "cuteDate": "20个浪漫约会创意，仿佛浪漫喜剧里的场景",
+    "funDate": "20个有趣的约会创意，无聊是不可能的"
+  },
+  "seo": {
+    "homeTitle": "Globol - 结交全球好友 | 实时翻译聊天",
+    "homeDescription": "打破语言障碍，结交全球好友。Globol 提供实时翻译，实现无缝全球交流、文化交流和真实友谊。",
+    "dateIdeasDescription": "探索独特的约会灵感、关系建议和来自全球的约会指南。",
+    "aboutDescription": "了解 Globol 通过实时翻译与真实交流连接世界的使命与愿景。",
+    "contactDescription": "联系我们获取支持、反馈或合作咨询。",
+    "privacyDescription": "了解 Globol 如何收集、使用并保护你的个人数据。",
+    "termsDescription": "查看使用 Globol 服务所适用的条款与规则。"
+  }
+}

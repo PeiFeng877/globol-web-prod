@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "Trang chủ",
+    "dateIdeas": "Ý tưởng Hẹn hò",
+    "internationalDating": "Hẹn hò Quốc tế",
+    "language": "Tiếng Việt",
+    "signIn": "Đăng nhập",
+    "join": "Tham gia Globol",
+    "readMore": "Đọc thêm",
+    "share": "Chia sẻ bài viết này",
+    "moreDateIdeas": "Thêm Ý tưởng Hẹn hò",
+    "signUp": "Đăng ký"
+  },
+  "footer": {
+    "brandSlogan": "Kết nối Không Giới hạn",
+    "discover": "Khám phá",
+    "popular": "Phổ biến",
+    "company": "Công ty",
+    "aboutUs": "Về Chúng tôi",
+    "rights": "© 2026 Globol. Bảo lưu mọi quyền.",
+    "contact": "Liên hệ & Hỗ trợ",
+    "privacy": "Chính sách Bảo mật",
+    "terms": "Điều khoản Dịch vụ"
+  },
+  "article": {
+    "prev": "Trước",
+    "next": "Sau",
+    "faq": "Câu hỏi Thường gặp",
+    "home": "Trang chủ",
+    "dateIdeas": "Ý tưởng Hẹn hò"
+  },
+  "homepage": {
+    "title": "Kết nối Không Giới hạn",
+    "intro": "Globol là cánh cửa dẫn bạn đến tình bạn quốc tế. Nền tảng của chúng tôi phá bỏ rào cản ngôn ngữ, cho phép bạn kết nối, trò chuyện và chia sẻ khoảnh khắc với mọi người từ khắp nơi trên thế giới.",
+    "whyChooseTitle": "Tại sao chọn Globol?",
+    "languageLearningTitle": "Học ngôn ngữ:",
+    "languageLearning": "Thực hành với người bản xứ trong thời gian thực.",
+    "culturalExchangeTitle": "Trao đổi văn hóa:",
+    "culturalExchange": "Hiểu các nền văn hóa đa dạng trực tiếp từ người dân địa phương.",
+    "effortlessConnectionTitle": "Kết nối dễ dàng:",
+    "effortlessConnection": "Kết bạn toàn cầu mà không lo rào cản ngôn ngữ.",
+    "globalCommunityTitle": "Cộng đồng Toàn cầu",
+    "globalCommunityDesc": "Tham gia cộng đồng người dùng đa dạng chia sẻ cuộc sống hàng ngày và những góc nhìn độc đáo từ hơn 100 quốc gia.",
+    "realTimeTranslationTitle": "Dịch thuật Thời gian thực",
+    "realTimeTranslationDesc": "Trò chuyện liền mạch bằng tiếng mẹ đẻ của bạn. Công nghệ dịch thuật tiên tiến của chúng tôi đảm bảo bạn luôn được thấu hiểu.",
+    "authenticConnectionsTitle": "Kết nối Chân thực",
+    "authenticConnectionsDesc": "Không chỉ dừng lại ở việc quẹt (swipe). Xây dựng các mối quan hệ ý nghĩa dựa trên sở thích chung và những cuộc trò chuyện chân thành.",
+    "exploreGuidesTitle": "Khám phá Hướng dẫn của Chúng tôi",
+    "exploreGuidesDesc": "Bạn đang tìm kiếm cảm hứng? Hãy xem các hướng dẫn chọn lọc của chúng tôi về hẹn hò, các mối quan hệ và nghi thức văn hóa.",
+    "readDateIdeas": "Đọc Ý tưởng Hẹn hò"
+  },
+  "about": {
+    "title": "Về Chúng tôi",
+    "intro1": "Globol không chỉ là một ứng dụng; đó là một phong trào kết nối thế giới không giới hạn.",
+    "intro2": "Trong một thế giới ngày càng kết nối nhưng thường bị chia cắt bởi rào cản ngôn ngữ và văn hóa, Globol đóng vai trò như một nhịp cầu. Chúng tôi tin rằng sự thấu hiểu thực sự đến từ giao tiếp trực tiếp và những trải nghiệm chung.",
+    "missionTitle": "Sứ mệnh của Chúng tôi",
+    "missionDesc": "Phá bỏ rào cản ngôn ngữ và thúc đẩy tình bạn toàn cầu chân thực thông qua công nghệ đổi mới và sự tham gia thúc đẩy bởi cộng đồng.",
+    "visionTitle": "Tầm nhìn của Chúng tôi",
+    "visionDesc": "Một thế giới nơi bất kỳ ai, ở bất kỳ đâu cũng có thể kết nối, chia sẻ và thấu hiểu lẫn nhau, bất kể họ nói ngôn ngữ gì."
+  },
+  "contact": {
+    "title": "Liên hệ & Hỗ trợ",
+    "intro": "Chúng tôi luôn sẵn sàng hỗ trợ. Nếu bạn có bất kỳ câu hỏi, phản hồi hoặc yêu cầu hợp tác nào, xin đừng ngần ngại liên hệ.",
+    "emailTitle": "Gửi Email cho Chúng tôi",
+    "emailDesc": "Để được hỗ trợ và giải đáp thắc mắc chung"
+  },
+  "privacy": {
+    "title": "Chính sách Bảo mật",
+    "comingSoon": "Nội dung sẽ sớm được cập nhật."
+  },
+  "terms": {
+    "title": "Điều khoản Dịch vụ",
+    "comingSoon": "Nội dung sẽ sớm được cập nhật."
+  },
+  "notFound": {
+    "title": "404 - Không Tìm thấy Trang",
+    "description": "Rất tiếc! Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.",
+    "backHome": "Quay lại Trang chủ"
+  },
+  "download": {
+    "appStoreLine1": "Tải xuống trên",
+    "appStoreLine2": "App Store",
+    "apkLine1": "Tải xuống Trực tiếp",
+    "apkLine2": "Cài đặt Ứng dụng"
+  },
+  "datingChat": {
+    "sayHi": "Gửi lời chào",
+    "title": "Trò chuyện",
+    "close": "Đóng trò chuyện",
+    "youLabel": "Bạn",
+    "placeholder": "Gửi tin nhắn...",
+    "send": "Gửi",
+    "sending": "Đang gửi...",
+    "emptyState": "Bắt đầu bằng một lời chào ngắn.",
+    "errorReply": "Xin lỗi, tôi không thể trả lời lúc này. Vui lòng thử lại sau giây lát.",
+    "limitReached": "Bạn đã đạt giới hạn web. Tải ứng dụng để tiếp tục trò chuyện.",
+    "limitCounter": "Đã dùng {count}/{max} tin nhắn",
+    "locked": "Đã khóa"
+  },
+  "dating": {
+    "recommendedMembers": "Thành viên Gợi ý"
+  },
+  "carousel": {
+    "slide1": "Kết nối với Bạn bè Toàn cầu",
+    "slide2": "Chia sẻ Khoảnh khắc của Bạn",
+    "slide3": "Trò chuyện bằng Ngôn ngữ của Bạn",
+    "slide4": "Thấu hiểu Mọi Tiếng nói"
+  },
+  "footerArticles": {
+    "atHomeDate": "20 Ý tưởng Hẹn hò tại Nhà Thú vị hơn cả Ra ngoài",
+    "bestFirstDate": "15 Ý tưởng Hẹn hò Đầu tiên Tuyệt vời nhất Giúp Kết nối Thực sự",
+    "cheapDate": "20 Ý tưởng Hẹn hò Giá rẻ nhưng vẫn Sang chảnh (Dưới 500.000 VNĐ)",
+    "cuteDate": "20 Ý tưởng Hẹn hò Đáng yêu như trong Phim Lãng mạn",
+    "funDate": "20 Ý tưởng Hẹn hò Vui nhộn Thực sự Không thể Gây nhàm chán"
+  },
+  "seo": {
+    "homeTitle": "Globol - Kết nối với Bạn bè Toàn cầu | Trò chuyện Dịch thuật Thời gian thực",
+    "homeDescription": "Phá bỏ rào cản ngôn ngữ và kết nối với bạn bè trên toàn thế giới. Globol cung cấp tính năng dịch thuật thời gian thực để giao tiếp toàn cầu liền mạch, trao đổi văn hóa và tình bạn chân thực.",
+    "dateIdeasDescription": "Khám phá các ý tưởng hẹn hò độc đáo, lời khuyên về mối quan hệ và hướng dẫn hẹn hò địa phương từ khắp nơi trên thế giới.",
+    "aboutDescription": "Tìm hiểu về sứ mệnh của Globol trong việc kết nối thế giới thông qua dịch thuật thời gian thực và tình bạn toàn cầu chân thực.",
+    "contactDescription": "Liên hệ với đội ngũ Globol để được hỗ trợ, phản hồi hoặc yêu cầu hợp tác.",
+    "privacyDescription": "Tìm hiểu cách Globol thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn.",
+    "termsDescription": "Xem lại các điều khoản và điều kiện quản lý việc bạn sử dụng Globol và các dịch vụ của nó."
+  }
+}

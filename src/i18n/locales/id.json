@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "Beranda",
+    "dateIdeas": "Ide Kencan",
+    "internationalDating": "Kencan Internasional",
+    "language": "Bahasa Indonesia",
+    "signIn": "Masuk",
+    "join": "Gabung Globol",
+    "readMore": "Baca selengkapnya",
+    "share": "Bagikan artikel ini",
+    "moreDateIdeas": "Ide Kencan Lainnya",
+    "signUp": "Daftar"
+  },
+  "footer": {
+    "brandSlogan": "Terhubung Tanpa Batas",
+    "discover": "Jelajahi",
+    "popular": "Populer",
+    "company": "Perusahaan",
+    "aboutUs": "Tentang Kami",
+    "rights": "© 2026 Globol. Hak cipta dilindungi undang-undang.",
+    "contact": "Kontak & Dukungan",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Ketentuan Layanan"
+  },
+  "article": {
+    "prev": "Sebelumnya",
+    "next": "Berikutnya",
+    "faq": "Pertanyaan Umum",
+    "home": "Beranda",
+    "dateIdeas": "Ide Kencan"
+  },
+  "homepage": {
+    "title": "Terhubung Tanpa Batas",
+    "intro": "Globol adalah gerbang Anda menuju persahabatan internasional. Platform kami meruntuhkan hambatan bahasa, memungkinkan Anda untuk terhubung, mengobrol, dan berbagi momen dengan orang-orang dari setiap penjuru dunia.",
+    "whyChooseTitle": "Mengapa Memilih Globol?",
+    "languageLearningTitle": "Belajar Bahasa:",
+    "languageLearning": "Berlatih dengan penutur asli secara real-time.",
+    "culturalExchangeTitle": "Pertukaran Budaya:",
+    "culturalExchange": "Pahami beragam budaya langsung dari penduduk setempat.",
+    "effortlessConnectionTitle": "Koneksi Mudah:",
+    "effortlessConnection": "Cari teman secara global tanpa hambatan bahasa.",
+    "globalCommunityTitle": "Komunitas Global",
+    "globalCommunityDesc": "Bergabunglah dengan komunitas pengguna yang beragam yang berbagi kehidupan sehari-hari dan perspektif unik mereka dari lebih dari 100 negara.",
+    "realTimeTranslationTitle": "Terjemahan Real-time",
+    "realTimeTranslationDesc": "Ngobrol dengan lancar dalam bahasa ibu Anda. Teknologi terjemahan canggih kami memastikan Anda selalu dimengerti.",
+    "authenticConnectionsTitle": "Koneksi Otentik",
+    "authenticConnectionsDesc": "Lebih dari sekadar geser (swipe). Bangun hubungan yang bermakna berdasarkan minat yang sama dan percakapan yang tulus.",
+    "exploreGuidesTitle": "Jelajahi Panduan Kami",
+    "exploreGuidesDesc": "Mencari inspirasi? Lihat panduan kurasi kami tentang kencan, hubungan, dan etika budaya.",
+    "readDateIdeas": "Baca Ide Kencan"
+  },
+  "about": {
+    "title": "Tentang Kami",
+    "intro1": "Globol lebih dari sekadar aplikasi; ini adalah gerakan untuk menghubungkan dunia tanpa batas.",
+    "intro2": "Di dunia yang semakin terhubung namun seringkali terpisah oleh hambatan bahasa dan budaya, Globol hadir sebagai jembatan. Kami percaya bahwa pemahaman sejati berasal dari komunikasi langsung dan pengalaman bersama.",
+    "missionTitle": "Misi Kami",
+    "missionDesc": "Meruntuhkan hambatan bahasa dan membina persahabatan global yang otentik melalui teknologi inovatif dan keterlibatan yang digerakkan oleh komunitas.",
+    "visionTitle": "Visi Kami",
+    "visionDesc": "Dunia di mana siapa pun, di mana pun dapat terhubung, berbagi, dan memahami satu sama lain, apa pun bahasa yang mereka gunakan."
+  },
+  "contact": {
+    "title": "Kontak & Dukungan",
+    "intro": "Kami di sini untuk membantu. Jika Anda memiliki pertanyaan, umpan balik, atau pertanyaan kemitraan, jangan ragu untuk menghubungi kami.",
+    "emailTitle": "Email Kami",
+    "emailDesc": "Untuk dukungan dan pertanyaan umum"
+  },
+  "privacy": {
+    "title": "Kebijakan Privasi",
+    "comingSoon": "Konten akan segera hadir."
+  },
+  "terms": {
+    "title": "Ketentuan Layanan",
+    "comingSoon": "Konten akan segera hadir."
+  },
+  "notFound": {
+    "title": "404 - Halaman Tidak Ditemukan",
+    "description": "Ups! Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "backHome": "Kembali ke Beranda"
+  },
+  "download": {
+    "appStoreLine1": "Unduh di",
+    "appStoreLine2": "App Store",
+    "apkLine1": "Unduhan Resmi",
+    "apkLine2": "Instal Aplikasi"
+  },
+  "datingChat": {
+    "sayHi": "Sapa Dia",
+    "title": "Obrolan",
+    "close": "Tutup obrolan",
+    "youLabel": "Anda",
+    "placeholder": "Kirim pesan...",
+    "send": "Kirim",
+    "sending": "Mengirim...",
+    "emptyState": "Mulailah dengan sapaan singkat.",
+    "errorReply": "Maaf, saya tidak bisa membalas sekarang. Silakan coba lagi sebentar lagi.",
+    "limitReached": "Anda telah mencapai batas web. Unduh aplikasi untuk terus mengobrol.",
+    "limitCounter": "{count}/{max} pesan digunakan",
+    "locked": "Terkunci"
+  },
+  "dating": {
+    "recommendedMembers": "Anggota yang Direkomendasikan"
+  },
+  "carousel": {
+    "slide1": "Terhubung dengan Teman Global",
+    "slide2": "Bagikan Momen Anda",
+    "slide3": "Ngobrol dalam Bahasa Anda",
+    "slide4": "Pahami Setiap Suara"
+  },
+  "footerArticles": {
+    "atHomeDate": "20 Ide Malam Kencan di Rumah yang Lebih Seru daripada Keluar",
+    "bestFirstDate": "15 Ide Kencan Pertama Terbaik yang Benar-Benar Menciptakan Koneksi",
+    "cheapDate": "20 Ide Kencan Murah yang Terasa Mewah (Di Bawah Rp300 Ribu)",
+    "cuteDate": "20 Ide Kencan Lucu yang Terasa Seperti di Film Rom-Com",
+    "funDate": "20 Ide Kencan Seru yang Dijamin Anti Bosan"
+  },
+  "seo": {
+    "homeTitle": "Globol - Terhubung dengan Teman Global | Obrolan Terjemahan Real-time",
+    "homeDescription": "Runtuhkan hambatan bahasa dan terhubung dengan teman-teman di seluruh dunia. Globol menawarkan terjemahan real-time untuk komunikasi global yang lancar, pertukaran budaya, dan persahabatan yang otentik.",
+    "dateIdeasDescription": "Jelajahi ide kencan unik, saran hubungan, dan panduan kencan lokal dari seluruh dunia.",
+    "aboutDescription": "Pelajari misi Globol untuk menghubungkan dunia melalui terjemahan real-time dan persahabatan global yang otentik.",
+    "contactDescription": "Hubungi tim Globol untuk dukungan, umpan balik, atau pertanyaan kemitraan.",
+    "privacyDescription": "Pelajari bagaimana Globol mengumpulkan, menggunakan, dan melindungi data pribadi Anda.",
+    "termsDescription": "Tinjau syarat dan ketentuan yang mengatur penggunaan Globol dan layanannya."
+  }
+}

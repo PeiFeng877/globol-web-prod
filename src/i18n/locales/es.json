@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "Inicio",
+    "dateIdeas": "Ideas para Citas",
+    "internationalDating": "Citas Internacionales",
+    "language": "Español",
+    "signIn": "Iniciar Sesión",
+    "join": "Únete a Globol",
+    "readMore": "Leer más",
+    "share": "Compartir artículo",
+    "moreDateIdeas": "Más Ideas para Citas",
+    "signUp": "Regístrate"
+  },
+  "footer": {
+    "brandSlogan": "Conecta Sin Fronteras",
+    "discover": "Descubre",
+    "popular": "Popular",
+    "company": "Compañía",
+    "aboutUs": "Sobre Nosotros",
+    "rights": "© 2026 Globol. Todos los derechos reservados.",
+    "contact": "Contacto y Soporte",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio"
+  },
+  "article": {
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "faq": "Preguntas Frecuentes",
+    "home": "Inicio",
+    "dateIdeas": "Ideas para Citas"
+  },
+  "homepage": {
+    "title": "Conecta Sin Fronteras",
+    "intro": "Globol es tu puerta de entrada a amistades internacionales. Nuestra plataforma derriba las barreras del idioma, permitiéndote conectar, chatear y compartir momentos con personas de todos los rincones del mundo.",
+    "whyChooseTitle": "¿Por qué elegir Globol?",
+    "languageLearningTitle": "Aprendizaje de Idiomas:",
+    "languageLearning": "Practica con hablantes nativos en tiempo real.",
+    "culturalExchangeTitle": "Intercambio Cultural:",
+    "culturalExchange": "Comprende diversas culturas directamente de los locales.",
+    "effortlessConnectionTitle": "Conexión Sin Esfuerzo:",
+    "effortlessConnection": "Haz amigos globalmente sin barreras lingüísticas.",
+    "globalCommunityTitle": "Comunidad Global",
+    "globalCommunityDesc": "Únete a una comunidad diversa de usuarios que comparten su vida diaria y perspectivas únicas desde más de 100 países.",
+    "realTimeTranslationTitle": "Traducción en Tiempo Real",
+    "realTimeTranslationDesc": "Chatea fluidamente en tu idioma nativo. Nuestra avanzada tecnología de traducción asegura que siempre seas entendido.",
+    "authenticConnectionsTitle": "Conexiones Auténticas",
+    "authenticConnectionsDesc": "Ve más allá de deslizar perfiles. Construye relaciones significativas basadas en intereses compartidos y conversaciones genuinas.",
+    "exploreGuidesTitle": "Explora Nuestras Guías",
+    "exploreGuidesDesc": "¿Buscas inspiración? Revisa nuestras guías seleccionadas sobre citas, relaciones y etiqueta cultural.",
+    "readDateIdeas": "Leer Ideas para Citas"
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "intro1": "Globol es más que una simple aplicación; es un movimiento para conectar el mundo sin fronteras.",
+    "intro2": "En un mundo cada vez más conectado pero a menudo dividido por barreras lingüísticas y culturales, Globol se erige como un puente. Creemos que el verdadero entendimiento proviene de la comunicación directa y las experiencias compartidas.",
+    "missionTitle": "Nuestra Misión",
+    "missionDesc": "Derribar las barreras del idioma y fomentar amistades globales auténticas a través de tecnología innovadora y participación comunitaria.",
+    "visionTitle": "Nuestra Visión",
+    "visionDesc": "Un mundo donde cualquier persona, en cualquier lugar, pueda conectar, compartir y entenderse mutuamente, independientemente del idioma que hable."
+  },
+  "contact": {
+    "title": "Contacto y Soporte",
+    "intro": "Estamos aquí para ayudar. Si tienes preguntas, comentarios o consultas sobre asociaciones, no dudes en contactarnos.",
+    "emailTitle": "Envíanos un Email",
+    "emailDesc": "Para soporte y consultas generales"
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "comingSoon": "Contenido próximamente."
+  },
+  "terms": {
+    "title": "Términos de Servicio",
+    "comingSoon": "Contenido próximamente."
+  },
+  "notFound": {
+    "title": "404 - Página No Encontrada",
+    "description": "¡Ups! La página que buscas no existe o ha sido movida.",
+    "backHome": "Volver al Inicio"
+  },
+  "download": {
+    "appStoreLine1": "Descárgalo en el",
+    "appStoreLine2": "App Store",
+    "apkLine1": "Descarga Oficial",
+    "apkLine2": "Instalar App"
+  },
+  "datingChat": {
+    "sayHi": "Saludar",
+    "title": "Chat",
+    "close": "Cerrar chat",
+    "youLabel": "Tú",
+    "placeholder": "Envía un mensaje...",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "emptyState": "Empieza con un breve hola.",
+    "errorReply": "Lo siento, no puedo responder en este momento. Por favor inténtalo de nuevo.",
+    "limitReached": "Has alcanzado el límite web. Descarga la app para seguir chateando.",
+    "limitCounter": "{count}/{max} mensajes usados",
+    "locked": "Bloqueado"
+  },
+  "dating": {
+    "recommendedMembers": "Miembros Recomendados"
+  },
+  "carousel": {
+    "slide1": "Conecta con Amigos Globales",
+    "slide2": "Comparte tus Momentos",
+    "slide3": "Chatea en tu Idioma",
+    "slide4": "Entiende Cada Voz"
+  },
+  "footerArticles": {
+    "atHomeDate": "20 Ideas para Citas en Casa que son Mejores que Salir",
+    "bestFirstDate": "15 Mejores Ideas para una Primera Cita que Realmente Conectan",
+    "cheapDate": "20 Ideas para Citas Económicas que Parecen Caras (Menos de $20)",
+    "cuteDate": "20 Ideas Lindas para Citas Sacadas de una Comedia Romántica",
+    "funDate": "20 Ideas Divertidas para Citas en las que es Imposible Aburrirse"
+  },
+  "seo": {
+    "homeTitle": "Globol - Conecta con Amigos Globales | Chat con Traducción en Tiempo Real",
+    "homeDescription": "Rompe las barreras del idioma y conecta con amigos en todo el mundo. Globol ofrece traducción en tiempo real para una comunicación global fluida, intercambio cultural y amistades auténticas.",
+    "dateIdeasDescription": "Explora ideas únicas para citas, consejos de relaciones y guías locales de citas de todo el mundo.",
+    "aboutDescription": "Conoce la misión de Globol de conectar el mundo a través de la traducción en tiempo real y amistades globales auténticas.",
+    "contactDescription": "Contacta al equipo de Globol para soporte, comentarios o consultas de asociación.",
+    "privacyDescription": "Descubre cómo Globol recopila, usa y protege tus datos personales.",
+    "termsDescription": "Revisa los términos y condiciones que rigen el uso de Globol y sus servicios."
+  }
+}

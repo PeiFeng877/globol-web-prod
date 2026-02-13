@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "Home",
+    "dateIdeas": "Date Ideas",
+    "internationalDating": "International Dating",
+    "language": "English",
+    "signIn": "Sign In",
+    "join": "Join Globol",
+    "readMore": "Read more",
+    "share": "Share this article",
+    "moreDateIdeas": "More Dating Ideas",
+    "signUp": "Sign up"
+  },
+  "footer": {
+    "brandSlogan": "Connect Without Boundaries",
+    "discover": "Discover",
+    "popular": "Popular",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "rights": "© 2026 Globol. All rights reserved.",
+    "contact": "Contact & Support",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "article": {
+    "prev": "Previous",
+    "next": "Next",
+    "faq": "Frequently Asked Questions",
+    "home": "Home",
+    "dateIdeas": "Date Ideas"
+  },
+  "homepage": {
+    "title": "Connect Without Boundaries",
+    "intro": "Globol is your gateway to international friendships. Our platform breaks down language barriers, allowing you to connect, chat, and share moments with people from every corner of the globe.",
+    "whyChooseTitle": "Why Choose Globol?",
+    "languageLearningTitle": "Language Learning:",
+    "languageLearning": "Practice with native speakers in real-time.",
+    "culturalExchangeTitle": "Cultural Exchange:",
+    "culturalExchange": "Understand diverse cultures directly from locals.",
+    "effortlessConnectionTitle": "Effortless Connection:",
+    "effortlessConnection": "Make friends globally without language barriers.",
+    "globalCommunityTitle": "Global Community",
+    "globalCommunityDesc": "Join a diverse community of users sharing their daily lives and unique perspectives from over 100 countries.",
+    "realTimeTranslationTitle": "Real-time Translation",
+    "realTimeTranslationDesc": "Chat seamlessly in your native language. Our advanced translation technology ensures you are always understood.",
+    "authenticConnectionsTitle": "Authentic Connections",
+    "authenticConnectionsDesc": "Move beyond swipes. Build meaningful relationships based on shared interests and genuine conversations.",
+    "exploreGuidesTitle": "Explore Our Guides",
+    "exploreGuidesDesc": "Looking for inspiration? Check out our curated guides on dating, relationships, and cultural etiquette.",
+    "readDateIdeas": "Read Date Ideas"
+  },
+  "about": {
+    "title": "About Us",
+    "intro1": "Globol is more than just an app; it's a movement to connect the world without boundaries.",
+    "intro2": "In a world that is increasingly connected yet often divided by language and cultural barriers, Globol stands as a bridge. We believe that true understanding comes from direct communication and shared experiences.",
+    "missionTitle": "Our Mission",
+    "missionDesc": "To break down language barriers and foster authentic global friendships through innovative technology and community-driven engagement.",
+    "visionTitle": "Our Vision",
+    "visionDesc": "A world where anyone, anywhere can connect, share, and understand each other, regardless of the language they speak."
+  },
+  "contact": {
+    "title": "Contact & Support",
+    "intro": "We are here to help. If you have any questions, feedback, or partnership inquiries, please don't hesitate to reach out.",
+    "emailTitle": "Email Us",
+    "emailDesc": "For support and general inquiries"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "comingSoon": "Content coming soon."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "comingSoon": "Content coming soon."
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "Oops! The page you are looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "download": {
+    "appStoreLine1": "Download on the",
+    "appStoreLine2": "App Store",
+    "apkLine1": "Official Download",
+    "apkLine2": "Install App"
+  },
+  "datingChat": {
+    "sayHi": "Say Hi",
+    "title": "Chat",
+    "close": "Close chat",
+    "youLabel": "You",
+    "placeholder": "Send a message...",
+    "send": "Send",
+    "sending": "Sending...",
+    "emptyState": "Start with a short hello.",
+    "errorReply": "Sorry, I cannot reply right now. Please try again in a moment.",
+    "limitReached": "You have reached the web limit. Download the app to keep chatting.",
+    "limitCounter": "{count}/{max} messages used",
+    "locked": "Locked"
+  },
+  "dating": {
+    "recommendedMembers": "Recommended Members"
+  },
+  "carousel": {
+    "slide1": "Connect Global Friends",
+    "slide2": "Share Your Moments",
+    "slide3": "Chat in Your Language",
+    "slide4": "Understand Every Voice"
+  },
+  "footerArticles": {
+    "atHomeDate": "20 At-Home Date Night Ideas That Are Better Than Going Out",
+    "bestFirstDate": "15 Best First Date Ideas That Actually Spark Connection",
+    "cheapDate": "20 Cheap Date Ideas That Feel Expensive (Under $20)",
+    "cuteDate": "20 Cute Date Ideas That Are Straight Out of a Rom-Com",
+    "funDate": "20 Fun Date Ideas That Are Actually Impossible to Get Bored On"
+  },
+  "seo": {
+    "homeTitle": "Globol - Connect with Global Friends | Real-time Translation Chat",
+    "homeDescription": "Break language barriers and connect with friends worldwide. Globol offers real-time translation for seamless global communication, cultural exchange, and authentic friendships.",
+    "dateIdeasDescription": "Explore unique date ideas, relationship advice, and local dating guides from around the world.",
+    "aboutDescription": "Learn about Globol’s mission to connect the world through real-time translation and authentic global friendships.",
+    "contactDescription": "Reach the Globol team for support, feedback, or partnership inquiries.",
+    "privacyDescription": "Learn how Globol collects, uses, and protects your personal data.",
+    "termsDescription": "Review the terms and conditions that govern your use of Globol and its services."
+  }
+}

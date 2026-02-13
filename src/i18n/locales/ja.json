@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "ホーム",
+    "dateIdeas": "デートのアイデア",
+    "internationalDating": "国際的な出会い",
+    "language": "日本語",
+    "signIn": "ログイン",
+    "join": "Globolに参加する",
+    "readMore": "続きを読む",
+    "share": "この記事をシェアする",
+    "moreDateIdeas": "他のデートアイデアを見る",
+    "signUp": "新規登録"
+  },
+  "footer": {
+    "brandSlogan": "境界のないつながりを",
+    "discover": "見つける",
+    "popular": "人気",
+    "company": "会社情報",
+    "aboutUs": "Globolについて",
+    "rights": "© 2026 Globol. All rights reserved.",
+    "contact": "お問い合わせ・サポート",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約"
+  },
+  "article": {
+    "prev": "前へ",
+    "next": "次へ",
+    "faq": "よくある質問",
+    "home": "ホーム",
+    "dateIdeas": "デートのアイデア"
+  },
+  "homepage": {
+    "title": "境界のないつながりを",
+    "intro": "Globolは、国際的な友情への入り口です。私たちのプラットフォームは言葉の壁を取り除き、世界中の人々とつながり、チャットし、瞬間を共有することを可能にします。",
+    "whyChooseTitle": "なぜGlobolなのか？",
+    "languageLearningTitle": "言語学習：",
+    "languageLearning": "リアルタイムでネイティブスピーカーと練習できます。",
+    "culturalExchangeTitle": "文化交流：",
+    "culturalExchange": "現地の人から直接、多様な文化を理解できます。",
+    "effortlessConnectionTitle": "簡単なつながり：",
+    "effortlessConnection": "言葉の壁を気にせず、グローバルに友達を作れます。",
+    "globalCommunityTitle": "グローバルコミュニティ",
+    "globalCommunityDesc": "100カ国以上のユーザーが日常や独自の視点を共有する、多様なコミュニティに参加しましょう。",
+    "realTimeTranslationTitle": "リアルタイム翻訳",
+    "realTimeTranslationDesc": "母国語でシームレスにチャットできます。高度な翻訳技術により、あなたの言葉は常に正確に伝わります。",
+    "authenticConnectionsTitle": "本物のつながり",
+    "authenticConnectionsDesc": "単なるスワイプを超えて。共通の趣味や誠実な会話に基づいた、意味のある関係を築きましょう。",
+    "exploreGuidesTitle": "ガイドを探索する",
+    "exploreGuidesDesc": "インスピレーションをお探しですか？デート、人間関係、文化的なマナーに関する厳選されたガイドをチェックしてください。",
+    "readDateIdeas": "デートアイデアを読む"
+  },
+  "about": {
+    "title": "Globolについて",
+    "intro1": "Globolは単なるアプリではありません。境界のない世界を繋ぐためのムーブメントです。",
+    "intro2": "世界がますます繋がる一方で、言語や文化の壁によって分断されることも少なくありません。Globolはその架け橋となります。真の理解は、直接のコミュニケーションと共有された体験から生まれると私たちは信じています。",
+    "missionTitle": "私たちのミッション",
+    "missionDesc": "革新的なテクノロジーとコミュニティ主導のエンゲージメントを通じて、言語の壁を取り除き、本物のグローバルな友情を育むこと。",
+    "visionTitle": "私たちのビジョン",
+    "visionDesc": "話す言葉に関わらず、誰もが、どこでも、繋がり、共有し、理解し合える世界。"
+  },
+  "contact": {
+    "title": "お問い合わせ・サポート",
+    "intro": "お困りですか？ご質問、フィードバック、提携に関するお問い合わせなど、お気軽にご連絡ください。",
+    "emailTitle": "メールでのお問い合わせ",
+    "emailDesc": "サポートおよび一般的なお問い合わせはこちら"
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "comingSoon": "コンテンツは近日公開予定です。"
+  },
+  "terms": {
+    "title": "利用規約",
+    "comingSoon": "コンテンツは近日公開予定です。"
+  },
+  "notFound": {
+    "title": "404 - ページが見つかりません",
+    "description": "お探しのページは存在しないか、移動した可能性があります。",
+    "backHome": "ホームに戻る"
+  },
+  "download": {
+    "appStoreLine1": "App Storeから",
+    "appStoreLine2": "ダウンロード",
+    "apkLine1": "公式サイトから",
+    "apkLine2": "インストール"
+  },
+  "datingChat": {
+    "sayHi": "あいさつする",
+    "title": "チャット",
+    "close": "チャットを閉じる",
+    "youLabel": "あなた",
+    "placeholder": "メッセージを入力...",
+    "send": "送信",
+    "sending": "送信中...",
+    "emptyState": "短い挨拶から始めてみましょう。",
+    "errorReply": "申し訳ありません、現在返信できません。しばらくしてからもう一度お試しください。",
+    "limitReached": "ウェブ版の制限に達しました。チャットを続けるにはアプリをダウンロードしてください。",
+    "limitCounter": "{count}/{max} 通のメッセージを使用済み",
+    "locked": "ロックされています"
+  },
+  "dating": {
+    "recommendedMembers": "おすすめのメンバー"
+  },
+  "carousel": {
+    "slide1": "世界中の友達とつながる",
+    "slide2": "あなたの瞬間を共有",
+    "slide3": "あなたの言葉でチャット",
+    "slide4": "すべての声を理解する"
+  },
+  "footerArticles": {
+    "atHomeDate": "外出するより楽しい！おうちデートのアイデア20選",
+    "bestFirstDate": "心の距離が縮まる！最高の初デートアイデア15選",
+    "cheapDate": "20ドル以下でも豪華！節約デートのアイデア20選",
+    "cuteDate": "まるでラブコメ映画！最高にキュートなデートアイデア20選",
+    "funDate": "絶対に飽きない！最高に楽しいデートのアイデア20選"
+  },
+  "seo": {
+    "homeTitle": "Globol - 世界中の友達とつながる | リアルタイム翻訳チャット",
+    "homeDescription": "言葉の壁を越えて、世界中の友達とつながりましょう。Globolはリアルタイム翻訳を提供し、シームレスなグローバルコミュニケーション、文化交流、そして本物の友情をサポートします。",
+    "dateIdeasDescription": "世界中のユニークなデートのアイデア、人間関係のアドバイス、現地のデートガイドを探索しましょう。",
+    "aboutDescription": "リアルタイム翻訳と本物のグローバルな友情を通じて世界を繋ぐGlobolのミッションについてご紹介します。",
+    "contactDescription": "サポート、フィードバック、提携に関するお問い合わせはGlobolチームまでご連絡ください。",
+    "privacyDescription": "Globolがお客様の個人データをどのように収集、使用、保護するかについて説明します。",
+    "termsDescription": "Globolおよびそのサービスの使用を規定する利用規約をご確認ください。"
+  }
+}

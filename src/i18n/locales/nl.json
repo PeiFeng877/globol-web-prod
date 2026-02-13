@@ -1,0 +1,125 @@
+{
+  "common": {
+    "home": "Home",
+    "dateIdeas": "Date Ideeën",
+    "internationalDating": "Internationaal Daten",
+    "language": "Nederlands",
+    "signIn": "Inloggen",
+    "join": "Word lid van Globol",
+    "readMore": "Lees meer",
+    "share": "Deel dit artikel",
+    "moreDateIdeas": "Meer Date Ideeën",
+    "signUp": "Aanmelden"
+  },
+  "footer": {
+    "brandSlogan": "Verbind Zonder Grenzen",
+    "discover": "Ontdek",
+    "popular": "Populair",
+    "company": "Bedrijf",
+    "aboutUs": "Over ons",
+    "rights": "© 2026 Globol. Alle rechten voorbehouden.",
+    "contact": "Contact & Support",
+    "privacy": "Privacybeleid",
+    "terms": "Servicevoorwaarden"
+  },
+  "article": {
+    "prev": "Vorige",
+    "next": "Volgende",
+    "faq": "Veelgestelde Vragen",
+    "home": "Home",
+    "dateIdeas": "Date Ideeën"
+  },
+  "homepage": {
+    "title": "Verbind Zonder Grenzen",
+    "intro": "Globol is jouw toegangspoort tot internationale vriendschappen. Ons platform doorbreekt taalbarrières, waardoor je verbinding kunt maken, kunt chatten en momenten kunt delen met mensen uit alle hoeken van de wereld.",
+    "whyChooseTitle": "Waarom kiezen voor Globol?",
+    "languageLearningTitle": "Talen leren:",
+    "languageLearning": "Oefen in realtime met moedertaalsprekers.",
+    "culturalExchangeTitle": "Culturele uitwisseling:",
+    "culturalExchange": "Begrijp diverse culturen rechtstreeks van de lokale bevolking.",
+    "effortlessConnectionTitle": "Moeiteloze verbinding:",
+    "effortlessConnection": "Maak wereldwijd vrienden zonder taalbarrières.",
+    "globalCommunityTitle": "Wereldwijde Gemeenschap",
+    "globalCommunityDesc": "Word lid van een diverse gemeenschap van gebruikers die hun dagelijks leven en unieke perspectieven delen uit meer dan 100 landen.",
+    "realTimeTranslationTitle": "Realtime Vertaling",
+    "realTimeTranslationDesc": "Chat naadloos in je moedertaal. Onze geavanceerde vertaaltechnologie zorgt ervoor dat je altijd wordt begrepen.",
+    "authenticConnectionsTitle": "Authentieke Verbindingen",
+    "authenticConnectionsDesc": "Ga verder dan swipen. Bouw betekenisvolle relaties op basis van gedeelde interesses en oprechte gesprekken.",
+    "exploreGuidesTitle": "Ontdek onze Gidsen",
+    "exploreGuidesDesc": "Op zoek naar inspiratie? Bekijk onze samengestelde gidsen over daten, relaties en culturele etiquette.",
+    "readDateIdeas": "Lees Date Ideeën"
+  },
+  "about": {
+    "title": "Over ons",
+    "intro1": "Globol is meer dan alleen een app; het is een beweging om de wereld zonder grenzen te verbinden.",
+    "intro2": "In een wereld die steeds meer verbonden is, maar vaak verdeeld door taal- en culturele barrières, staat Globol als een brug. Wij geloven dat echt begrip voortkomt uit directe communicatie en gedeelde ervaringen.",
+    "missionTitle": "Onze Missie",
+    "missionDesc": "Taalbarrières doorbreken en authentieke wereldwijde vriendschappen bevorderen door middel van innovatieve technologie en door de gemeenschap gedreven betrokkenheid.",
+    "visionTitle": "Onze Visie",
+    "visionDesc": "Een wereld waarin iedereen, overal, met elkaar in contact kan komen, kan delen en elkaar kan begrijpen, ongeacht de taal die ze spreken."
+  },
+  "contact": {
+    "title": "Contact & Support",
+    "intro": "We zijn hier om te helpen. Als je vragen, feedback of vragen over samenwerking hebt, aarzel dan niet om contact met ons op te nemen.",
+    "emailTitle": "E-mail ons",
+    "emailDesc": "Voor support en algemene vragen"
+  },
+  "privacy": {
+    "title": "Privacybeleid",
+    "comingSoon": "Inhoud volgt binnenkort."
+  },
+  "terms": {
+    "title": "Servicevoorwaarden",
+    "comingSoon": "Inhoud volgt binnenkort."
+  },
+  "notFound": {
+    "title": "404 - Pagina Niet Gevonden",
+    "description": "Oeps! De pagina die je zoekt bestaat niet of is verplaatst.",
+    "backHome": "Terug naar Home"
+  },
+  "download": {
+    "appStoreLine1": "Download in de",
+    "appStoreLine2": "App Store",
+    "apkLine1": "Officiële Download",
+    "apkLine2": "Installeer App"
+  },
+  "datingChat": {
+    "sayHi": "Zeg Hoi",
+    "title": "Chat",
+    "close": "Chat sluiten",
+    "youLabel": "Jij",
+    "placeholder": "Typ een bericht...",
+    "send": "Versturen",
+    "sending": "Verzenden...",
+    "emptyState": "Begin met een kort hallo.",
+    "errorReply": "Sorry, ik kan op dit moment niet antwoorden. Probeer het over een moment opnieuw.",
+    "limitReached": "Je hebt de weblimiet bereikt. Download de app om te blijven chatten.",
+    "limitCounter": "{count}/{max} berichten gebruikt",
+    "locked": "Vergrendeld"
+  },
+  "dating": {
+    "recommendedMembers": "Aanbevolen Leden"
+  },
+  "carousel": {
+    "slide1": "Verbind met Wereldwijde Vrienden",
+    "slide2": "Deel je Momenten",
+    "slide3": "Chat in je eigen Taal",
+    "slide4": "Begrijp elke Stem"
+  },
+  "footerArticles": {
+    "atHomeDate": "20 Date-Ideeën voor Thuis die Beter zijn dan Uitgaan",
+    "bestFirstDate": "15 Beste Eerste Date Ideeën die Echt Verbinding Creëren",
+    "cheapDate": "20 Goedkope Date Ideeën die Duur Aanvoelen (Onder €20)",
+    "cuteDate": "20 Cute Date Ideeën die Rechtstreeks uit een Rom-Com Komen",
+    "funDate": "20 Leuke Date Ideeën waarbij het Echt Onmogelijk is om je te Vervelen"
+  },
+  "seo": {
+    "homeTitle": "Globol - Verbind met Wereldwijde Vrienden | Realtime Vertaalchat",
+    "homeDescription": "Doorbreek taalbarrières en maak contact met vrienden over de hele wereld. Globol biedt realtime vertaling voor naadloze wereldwijde communicatie, culturele uitwisseling en authentieke vriendschappen.",
+    "dateIdeasDescription": "Ontdek unieke date-ideeën, relatieadvies en lokale datinggidsen van over de hele wereld.",
+    "aboutDescription": "Leer meer over de missie van Globol om de wereld te verbinden door middel van realtime vertaling en authentieke wereldwijde vriendschappen.",
+    "contactDescription": "Neem contact op met het Globol-team voor support, feedback of vragen over samenwerking.",
+    "privacyDescription": "Leer hoe Globol uw persoonlijke gegevens verzamelt, gebruikt en beschermt.",
+    "termsDescription": "Bekijk de algemene voorwaarden die uw gebruik van Globol en zijn diensten regelen."
+  }
+}
