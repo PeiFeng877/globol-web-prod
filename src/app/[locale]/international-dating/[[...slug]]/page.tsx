@@ -37,9 +37,9 @@ export async function generateStaticParams() {
     for (const gender of genders) {
       paths.push({ locale, slug: [gender] });
       for (const country of countries) {
-         if (genderCountryPairs.has(`${gender}/${country}`)) {
-           paths.push({ locale, slug: [gender, country] });
-         }
+        if (genderCountryPairs.has(`${gender}/${country}`)) {
+          paths.push({ locale, slug: [gender, country] });
+        }
       }
     }
   }
@@ -49,87 +49,87 @@ export async function generateStaticParams() {
 
 // 2. Metadata Generator
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { locale, slug } = await params;
-    const t = getDictionary(locale);
-    const gender = slug?.[0];
-    const country = slug?.[1];
-    const baseUrl = 'https://globol.im';
-    
-    // Construct Canonical URL
-    const langPrefix = locale === 'en' ? '' : `/${locale}`;
-    let path = `${langPrefix}/international-dating`;
-    if (gender) path += `/${gender}`;
-    if (country) path += `/${country}`;
-    const canonicalUrl = `${baseUrl}${path}`;
+  const { locale, slug } = await params;
+  const t = getDictionary(locale);
+  const gender = slug?.[0];
+  const country = slug?.[1];
+  const baseUrl = 'https://globol.im';
 
-    let title = t.seo.datingTitle || "International Dating | Globol";
-    let description = t.seo.datingDescription || t.seo.homeDescription;
+  // Construct Canonical URL
+  const langPrefix = locale === 'en' ? '' : `/${locale}`;
+  let path = `${langPrefix}/international-dating`;
+  if (gender) path += `/${gender}`;
+  if (country) path += `/${country}`;
+  const canonicalUrl = `${baseUrl}${path}/`;
 
-    if (gender && !country) {
-        const genderText = gender === 'man' ? t.common.men : t.common.women;
-        title = `${t.common.meet || 'Meet'} ${genderText} - ${t.common.internationalDating} | Globol`;
-    } else if (gender && country) {
-        const sampleProfile = profiles.find(p => p.country === country);
-        const countryName = sampleProfile?.countryDisplay?.[locale as keyof LocalizedText] || country;
-        const genderText = gender === 'man' ? t.common.men : t.common.women;
-        title = `${t.common.dating || 'Dating'} ${genderText} ${t.common.from || 'from'} ${countryName} - ${t.common.internationalDating} | Globol`;
+  let title = t.seo.datingTitle || "International Dating | Globol";
+  let description = t.seo.datingDescription || t.seo.homeDescription;
+
+  if (gender && !country) {
+    const genderText = gender === 'man' ? t.common.men : t.common.women;
+    title = `${t.common.meet || 'Meet'} ${genderText} - ${t.common.internationalDating} | Globol`;
+  } else if (gender && country) {
+    const sampleProfile = profiles.find(p => p.country === country);
+    const countryName = sampleProfile?.countryDisplay?.[locale as keyof LocalizedText] || country;
+    const genderText = gender === 'man' ? t.common.men : t.common.women;
+    title = `${t.common.dating || 'Dating'} ${genderText} ${t.common.from || 'from'} ${countryName} - ${t.common.internationalDating} | Globol`;
+  }
+
+  const languages = Object.fromEntries([
+    ['x-default', `${baseUrl}/international-dating${gender ? '/' + gender : ''}${country ? '/' + country : ''}/`],
+    ...locales.map(loc => [
+      loc,
+      `${baseUrl}${loc === 'en' ? '' : '/' + loc}/international-dating${gender ? '/' + gender : ''}${country ? '/' + country : ''}/`
+    ])
+  ]);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: 'Globol',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     }
-
-    const languages = Object.fromEntries([
-      ['x-default', `${baseUrl}/international-dating${gender ? '/' + gender : ''}${country ? '/' + country : ''}`],
-      ...locales.map(loc => [
-        loc,
-        `${baseUrl}${loc === 'en' ? '' : '/' + loc}/international-dating${gender ? '/' + gender : ''}${country ? '/' + country : ''}`
-      ])
-    ]);
-
-    return { 
-        title, 
-        description,
-        alternates: {
-            canonical: canonicalUrl,
-            languages
-        },
-        openGraph: {
-            title,
-            description,
-            url: canonicalUrl,
-            siteName: 'Globol',
-            locale: locale === 'zh' ? 'zh_CN' : 'en_US',
-            type: 'website',
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title,
-            description,
-        }
-    };
+  };
 }
 
 export default async function InternationalDatingPage({ params }: PageProps) {
   const { locale, slug } = await params;
   const t = getDictionary(locale);
-  
+
   const gender = slug?.[0];
   const country = slug?.[1];
   const langKey = locale as keyof LocalizedText;
 
   // 3. Filter Logic
   let filteredRawProfiles = profiles;
-  
+
   if (gender) {
-      if (!['man', 'woman'].includes(gender)) { return notFound(); }
-      filteredRawProfiles = filteredRawProfiles.filter(p => p.gender === gender);
+    if (!['man', 'woman'].includes(gender)) { return notFound(); }
+    filteredRawProfiles = filteredRawProfiles.filter(p => p.gender === gender);
   }
 
   if (country) {
-       const validCountries = getCountries();
-       if (!validCountries.includes(country)) { return notFound(); }
-       filteredRawProfiles = filteredRawProfiles.filter(p => p.country === country);
+    const validCountries = getCountries();
+    if (!validCountries.includes(country)) { return notFound(); }
+    filteredRawProfiles = filteredRawProfiles.filter(p => p.country === country);
   }
-  
+
   if (filteredRawProfiles.length === 0) {
-      return notFound();
+    return notFound();
   }
 
   // 4. Transform Data
@@ -137,14 +137,14 @@ export default async function InternationalDatingPage({ params }: PageProps) {
 
   // 5. Titles & Text
   let pageTitle = t.common.internationalDating;
-  
+
   if (gender && !country) {
-      const genderText = gender === 'man' ? t.common.men : t.common.women;
-      pageTitle = `${t.common.meet || 'Meet'} ${genderText}`;
+    const genderText = gender === 'man' ? t.common.men : t.common.women;
+    pageTitle = `${t.common.meet || 'Meet'} ${genderText}`;
   } else if (gender && country) {
-      const countryName = viewProfiles[0]?.countryDisplay || country;
-      const genderText = gender === 'man' ? t.common.men : t.common.women;
-      pageTitle = `${genderText} ${t.common.from || 'from'} ${countryName}`;
+    const countryName = viewProfiles[0]?.countryDisplay || country;
+    const genderText = gender === 'man' ? t.common.men : t.common.women;
+    pageTitle = `${genderText} ${t.common.from || 'from'} ${countryName}`;
   }
 
   const homeLink = locale === 'en' ? '/' : `/${locale}`;
@@ -200,23 +200,23 @@ export default async function InternationalDatingPage({ params }: PageProps) {
       {/* Header Section */}
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 mt-12 mb-6">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            {pageTitle}
+          {pageTitle}
         </h1>
         <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
-            {t.common.join}
+          {t.common.join}
         </h2>
       </div>
 
       {/* Main Content Grid */}
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-         <ProfileGrid 
-            profiles={viewProfiles} 
-            profileBasePath={locale === 'en' ? '/international-dating/profile' : `/${locale}/international-dating/profile`}
-            viewProfileText={t.common.readMore}
-            seekingText={t.common.language}
-            noProfilesTitle={t.notFound.title}
-            noProfilesDesc={t.notFound.description}
-         />
+        <ProfileGrid
+          profiles={viewProfiles}
+          profileBasePath={locale === 'en' ? '/international-dating/profile' : `/${locale}/international-dating/profile`}
+          viewProfileText={t.common.readMore}
+          seekingText={t.common.language}
+          noProfilesTitle={t.notFound.title}
+          noProfilesDesc={t.notFound.description}
+        />
       </div>
     </div>
   );

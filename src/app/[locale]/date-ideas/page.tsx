@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = getDictionary(locale);
   const ogImage = '/assets/article-hero.avif';
-  const canonicalPath = locale === 'en' ? '/date-ideas' : `/${locale}/date-ideas`;
-  
+  const canonicalPath = locale === 'en' ? '/date-ideas/' : `/${locale}/date-ideas/`;
+
   return {
     title: t.common.dateIdeas,
     description: t.seo.dateIdeasDescription,
@@ -53,14 +53,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: [ogImage],
     },
     alternates: {
-        canonical: canonicalPath,
-        languages: Object.fromEntries([
-          ['x-default', '/date-ideas'],
-          ...locales.map(loc => [
-            loc,
-            loc === 'en' ? '/date-ideas' : `/${loc}/date-ideas`
-          ])
+      canonical: canonicalPath,
+      languages: Object.fromEntries([
+        ['x-default', '/date-ideas/'],
+        ...locales.map(loc => [
+          loc,
+          loc === 'en' ? '/date-ideas/' : `/${loc}/date-ideas/`
         ])
+      ])
     },
   };
 }

@@ -1,18 +1,3 @@
-/**
- * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
- *
- * INPUT: Article slugs + locales
- * OUTPUT: MetadataRoute.Sitemap
- * POS: App Router SEO
- * CONTRACT: Builds multi-locale sitemap entries for pages and articles.
- * 职责: 生成多语言站点地图并标注 alternates。
- */
-import type { MetadataRoute } from "next";
-import { getAllArticles } from '@/lib/content';
-import { locales } from '@/i18n/settings';
-import { BASE_URL } from '@/lib/constants';
-import { profiles, getCountries } from '@/data/profiles';
 
 import type { MetadataRoute } from "next";
 import { getAllArticles } from '@/lib/content';

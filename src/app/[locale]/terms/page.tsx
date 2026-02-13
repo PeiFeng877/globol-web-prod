@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = getDictionary(locale);
   const ogImage = '/assets/article-hero.avif';
   const title = `${t.footer.terms} - Globol`;
-  const canonicalPath = locale === 'en' ? '/terms' : `/${locale}/terms`;
+  const canonicalPath = locale === 'en' ? '/terms/' : `/${locale}/terms/`;
 
   return {
     title,
@@ -45,9 +45,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: canonicalPath,
       languages: {
-        'x-default': '/terms',
-        'en': '/terms',
-        'zh': '/zh/terms',
+        'x-default': '/terms/',
+        'en': '/terms/',
+        'zh': '/zh/terms/',
       },
     },
   };

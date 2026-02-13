@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = getDictionary(locale);
   const ogImage = '/assets/article-hero.avif';
   const title = `${t.footer.contact} - Globol`;
-  const canonicalPath = locale === 'en' ? '/contact' : `/${locale}/contact`;
+  const canonicalPath = locale === 'en' ? '/contact/' : `/${locale}/contact/`;
 
   return {
     title,
@@ -45,9 +45,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: canonicalPath,
       languages: {
-        'x-default': '/contact',
-        'en': '/contact',
-        'zh': '/zh/contact',
+        'x-default': '/contact/',
+        'en': '/contact/',
+        'zh': '/zh/contact/',
       },
     },
   };
@@ -74,12 +74,12 @@ export default async function ContactPage({ params }: PageProps) {
 
       <div className="inline-flex flex-col items-center justify-center p-12 bg-gray-50 rounded-3xl border border-gray-100">
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-6 text-yellow-500">
-           <Mail size={32} />
+          <Mail size={32} />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.contact.emailTitle}</h3>
         <p className="text-gray-500 mb-6">{t.contact.emailDesc}</p>
-        <a 
-          href="mailto:hi@globol.im" 
+        <a
+          href="mailto:hi@globol.im"
           className="text-2xl font-bold text-black hover:text-yellow-600 transition-colors underline decoration-2 underline-offset-4"
         >
           hi@globol.im

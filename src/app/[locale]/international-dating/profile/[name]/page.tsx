@@ -47,10 +47,10 @@ const toneGradients: Record<ProfileFeedTone, string> = {
 };
 
 export async function generateStaticParams() {
-  return locales.flatMap((locale) => 
-    profiles.map((profile) => ({ 
-      locale, 
-      name: nameToSlug(profile.name) 
+  return locales.flatMap((locale) =>
+    profiles.map((profile) => ({
+      locale,
+      name: nameToSlug(profile.name)
     }))
   );
 }
@@ -65,17 +65,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const profileView = toProfileView(profile, locale as keyof LocalizedText);
   const countryName = profile.countryDisplay[locale as keyof LocalizedText] || profile.countryDisplay['en'];
-  
+
   const title = `${profileView.name} ${t.common.from || 'from'} ${profileView.city} - ${t.common.internationalDating} | Globol`;
   const description = `${profileView.name}, ${profileView.age} - ${profileView.bio}. ${t.common.internationalDating} Globol.`;
 
-  const canonicalUrl = `${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}`;
+  const canonicalUrl = `${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}/`;
   const avatarUrl = profile.avatar.startsWith('http') ? profile.avatar : `${baseUrl}${profile.avatar}`;
 
   const languages = Object.fromEntries(
     locales.map(loc => [
       loc,
-      `${baseUrl}${loc === 'en' ? '' : '/' + loc}/international-dating/profile/${nameToSlug(profile.name)}`
+      `${baseUrl}${loc === 'en' ? '' : '/' + loc}/international-dating/profile/${nameToSlug(profile.name)}/`
     ])
   );
 
@@ -83,18 +83,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title, description,
     alternates: { canonical: canonicalUrl, languages },
     openGraph: {
-        title, description, url: canonicalUrl, siteName: 'Globol',
-        locale: locale === 'zh' ? 'zh_CN' : 'en_US',
-        type: 'profile',
-        images: [{ url: avatarUrl }]
+      title, description, url: canonicalUrl, siteName: 'Globol',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      type: 'profile',
+      images: [{ url: avatarUrl }]
     },
     twitter: { card: 'summary', title, description, images: [avatarUrl] }
   };
 }
 
 const FeedPost = ({ item, profile, locale }: { item: any; profile: UserProfileView; locale: string; }) => {
-  const profilePath = locale === 'en' 
-    ? `/international-dating/profile/${nameToSlug(profile.name)}` 
+  const profilePath = locale === 'en'
+    ? `/international-dating/profile/${nameToSlug(profile.name)}`
     : `/${locale}/international-dating/profile/${nameToSlug(profile.name)}`;
 
   return (

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = getDictionary(locale);
   const ogImage = '/assets/article-hero.avif';
   const title = `${t.footer.aboutUs} - Globol`;
-  const canonicalPath = locale === 'en' ? '/about' : `/${locale}/about`;
+  const canonicalPath = locale === 'en' ? '/about/' : `/${locale}/about/`;
 
   return {
     title,
@@ -44,9 +44,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: canonicalPath,
       languages: {
-        'x-default': '/about',
-        'en': '/about',
-        'zh': '/zh/about',
+        'x-default': '/about/',
+        'en': '/about/',
+        'zh': '/zh/about/',
       },
     },
   };
@@ -69,18 +69,18 @@ export default async function AboutPage({ params }: PageProps) {
       </h1>
       <div className="prose prose-lg prose-gray max-w-none">
         <p className="text-xl text-gray-600 leading-relaxed mb-8">
-            {t.about.intro1}
+          {t.about.intro1}
         </p>
         <p className="mb-6">
-            {t.about.intro2}
+          {t.about.intro2}
         </p>
         <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">{t.about.missionTitle}</h2>
         <p className="mb-6">
-            {t.about.missionDesc}
+          {t.about.missionDesc}
         </p>
         <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4">{t.about.visionTitle}</h2>
         <p className="mb-6">
-            {t.about.visionDesc}
+          {t.about.visionDesc}
         </p>
       </div>
     </div>
