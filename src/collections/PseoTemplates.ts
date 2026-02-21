@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const PseoTemplates: CollectionConfig = {
     slug: 'pseo-templates',
+    labels: {
+        singular: { en: 'Pseo Template', zh: '模板' },
+        plural: { en: 'Pseo Templates', zh: '模板集' },
+    },
     admin: {
         useAsTitle: 'vibe',
     },

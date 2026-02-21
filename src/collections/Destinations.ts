@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const Destinations: CollectionConfig = {
     slug: 'destinations',
+    labels: {
+        singular: { en: 'Destination', zh: '目的地' },
+        plural: { en: 'Destinations', zh: '热门目的地' },
+    },
     admin: {
         useAsTitle: 'name',
         defaultColumns: ['name', 'slug', 'country'],

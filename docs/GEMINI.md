@@ -15,6 +15,7 @@ docs/
 │   └── README.md
 ├── SEO_AUDIT.md
 ├── SEO_WORK_LOG.md
+├── Content-Workflow.md
 ├── analytics-monitoring.md
 ├── i18n-standard.md
 ├── seo-audit-acceptance.md
@@ -30,6 +31,7 @@ docs/
 - `SEO/`: SEO 技术架构与执行策略文档集。
 - `SEO_AUDIT.md`: SEO 审计报告与修复计划 tracking。
 - `SEO_WORK_LOG.md`: SEO 优化工作日志。
+- `Content-Workflow.md`: 内容管理流转指南，包含文章的多语言存储分布与一键同步编排机制。
 - `i18n-standard.md`: 国际化标准与实施指南。
 - `seo-audit-acceptance.md`: SEO 审计与验收记录基线文档。
 - `analytics-monitoring.md`: Firebase/GA4 监控方案与指标定义。
@@ -39,6 +41,7 @@ docs/
 - 任何新增模板或目录层级必须同步更新本文件与子模块 L2。
 
 ## 4. 🧾 变更日志 (Changelog)
+- 2026-02-21: 新增 `Content-Workflow.md` 详述基于扁平化实体与语言标签的内容发布与同步机制。
 - 2026-02-20: 新增 `06-Architecture-Evolution-2026.md` 架构演进与内容扩展方案探讨文档。
 - 2026-02-19: 同步 SEO 文档集、审计日志与国际化标准文档。
 - 2026-02-03: 建立 docs 文档模块地图与协议头。

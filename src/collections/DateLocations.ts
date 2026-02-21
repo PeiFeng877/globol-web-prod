@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const DateLocations: CollectionConfig = {
     slug: 'date-locations',
+    labels: {
+        singular: { en: 'Date Location', zh: '约会地点' },
+        plural: { en: 'Date Locations', zh: '约会地点' },
+    },
     admin: {
         useAsTitle: 'title',
         defaultColumns: ['title', 'destination', 'vibe'],

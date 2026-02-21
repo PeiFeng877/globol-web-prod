@@ -24,11 +24,19 @@ export default buildConfig({
     {
       slug: 'users',
       auth: true,
+      labels: {
+        singular: { en: 'User', zh: '用户' },
+        plural: { en: 'Users', zh: '用户' },
+      },
       fields: [],
     },
     {
       slug: 'media',
       upload: true,
+      labels: {
+        singular: { en: 'Media', zh: '媒体库' },
+        plural: { en: 'Media', zh: '媒体库' },
+      },
       access: {
         create: () => true,
         read: () => true,

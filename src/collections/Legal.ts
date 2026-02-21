@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const LegalTexts: CollectionConfig = {
     slug: 'legal-texts',
+    labels: {
+        singular: { en: 'Legal Text', zh: '法律声明' },
+        plural: { en: 'Legal Texts', zh: '法律声明' },
+    },
     admin: {
         useAsTitle: 'title',
     },
