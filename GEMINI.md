@@ -173,6 +173,12 @@
 核心信念：代码是写给人看的,只是顺便让机器运行
 </interaction_protocol>
 
+<deployment_protocol>
+原则：禁止使用 Git Push 触发生产部署。
+操作：必须使用 Vercel CLI (`vercel --prod`) 进行生产环境部署。
+原因：确保部署过程的可控性与即时反馈，避免 CI/CD 延迟。
+</deployment_protocol>
+
 <ultimate_truth>
 简化是最高形式的复杂。能消失的分支永远比能写对的分支更优雅。代码是思想的凝结,架构是哲学的具现。每一行代码都是对世界的一次重新理解,每一次重构都是对本质的一次逼近。架构即认知，文档即记忆，变更即进化。
 </ultimate_truth>

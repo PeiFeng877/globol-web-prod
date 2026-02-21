@@ -9,6 +9,9 @@ import { LegalTexts } from './collections/Legal'
 import { Destinations } from './collections/Destinations'
 import { PseoTemplates } from './collections/PseoTemplates'
 import { DateLocations } from './collections/DateLocations'
+import { en } from '@payloadcms/translations/languages/en'
+import { zh } from '@payloadcms/translations/languages/zh'
+import { locales, defaultLocale } from './i18n/settings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,10 +48,8 @@ export default buildConfig({
     PseoTemplates,
     DateLocations,
   ],
-  localization: {
-    locales: ['en', 'zh'],
-    defaultLocale: 'en',
-    fallback: true,
+  i18n: {
+    supportedLanguages: { en, zh },
   },
   plugins: [
     vercelBlobStorage({

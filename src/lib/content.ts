@@ -89,8 +89,12 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
   const payload = await getPayload({ config: configPromise });
   const data = await payload.find({
     collection: 'articles',
-    where: { slug: { equals: slug } },
-    locale: locale as Config['locale'],
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        { language: { equals: locale } }
+      ]
+    },
   });
 
   if (!data.docs || data.docs.length === 0) {
@@ -120,14 +124,31 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
 
 export async function getLegalContent(locale: string, slug: 'privacy' | 'terms'): Promise<string> {
   const payload = await getPayload({ config: configPromise });
-  const data = await payload.find({
+  let data = await payload.find({
     collection: 'legal-texts',
-    where: { slug: { equals: slug } },
-    locale: locale as Config['locale'],
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        { language: { equals: locale } }
+      ]
+    },
   });
 
+  // Fallback to English if translation is missing
   if (!data.docs || data.docs.length === 0) {
-    throw new Error(`Legal content not found in CMS: ${slug}`);
+    data = await payload.find({
+      collection: 'legal-texts',
+      where: {
+        and: [
+          { slug: { equals: slug } },
+          { language: { equals: 'en' } }
+        ]
+      },
+    });
+  }
+
+  if (!data.docs || data.docs.length === 0) {
+    throw new Error(`Legal content not found in CMS for slug: ${slug} (tested ${locale} and en fallbacks)`);
   }
 
   const legalDoc = data.docs[0] as unknown as LegalText;
@@ -140,6 +161,7 @@ export async function getAllSlugs(): Promise<string[]> {
     collection: 'articles',
     limit: 1000,
     depth: 0,
+    where: { language: { equals: 'en' } }, // Use 'en' as baseline for static slugs
   });
   return (data.docs || []).map(doc => doc.slug!);
 }
@@ -148,7 +170,7 @@ export async function getAllArticles(locale: string = 'en'): Promise<Omit<Articl
   const payload = await getPayload({ config: configPromise });
   const data = await payload.find({
     collection: 'articles',
-    locale: locale as Config['locale'],
+    where: { language: { equals: locale } },
     limit: 100,
     sort: '-publishedAt',
   });
@@ -225,7 +247,6 @@ export async function getPseoData(locale: string, citySlug: string, vibe: string
   const destRes = await payload.find({
     collection: 'destinations',
     where: { slug: { equals: citySlug } },
-    locale: locale as Config['locale'],
   });
 
   if (!destRes.docs || destRes.docs.length === 0) return null;
@@ -235,7 +256,6 @@ export async function getPseoData(locale: string, citySlug: string, vibe: string
   const templateRes = await payload.find({
     collection: 'pseo-templates',
     where: { vibe: { equals: vibe } },
-    locale: locale as Config['locale'],
   });
 
   if (!templateRes.docs || templateRes.docs.length === 0) return null;
@@ -247,10 +267,10 @@ export async function getPseoData(locale: string, citySlug: string, vibe: string
     where: {
       and: [
         { destination: { equals: destination.id } },
-        { vibe: { equals: vibe } }
+        { vibe: { equals: vibe } },
+        { language: { equals: locale } }
       ]
     },
-    locale: locale as Config['locale'],
     sort: 'title',
   });
 

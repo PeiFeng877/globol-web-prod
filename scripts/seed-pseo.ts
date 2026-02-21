@@ -132,6 +132,7 @@ async function seed() {
                     vibe: loc.vibe,
                     description: loc.description,
                     tips: loc.tips,
+                    language: 'en',
                 },
             })
             console.log(`Created DateLocation: ${loc.title}`)

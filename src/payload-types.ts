@@ -96,10 +96,10 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'zh') | ('en' | 'zh')[];
+  fallbackLocale: null;
   globals: {};
   globalsSelect: {};
-  locale: 'en' | 'zh';
+  locale: null;
   user: User;
   jobs: {
     tasks: unknown;
@@ -195,6 +195,14 @@ export interface Article {
   author?: (number | null) | User;
   heroImage?: (number | null) | Media;
   publishedAt?: string | null;
+  /**
+   * The language of this article entity.
+   */
+  language: 'en' | 'zh' | 'de' | 'es' | 'fr' | 'hi' | 'id' | 'it' | 'ja' | 'ko' | 'nl' | 'pt' | 'ru' | 'th' | 'vi';
+  /**
+   * A shared ID or tag to group translations of the same article (e.g., "cute-date-ideas").
+   */
+  translationGroupId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -222,6 +230,14 @@ export interface LegalText {
     [k: string]: unknown;
   };
   lastUpdated?: string | null;
+  /**
+   * The language of this text entity.
+   */
+  language: 'en' | 'zh' | 'de' | 'es' | 'fr' | 'hi' | 'id' | 'it' | 'ja' | 'ko' | 'nl' | 'pt' | 'ru' | 'th' | 'vi';
+  /**
+   * A shared ID or tag to group translations of the same legal text.
+   */
+  translationGroupId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -287,6 +303,14 @@ export interface DateLocation {
   description: string;
   tips?: string | null;
   image?: (number | null) | Media;
+  /**
+   * The language of this location entity.
+   */
+  language: 'en' | 'zh' | 'de' | 'es' | 'fr' | 'hi' | 'id' | 'it' | 'ja' | 'ko' | 'nl' | 'pt' | 'ru' | 'th' | 'vi';
+  /**
+   * A shared ID or tag to group translations of the same location.
+   */
+  translationGroupId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -436,6 +460,8 @@ export interface ArticlesSelect<T extends boolean = true> {
   author?: T;
   heroImage?: T;
   publishedAt?: T;
+  language?: T;
+  translationGroupId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -448,6 +474,8 @@ export interface LegalTextsSelect<T extends boolean = true> {
   slug?: T;
   content?: T;
   lastUpdated?: T;
+  language?: T;
+  translationGroupId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -487,6 +515,8 @@ export interface DateLocationsSelect<T extends boolean = true> {
   description?: T;
   tips?: T;
   image?: T;
+  language?: T;
+  translationGroupId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
