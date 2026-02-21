@@ -35,7 +35,6 @@ Geser meja kopi Anda. Bentangkan selimut di atas lantai. Sajikan makanan ringanâ
 ### 4. Malam Tema "Keliling Dunia"
 Pilih satu negara. Masak hidangan dari sana. Dengarkan musik dari sana. Tonton film yang berlatar di sana. Ini adalah liburan tanpa rasa lelah akibat jet lag.
 
-![Pasangan duduk di atas selimut piknik di ruang tamu dengan papan keju, anggur, dan lilin](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Malam "Bermain & Kompetitif"
 *Sedikit persaingan itu sehat.*
@@ -68,7 +67,6 @@ Bermimpi bersama adalah perekat hubungan yang kuat.
 ### 11. Membacakan Buku untuk Satu Sama Lain
 Kedengarannya kuno, tapi ini sangat intim. Pilih buku (puisi atau novel) dan bergantianlah membaca satu bab dengan suara keras.
 
-![Pasangan mengenakan jubah mandi dan masker wajah mendentingkan gelas anggur di kamar mandi yang remang-remang](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## Aturan Emas untuk Kencan di Rumah
 **Berdandanlah.**

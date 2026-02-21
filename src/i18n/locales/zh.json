@@ -120,6 +120,26 @@
     "aboutDescription": "了解 Globol 通过实时翻译与真实交流连接世界的使命与愿景。",
     "contactDescription": "联系我们获取支持、反馈或合作咨询。",
     "privacyDescription": "了解 Globol 如何收集、使用并保护你的个人数据。",
-    "termsDescription": "查看使用 Globol 服务所适用的条款与规则。"
+    "termsDescription": "查看使用 Globol 服务所适用的条款与规则。",
+    "datingTitle": "国际交友 | Globol",
+    "datingDescription": "结识来自世界各地的精彩人士。浏览个人资料，跨越文化交流，在 Globol 上建立有意义的国际关系。"
+  },
+  "generator": {
+    "title": "约会灵感生成器",
+    "subtitle": "不知道去哪约会？选择你的预算和期待的氛围，让我们为你挑选完美的约会灵感。",
+    "budget": "预算",
+    "vibe": "氛围",
+    "generateBtn": "生成灵感",
+    "generatingBtn": "生成中...",
+    "tryAgainBtn": "再换一个",
+    "budget_free": "免费起步",
+    "budget_cheap": "实惠",
+    "budget_splurge": "奢侈",
+    "vibe_romantic": "浪漫",
+    "vibe_fun": "趣味",
+    "vibe_cozy": "温馨舒适",
+    "vibe_adventurous": "冒险刺激",
+    "any": "给我惊喜",
+    "resultTitle": "为你推荐的约会"
   }
 }

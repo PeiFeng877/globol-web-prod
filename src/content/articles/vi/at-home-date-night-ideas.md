@@ -35,7 +35,6 @@ Dọn bàn cà phê đi. Trải một tấm chăn lên sàn nhà. Phục vụ c�
 ### 4. Đêm chủ đề "Vòng quanh Thế giới"
 Chọn một quốc gia. Nấu một món ăn của nước đó. Nghe nhạc của nước đó. Xem một bộ phim lấy bối cảnh ở đó. Nó giống như một kỳ nghỉ mà không cần lo lắng về việc lệch múi giờ.
 
-![Một cặp đôi ngồi trên thảm dã ngoại ở phòng khách với khay phô mai, rượu vang và nến](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Những đêm "Chơi đùa & Cạnh tranh"
 *Một chút ganh đua sẽ giúp mối quan hệ thêm phần sôi động.*
@@ -68,7 +67,6 @@ Cùng nhau mơ ước là một chất kết dính mạnh mẽ cho mối quan h�
 ### 11. Đọc sách cho nhau nghe
 Nghe có vẻ cổ hủ, nhưng nó vô cùng thân mật. Chọn một cuốn sách (thơ hoặc tiểu thuyết) và thay phiên nhau đọc to một chương.
 
-![Một cặp đôi mặc áo choàng tắm và đắp mặt nạ nâng ly rượu vang trong phòng tắm với ánh sáng mờ ảo](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## Quy tắc Vàng cho Hẹn hò tại nhà
 **Hãy diện đồ đẹp.**

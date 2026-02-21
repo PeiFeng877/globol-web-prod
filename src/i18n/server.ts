@@ -25,6 +25,7 @@ import th from './locales/th.json';
 import vi from './locales/vi.json';
 import { defaultLocale } from './settings';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dictionaries: Record<string, any> = {
   en,
   zh,

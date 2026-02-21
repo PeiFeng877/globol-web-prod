@@ -35,7 +35,6 @@ Schuif de salontafel opzij. Leg een deken op de vloer. Serveer fingerfood—kaas
 ### 4. "Rond de Wereld" Thema-avond
 Kies een land. Kook een gerecht van daar. Luister naar muziek van daar. Bekijk een film die zich daar afspeelt. Het is een vakantie zonder de jetlag.
 
-![Een koppel zittend op een picknickkleed in de woonkamer met kaasplanken, wijn en kaarsen](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## De "Speelse & Competitieve" Nachten
 *Een beetje rivaliteit is gezond.*
@@ -68,7 +67,6 @@ Samen dromen is een krachtig bindmiddel.
 ### 11. Lees elkaar voor
 Het klinkt ouderwets, maar het is ongelooflijk intiem. Kies een boek (poëzie of een roman) en lees om de beurt een hoofdstuk hardop voor.
 
-![Een koppel in badjassen en gezichtsmaskers proostend met wijnglazen in een gedimde badkamer](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## De Gouden Regel voor Thuis-dates
 **Kleed je aan.**

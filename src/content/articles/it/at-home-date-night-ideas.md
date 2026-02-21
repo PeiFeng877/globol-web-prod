@@ -35,7 +35,6 @@ Spostate il tavolino. Stendete una coperta sul pavimento. Servite stuzzichini: f
 ### 4. Serata a Tema "Giro del Mondo"
 Scegliete un paese. Cucinate un piatto tipico. Ascoltate musica di quel posto. Guardate un film ambientato lì. È una vacanza senza il jet lag.
 
-![Una coppia seduta su una coperta da picnic in soggiorno con taglieri di formaggi, vino e candele](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Notti "Ludiche e Competitive"
 *Un po' di rivalità fa bene alla salute.*
@@ -68,7 +67,6 @@ Sognare insieme è un potente collante per la coppia.
 ### 11. Leggete l'uno per l'altra
 Sembra d'altri tempi, ma è incredibilmente intimo. Scegliete un libro (poesia o un romanzo) e leggete a turno un capitolo ad alta voce.
 
-![Una coppia in accappatoio e maschere facciali che brinda con bicchieri di vino in un bagno soffusamente illuminato](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## La Regola d'Oro per gli Appuntamenti in Casa
 **Vestitevi bene.**

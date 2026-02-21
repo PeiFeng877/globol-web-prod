@@ -35,7 +35,6 @@ Afaste a mesa de centro. Estenda um cobertor no chão. Sirva petiscos—queijo, 
 ### 4. Noite Temática "Volta ao Mundo"
 Escolha um país. Cozinhe um prato de lá. Ouça música de lá. Assista a um filme ambientado lá. É uma viagem sem o cansaço do fuso horário.
 
-![Um casal sentado em um cobertor de piquenique na sala com tábuas de queijos, vinho e velas](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Noites "Lúdicas e Competitivas"
 *Uma pequena rivalidade é saudável.*
@@ -68,7 +67,6 @@ Sonhar juntos é um poderoso agente de união.
 ### 11. Leiam um para o Outro
 Parece antigo, mas é incrivelmente íntimo. Escolha um livro (poesia ou romance) e revezem-se lendo um capítulo em voz alta.
 
-![Um casal de roupão e máscara facial brindando com taças de vinho em um banheiro com luz suave](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## A Regra de Ouro para Encontros em Casa
 **Vista-se bem.**

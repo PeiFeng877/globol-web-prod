@@ -35,7 +35,6 @@ Poussez la table basse. Étalez une couverture sur le sol. Servez des amuse-bouc
 ### 4. Soirée Thématique "Tour du Monde"
 Choisissez un pays. Cuisinez un plat typique. Écoutez de la musique de là-bas. Regardez un film qui s'y déroule. Ce sont des vacances sans le décalage horaire.
 
-![Un couple assis sur une couverture de pique-nique dans le salon avec des plateaux de fromage, du vin et des bougies](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Les Nuits "Ludiques et Compétitives"
 *Une petite rivalité est saine.*
@@ -68,7 +67,6 @@ Rêver ensemble est un puissant moteur de complicité.
 ### 11. Se Faire la Lecture
 Cela semble démodé, mais c'est incroyablement intime. Choisissez un livre (poésie ou roman) et lisez chacun votre tour un chapitre à haute voix.
 
-![Un couple en peignoir et masques de beauté trinquant avec des verres de vin dans une salle de bain à la lumière tamisée](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## La Règle d'Or pour les Sorties à la Maison
 **Habillez-vous.**

@@ -35,7 +35,6 @@ Quiten la mesa de centro. Extiendan una manta en el suelo. Sirvan bocadillos: qu
 ### 4. Noche Temática "Vuelta al Mundo"
 Elijan un país. Cocinen un plato de allí. Escuchen música de allí. Vean una película ambientada allí. Son unas vacaciones sin el jet lag.
 
-![Una pareja sentada en una manta de picnic en la sala de estar con tablas de queso, vino y velas](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Las Noches "Juguetonas y Competitivas"
 *Un poco de rivalidad es saludable.*
@@ -68,7 +67,6 @@ Soñar juntos es un poderoso agente de unión.
 ### 11. Léanse el Uno al Otro
 Suena anticuado, pero es increíblemente íntimo. Elijan un libro (poesía o una novela) y túrnense para leer un capítulo en voz alta.
 
-![Una pareja en batas de baño y mascarillas faciales brindando con copas de vino en un baño con luz tenue](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## La Regla de Oro para Citas en Casa
 **Vístanse bien.**

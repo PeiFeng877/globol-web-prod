@@ -16,7 +16,7 @@ src/
 
 ## 2. 🧩 模块 (Modules)
 - `app/`: 路由入口与 SEO 元数据，负责页面拼装。
-- `components/`: 可复用 UI、布局与业务展示组件。
+- `components/`: 可复用 UI、布局、业务展示组件与统计代码（analytics）。
 - `content/`: Markdown 内容仓库，文章与法律文本按语言分区。
 - `data/`: 国际交友等静态数据源与类型定义。
 - `i18n/`: 语言配置、字典与客户端/服务端加载器。

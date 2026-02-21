@@ -12,15 +12,16 @@
  */
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useLocale } from "@/i18n/client";
+import { locales, defaultLocale } from "@/i18n/settings";
 import { trackPageView } from "@/lib/firebase/analytics";
 
 export function PageViewTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const locale = useLocale();
+  // Detect locale from URL path directly (outside I18nProvider)
+  const segment = pathname?.split('/')[1] ?? '';
+  const locale = locales.includes(segment) ? segment : defaultLocale;
   const query = searchParams?.toString() ?? "";
-
   useEffect(() => {
     if (!pathname) {
       return;

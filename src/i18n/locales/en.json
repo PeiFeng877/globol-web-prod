@@ -120,6 +120,26 @@
     "aboutDescription": "Learn about Globol’s mission to connect the world through real-time translation and authentic global friendships.",
     "contactDescription": "Reach the Globol team for support, feedback, or partnership inquiries.",
     "privacyDescription": "Learn how Globol collects, uses, and protects your personal data.",
-    "termsDescription": "Review the terms and conditions that govern your use of Globol and its services."
+    "termsDescription": "Review the terms and conditions that govern your use of Globol and its services.",
+    "datingTitle": "International Dating | Globol",
+    "datingDescription": "Meet amazing people from around the world. Browse profiles, connect across cultures, and build meaningful international relationships on Globol."
+  },
+  "generator": {
+    "title": "Date Idea Generator",
+    "subtitle": "Can't decide what to do? Select your budget and vibe, and we'll pick the perfect date idea for you.",
+    "budget": "Budget",
+    "vibe": "Vibe",
+    "generateBtn": "Generate Idea",
+    "generatingBtn": "Generating...",
+    "tryAgainBtn": "Try Another One",
+    "budget_free": "Free",
+    "budget_cheap": "Cheap",
+    "budget_splurge": "Splurge",
+    "vibe_romantic": "Romantic",
+    "vibe_fun": "Fun",
+    "vibe_cozy": "Cozy",
+    "vibe_adventurous": "Adventurous",
+    "any": "Surprise Me",
+    "resultTitle": "Your Perfect Date"
   }
 }

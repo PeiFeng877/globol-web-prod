@@ -4,28 +4,34 @@
 ## 1. 🗺 地图 (结构)
 ```
 app/
-├── [locale]/
-│   ├── about/page.tsx
-│   ├── contact/page.tsx
-│   ├── date-ideas/
-│   │   ├── [slug]/page.tsx
+├── (app)/
+│   ├── [locale]/
+│   │   ├── about/page.tsx
+│   │   ├── contact/page.tsx
+│   │   ├── date-idea-generator/page.tsx
+│   │   ├── date-ideas/
+│   │   │   ├── [slug]/page.tsx
+│   │   │   ├── [city]/[vibe]/page.tsx
+│   │   │   └── page.tsx
+│   │   ├── international-dating/
+│   │   │   ├── [[...slug]]/page.tsx
+│   │   │   └── profile/
+│   │   │       └── [name]/page.tsx
+│   │   ├── privacy/page.tsx
+│   │   ├── terms/page.tsx
+│   │   ├── [...not-found]/page.tsx
 │   │   └── page.tsx
-│   ├── international-dating/
-│   │   ├── [[...slug]]/page.tsx
-│   │   └── profile/
-│   │       └── [name]/page.tsx
-│   ├── privacy/page.tsx
-│   ├── terms/page.tsx
-│   ├── not-found.tsx
-│   └── page.tsx
-├── api/
-│   ├── GEMINI.md
-│   └── ai-chat/
-│       └── route.ts
-├── favicon.ico
-├── globals.css
-├── layout.tsx
-├── robots.ts
+│   ├── api/
+│   │   ├── GEMINI.md
+│   │   └── ai-chat/route.ts
+│   ├── favicon.ico
+│   ├── globals.css
+│   └── layout.tsx
+├── (payload)/
+│   ├── admin/
+│   ├── api/[...slug]/
+│   ├── custom.scss
+│   └── layout.tsx
 └── sitemap.ts
 ```
 

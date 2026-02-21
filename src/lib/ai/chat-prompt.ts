@@ -39,7 +39,6 @@ interface BuildPromptInput {
 
 export const buildChatPrompt = ({
   profile,
-  locale,
   recentMessages,
   userMessage,
 }: BuildPromptInput) => {

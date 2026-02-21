@@ -5,7 +5,18 @@
 ```
 docs/
 ├── GEMINI.md
+├── SEO/
+│   ├── 01-Technical-Architecture.md
+│   ├── 02-Content-Strategy.md
+│   ├── 03-Structured-Data.md
+│   ├── 04-Social-Sharing.md
+│   ├── 05-Content-Management.md
+│   ├── 06-Architecture-Evolution-2026.md
+│   └── README.md
+├── SEO_AUDIT.md
+├── SEO_WORK_LOG.md
 ├── analytics-monitoring.md
+├── i18n-standard.md
 ├── seo-audit-acceptance.md
 └── AI-Generation-Guidelines/
     ├── GEMINI.md
@@ -16,6 +27,10 @@ docs/
 
 ## 2. 🧩 模块 (Modules)
 - `AI-Generation-Guidelines/`: AI 生成内容规范与模板集合。
+- `SEO/`: SEO 技术架构与执行策略文档集。
+- `SEO_AUDIT.md`: SEO 审计报告与修复计划 tracking。
+- `SEO_WORK_LOG.md`: SEO 优化工作日志。
+- `i18n-standard.md`: 国际化标准与实施指南。
 - `seo-audit-acceptance.md`: SEO 审计与验收记录基线文档。
 - `analytics-monitoring.md`: Firebase/GA4 监控方案与指标定义。
 
@@ -24,6 +39,8 @@ docs/
 - 任何新增模板或目录层级必须同步更新本文件与子模块 L2。
 
 ## 4. 🧾 变更日志 (Changelog)
+- 2026-02-20: 新增 `06-Architecture-Evolution-2026.md` 架构演进与内容扩展方案探讨文档。
+- 2026-02-19: 同步 SEO 文档集、审计日志与国际化标准文档。
 - 2026-02-03: 建立 docs 文档模块地图与协议头。
 - 2026-02-05: 新增 SEO 审计与验收记录文档。
 - 2026-02-06: 新增 Firebase Analytics 监控方案文档。

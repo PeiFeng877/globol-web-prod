@@ -4,59 +4,45 @@
  * [PROTOCOL] L3 - GEB Fractal Documentation
  * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
  *
- * INPUT: Client state (current slide), locale: string
- * OUTPUT: Animated hero carousel with localized text
+ * INPUT: slides: Slide[] (server-injected), firstSlideTitle: string
+ * OUTPUT: Animated hero carousel with CTA download buttons
  * POS: Section Component
- * CONTRACT: Cycles brand slides with responsive CTA download buttons.
- * 职责: 首页主轮播与下载 CTA（多语言支持与自适应）。
+ * CONTRACT: First slide HTML is server-rendered for LCP; JS hydration only adds
+ *           auto-play and slide transitions. Translations come via props, not client import.
+ * 职责: 首页主轮播（首屏服务端直出，轮播逻辑客户端增强）。
  */
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { DownloadButtons } from '@/components/ui/DownloadButtons';
-import { useTranslation } from '@/i18n/client';
 
-interface MainCarouselProps {
-  locale?: string;
+// ─── Types ───────────────────────────────────────────────────
+export interface Slide {
+  id: number;
+  title: string;
+  image: string;
+  bgGradient: string;
 }
 
-export const MainCarousel = ({ locale: _locale }: MainCarouselProps) => {
-  const { t } = useTranslation();
+interface MainCarouselProps {
+  slides: Slide[];
+}
+
+// ─── Component ───────────────────────────────────────────────
+export const MainCarousel = ({ slides }: MainCarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
-  
-  const slides = [
-    {
-      id: 1,
-      title: t.carousel.slide1,
-      image: '/assets/slide-1.webp',
-      bgGradient: 'from-pink-100 to-blue-50',
-    },
-    {
-      id: 2,
-      title: t.carousel.slide2,
-      image: '/assets/slide-2.webp',
-      bgGradient: 'from-blue-50 to-indigo-50',
-    },
-    {
-      id: 3,
-      title: t.carousel.slide3,
-      image: '/assets/slide-3.webp',
-      bgGradient: 'from-indigo-50 to-purple-50',
-    },
-    {
-      id: 4,
-      title: t.carousel.slide4,
-      image: '/assets/slide-4.webp',
-      bgGradient: 'from-purple-50 to-pink-50',
-    },
-  ];
 
-  const imageSizes = "(min-width: 1024px) 400px, (min-width: 768px) 45vw, 80vw";
+  // Optimization: Adjusted sizes to be more realistic for responsive breakpoints
+  const imageSizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
   // Auto-play and Mount check
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
@@ -73,7 +59,7 @@ export const MainCarousel = ({ locale: _locale }: MainCarouselProps) => {
         <div
           key={`bg-${slide.id}`}
           className={`absolute inset-0 bg-gradient-to-br ${slide.bgGradient} transition-opacity duration-1000 ease-in-out`}
-          style={{ 
+          style={{
             opacity: currentSlide === index ? 1 : 0,
             transitionProperty: index === 0 && currentSlide === 0 ? 'none' : 'opacity'
           }}
@@ -88,11 +74,9 @@ export const MainCarousel = ({ locale: _locale }: MainCarouselProps) => {
             return (
               <div
                 key={`text-${slide.id}`}
-                className={`col-start-1 row-start-1 flex flex-col items-center text-center md:items-start md:text-left gap-8 ${
-                  isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                } ${
-                  index === 0 && isActive ? '' : 'transition-opacity duration-700 ease-in-out'
-                }`}
+                className={`col-start-1 row-start-1 flex flex-col items-center text-center md:items-start md:text-left gap-8 ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  } ${index === 0 && isActive ? '' : 'transition-opacity duration-700 ease-in-out'
+                  }`}
               >
                 <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 tracking-tight mb-4 md:mb-6 leading-tight">
                   {slide.title}
@@ -111,21 +95,20 @@ export const MainCarousel = ({ locale: _locale }: MainCarouselProps) => {
             const isActive = currentSlide === index;
             // Disable animations for the very first slide to optimize LCP
             const isInitialSlide = index === 0;
-            const animationClasses = isInitialSlide && isActive 
-              ? '' 
+            const animationClasses = isInitialSlide && isActive
+              ? ''
               : 'transition-all duration-700 ease-in-out transform';
 
             return (
               <div
                 key={`img-${slide.id}`}
-                className={`absolute inset-0 flex items-center justify-center ${animationClasses} ${
-                  isActive
-                    ? 'opacity-100 scale-100'
-                    : 'opacity-0 scale-95 pointer-events-none'
-                }`}
+                className={`absolute inset-0 flex items-center justify-center ${animationClasses} ${isActive
+                  ? 'opacity-100 scale-100'
+                  : 'opacity-0 scale-95 pointer-events-none'
+                  }`}
               >
                 <div className="relative w-full h-full max-w-[400px] max-h-[800px]">
-                   <Image
+                  <Image
                     src={slide.image}
                     alt={`Globol App Screen: ${slide.title} - Real-time translation and global chat features`}
                     fill
@@ -133,6 +116,7 @@ export const MainCarousel = ({ locale: _locale }: MainCarouselProps) => {
                     sizes={imageSizes}
                     priority={isInitialSlide}
                     loading={isInitialSlide ? "eager" : "lazy"}
+                    fetchPriority={isInitialSlide ? "high" : "auto"}
                   />
                 </div>
               </div>
@@ -152,9 +136,8 @@ export const MainCarousel = ({ locale: _locale }: MainCarouselProps) => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-1.5 rounded-full transition-all duration-300 ${
-              currentSlide === index ? 'h-8 bg-gray-900' : 'h-1.5 bg-gray-300 hover:bg-gray-400'
-            }`}
+            className={`w-1.5 rounded-full transition-all duration-300 ${currentSlide === index ? 'h-8 bg-gray-900' : 'h-1.5 bg-gray-300 hover:bg-gray-400'
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

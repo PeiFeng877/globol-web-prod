@@ -128,7 +128,7 @@ const defaultProfileDetail: UserProfileDetail = {
   id: 'default',
   headline: { en: 'Dating profile', zh: '个人资料', de: 'Profil', es: 'Perfil', fr: 'Profil', hi: 'प्रोफाइल', id: 'Profil', it: 'Profilo', ja: 'プロフィール', ko: '프로필', nl: 'Profiel', pt: 'Perfil', ru: 'Профиль', th: 'โปรไฟล์', vi: 'Hồ sơ' },
   about: { en: 'Intro', zh: '个人简介', de: 'Intro', es: 'Intro', fr: 'Intro', hi: 'परिचय', id: 'Intro', it: 'Intro', ja: '紹介', ko: '소개', nl: 'Intro', pt: 'Intro', ru: 'О себе', th: 'แนะนำ', vi: 'Giới thiệu' },
-  traits: [ { en: 'Warm', zh: '温暖', de: 'Warm', es: 'Cálida', fr: 'Chaleureuse', hi: 'गर्म', id: 'Hangat', it: 'Calorosa', ja: '温厚', ko: '따뜻함', nl: 'Warm', pt: 'Calorosa', ru: 'Теплая', th: 'อบอุ่น', vi: 'Ấm áp' } ],
+  traits: [{ en: 'Warm', zh: '温暖', de: 'Warm', es: 'Cálida', fr: 'Chaleureuse', hi: 'गर्म', id: 'Hangat', it: 'Calorosa', ja: '温厚', ko: '따뜻함', nl: 'Warm', pt: 'Calorosa', ru: 'Теплая', th: 'อบอุ่น', vi: 'Ấm áp' }],
   interests: [], languages: [], occupation: { en: 'Not Specified', zh: '未指定', de: 'N/A', es: 'N/A', fr: 'N/A', hi: 'N/A', id: 'N/A', it: 'N/A', ja: '未指定', ko: '미지정', nl: 'N/A', pt: 'N/A', ru: 'N/A', th: 'N/A', vi: 'N/A' },
   communicationStyle: { en: 'Casual', zh: '随性', de: 'Locker', es: 'Casual', fr: 'Décontracté', hi: 'अनौपचारिक', id: 'Santai', it: 'Casuale', ja: 'カジュアル', ko: '편안함', nl: 'Casual', pt: 'Casual', ru: 'Повседневный', th: 'สบายๆ', vi: 'Thoải mái' },
   facts: [], stats: [], highlights: [], feed: []
@@ -271,10 +271,10 @@ export const getCountries = (): string[] => { return Array.from(new Set(profiles
 
 export const getProfileDetailView = (profile: UserProfile, locale: keyof LocalizedText): UserProfileDetailView => {
   const overrides = profileDetailOverrides[profile.id] || {};
-  const getLoc = (obj: any): string => { if (!obj) return ''; if (typeof obj === 'string') return obj; return obj[locale] || obj['en'] || ''; };
-  const mapLocArray = (arr?: any[]): string[] => { if (!arr) return []; return arr.map(item => getLoc(item)); };
-  const mapFacts = (facts?: ProfileFact[]): Array<{label: string, value: string}> => { if (!facts) return []; return facts.map(f => ({ label: getLoc(f.label), value: getLoc(f.value) })); };
-  const mapStats = (stats?: ProfileStat[]): Array<{label: string, value: string}> => { if (!stats) return []; return stats.map(s => ({ label: getLoc(s.label), value: s.value })); };
+  const getLoc = (obj: LocalizedText | string | undefined | null): string => { if (!obj) return ''; if (typeof obj === 'string') return obj; return obj[locale as keyof LocalizedText] || obj['en'] || ''; };
+  const mapLocArray = (arr?: Array<LocalizedText | string>): string[] => { if (!arr) return []; return arr.map(item => getLoc(item)); };
+  const mapFacts = (facts?: ProfileFact[]): Array<{ label: string, value: string }> => { if (!facts) return []; return facts.map(f => ({ label: getLoc(f.label), value: getLoc(f.value) })); };
+  const mapStats = (stats?: ProfileStat[]): Array<{ label: string, value: string }> => { if (!stats) return []; return stats.map(s => ({ label: getLoc(s.label), value: s.value })); };
   const mapFeed = (feed?: ProfileFeedItem[]): UserProfileDetailView['feed'] => { if (!feed) return []; return feed.map(item => ({ ...item, title: getLoc(item.title), caption: getLoc(item.caption), location: getLoc(item.location || '') })); };
   const detail = { ...defaultProfileDetail, ...overrides };
   return { id: profile.id, headline: getLoc(detail.headline), about: getLoc(detail.about), traits: mapLocArray(detail.traits), interests: mapLocArray(detail.interests), languages: mapLocArray(detail.languages), occupation: getLoc(detail.occupation), communicationStyle: getLoc(detail.communicationStyle), facts: mapFacts(detail.facts), stats: mapStats(detail.stats), highlights: mapFacts(detail.highlights), feed: mapFeed(detail.feed) };

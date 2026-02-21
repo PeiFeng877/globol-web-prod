@@ -35,7 +35,6 @@ Räumen Sie den Couchtisch beiseite. Legen Sie eine Decke auf den Boden. Servier
 ### 4. "Around the World"-Themenabend
 Wählen Sie ein Land. Kochen Sie ein Gericht von dort. Hören Sie Musik von dort. Schauen Sie einen Film, der dort spielt. Es ist Urlaub ohne Jetlag.
 
-![Ein Paar sitzt auf einer Picknickdecke im Wohnzimmer mit Käseplatten, Wein und Kerzen](/assets/articles/at-home-date-night-ideas/body-1.avif)
 
 ## Die "Spielerischen & Kompetitiven" Nächte
 *Ein wenig Rivalität ist gesund.*
@@ -68,7 +67,6 @@ Gemeinsames Träumen ist ein starkes Bindungsmittel.
 ### 11. Einander vorlesen
 Es klingt altmodisch, aber es ist unglaublich intim. Wählen Sie ein Buch (Lyrik oder einen Roman) und lesen Sie sich abwechselnd ein Kapitel laut vor.
 
-![Ein Paar in Bademänteln und mit Gesichtsmasken stößt in einem schwach beleuchteten Badezimmer mit Weingläsern an](/assets/articles/at-home-date-night-ideas/body-2.avif)
 
 ## Die goldene Regel für Dates zu Hause
 **Machen Sie sich schick.**

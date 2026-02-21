@@ -5,167 +5,115 @@ import { locales } from '@/i18n/settings';
 import { BASE_URL } from '@/lib/constants';
 import { profiles, getCountries } from '@/data/profiles';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const articles = getAllArticles('en');
-  const staticPages = ['about', 'contact', 'privacy', 'terms'];
+// 强制动态渲染, 绕过 CDN 陈旧缓存
+export const dynamic = 'force-dynamic';
 
-  // Helper to ensure trailing slash
-  const withSlash = (url: string) => url.endsWith('/') ? url : `${url}/`;
+// ────────────────────────────────────────────────────────────
+// URL 构建工具: 统一不带尾斜杠, 与 Next.js trailingSlash:false 对齐
+// ────────────────────────────────────────────────────────────
+const localizedUrl = (path: string, locale: string) =>
+  locale === 'en' ? `${BASE_URL}${path}` : `${BASE_URL}/${locale}${path}`;
 
-  // 1. Generate article URLs
-  const articleUrls = articles.flatMap(article =>
-    locales.map(locale => ({
-      url: locale === 'en'
-        ? withSlash(`${BASE_URL}/date-ideas/${article.slug}`)
-        : withSlash(`${BASE_URL}/${locale}/date-ideas/${article.slug}`),
+const hreflangMap = (path: string) =>
+  Object.fromEntries([
+    ['x-default', `${BASE_URL}${path}`],
+    ...locales.map(loc => [loc, localizedUrl(path, loc)])
+  ]);
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const articles = await getAllArticles('en');
+  const staticPages = ['about', 'contact', 'date-idea-generator'];
+
+  // 1. Article URLs
+  const articleUrls = articles.flatMap(article => {
+    const path = `/date-ideas/${article.slug}`;
+    return locales.map(locale => ({
+      url: localizedUrl(path, locale),
       lastModified: new Date(article.publishedAt),
       priority: 0.8,
-      alternates: {
-        languages: Object.fromEntries([
-          ['x-default', withSlash(`${BASE_URL}/date-ideas/${article.slug}`)],
-          ...locales.map(loc => [
-            loc,
-            loc === 'en'
-              ? withSlash(`${BASE_URL}/date-ideas/${article.slug}`)
-              : withSlash(`${BASE_URL}/${loc}/date-ideas/${article.slug}`)
-          ])
-        ])
-      }
-    }))
-  );
+      alternates: { languages: hreflangMap(path) }
+    }));
+  });
 
   // 2. Static Pages
-  const staticPageUrls = staticPages.flatMap((page) =>
-    locales.map((locale) => {
-      const localizedPath = locale === 'en' ? `/${page}` : `/${locale}/${page}`;
-
-      return {
-        url: withSlash(`${BASE_URL}${localizedPath}`),
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-        alternates: {
-          languages: Object.fromEntries([
-            ['x-default', withSlash(`${BASE_URL}/${page}`)],
-            ...locales.map((loc) => [
-              loc,
-              loc === 'en'
-                ? withSlash(`${BASE_URL}/${page}`)
-                : withSlash(`${BASE_URL}/${loc}/${page}`),
-            ]),
-          ]),
-        },
-      };
-    })
-  );
+  const staticPageUrls = staticPages.flatMap(page => {
+    const path = `/${page}`;
+    return locales.map(locale => ({
+      url: localizedUrl(path, locale),
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+      alternates: { languages: hreflangMap(path) }
+    }));
+  });
 
   // 3. International Dating - Main & Filters (Gender + Country)
   const datingUrls = (() => {
     const genders = ['man', 'woman'];
     const countries = getCountries();
-    const combinations: { urlPath: string; priority: number }[] = [
-      // Main Listing
-      { urlPath: '/international-dating', priority: 0.9 }
+    const paths: { path: string; priority: number }[] = [
+      { path: '/international-dating', priority: 0.9 }
     ];
 
-    // Gender Filter
     genders.forEach(gender => {
-      combinations.push({ urlPath: `/international-dating/${gender}`, priority: 0.8 });
-
-      // Gender + Country Filter
+      paths.push({ path: `/international-dating/${gender}`, priority: 0.8 });
       countries.forEach(country => {
-        combinations.push({ urlPath: `/international-dating/${gender}/${country}`, priority: 0.8 });
+        paths.push({ path: `/international-dating/${gender}/${country}`, priority: 0.8 });
       });
     });
 
-    return combinations.flatMap(({ urlPath, priority }) =>
-      locales.map(locale => {
-        const fullUrl = locale === 'en' ? `${BASE_URL}${urlPath}` : `${BASE_URL}/${locale}${urlPath}`;
-
-        return {
-          url: withSlash(fullUrl),
-          lastModified: new Date(),
-          changeFrequency: 'daily' as const,
-          priority,
-          alternates: {
-            languages: Object.fromEntries([
-              ['x-default', withSlash(`${BASE_URL}${urlPath}`)],
-              ...locales.map(loc => [
-                loc,
-                loc === 'en' ? withSlash(`${BASE_URL}${urlPath}`) : withSlash(`${BASE_URL}/${loc}${urlPath}`)
-              ])
-            ])
-          }
-        };
-      })
+    return paths.flatMap(({ path, priority }) =>
+      locales.map(locale => ({
+        url: localizedUrl(path, locale),
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority,
+        alternates: { languages: hreflangMap(path) }
+      }))
     );
   })();
 
   // 4. Dating Profiles (Detail Pages)
   const profileUrls = profiles.flatMap(profile => {
     const nameSlug = profile.name.toLowerCase().replace(/\s+/g, '-');
-    return locales.map(locale => {
-      const urlPath = `/international-dating/profile/${nameSlug}`;
-      const fullUrl = locale === 'en' ? `${BASE_URL}${urlPath}` : `${BASE_URL}/${locale}${urlPath}`;
-
-      return {
-        url: withSlash(fullUrl),
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-        alternates: {
-          languages: Object.fromEntries([
-            ['x-default', withSlash(`${BASE_URL}${urlPath}`)],
-            ...locales.map(loc => [
-              loc,
-              loc === 'en' ? withSlash(`${BASE_URL}${urlPath}`) : withSlash(`${BASE_URL}/${loc}${urlPath}`)
-            ])
-          ])
-        }
-      };
-    });
+    const path = `/international-dating/profile/${nameSlug}`;
+    return locales.map(locale => ({
+      url: localizedUrl(path, locale),
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+      alternates: { languages: hreflangMap(path) }
+    }));
   });
 
+  // 5. Homepage & Date Ideas List
   return [
-    // Homepage
     ...locales.map(locale => ({
-      url: locale === 'en' ? withSlash(BASE_URL) : withSlash(`${BASE_URL}/${locale}`),
+      url: locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 1,
       alternates: {
         languages: Object.fromEntries([
-          ['x-default', withSlash(BASE_URL)],
+          ['x-default', BASE_URL],
           ...locales.map(loc => [
             loc,
-            loc === 'en' ? withSlash(BASE_URL) : withSlash(`${BASE_URL}/${loc}`)
+            loc === 'en' ? BASE_URL : `${BASE_URL}/${loc}`
           ])
         ])
       }
     })),
-    // Date ideas list
     ...locales.map(locale => ({
-      url: locale === 'en'
-        ? withSlash(`${BASE_URL}/date-ideas`)
-        : withSlash(`${BASE_URL}/${locale}/date-ideas`),
+      url: localizedUrl('/date-ideas', locale),
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
-      alternates: {
-        languages: Object.fromEntries([
-          ['x-default', withSlash(`${BASE_URL}/date-ideas`)],
-          ...locales.map(loc => [
-            loc,
-            loc === 'en'
-              ? withSlash(`${BASE_URL}/date-ideas`)
-              : withSlash(`${BASE_URL}/${loc}/date-ideas`)
-          ])
-        ])
-      }
+      alternates: { languages: hreflangMap('/date-ideas') }
     })),
     ...staticPageUrls,
     ...datingUrls,
     ...profileUrls,
+    ...articleUrls,
   ];
 }
 
