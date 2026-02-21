@@ -20,6 +20,8 @@ import { locales } from '@/i18n/settings';
 const CARD_IMAGE_SIZES =
   "(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
+export const revalidate = 60;
+
 interface PageProps {
   params: Promise<{
     locale: string;

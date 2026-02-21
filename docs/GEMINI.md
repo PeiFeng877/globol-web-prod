@@ -12,13 +12,13 @@ docs/
 │   ├── 04-Social-Sharing.md
 │   ├── 05-Content-Management.md
 │   ├── 06-Architecture-Evolution-2026.md
+│   ├── SEO_AUDIT.md
+│   ├── SEO_WORK_LOG.md
+│   ├── seo-audit-acceptance.md
 │   └── README.md
-├── SEO_AUDIT.md
-├── SEO_WORK_LOG.md
 ├── Content-Workflow.md
 ├── analytics-monitoring.md
 ├── i18n-standard.md
-├── seo-audit-acceptance.md
 └── AI-Generation-Guidelines/
     ├── GEMINI.md
     ├── README.md
@@ -28,12 +28,9 @@ docs/
 
 ## 2. 🧩 模块 (Modules)
 - `AI-Generation-Guidelines/`: AI 生成内容规范与模板集合。
-- `SEO/`: SEO 技术架构与执行策略文档集。
-- `SEO_AUDIT.md`: SEO 审计报告与修复计划 tracking。
-- `SEO_WORK_LOG.md`: SEO 优化工作日志。
+- `SEO/`: SEO 技术架构与执行策略文档集，包含架构分析、内容策略、结构化数据、社群分享等，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
 - `Content-Workflow.md`: 内容管理流转指南，包含文章的多语言存储分布与一键同步编排机制。
 - `i18n-standard.md`: 国际化标准与实施指南。
-- `seo-audit-acceptance.md`: SEO 审计与验收记录基线文档。
 - `analytics-monitoring.md`: Firebase/GA4 监控方案与指标定义。
 
 ## 3. 📐 规范 (Rules)

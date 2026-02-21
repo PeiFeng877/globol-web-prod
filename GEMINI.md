@@ -22,15 +22,12 @@
 ```
 .
 ├── GEMINI.md
-├── .env.example
 ├── README.md
 ├── docs/
 │   ├── GEMINI.md
+│   ├── Content-Workflow.md
+│   ├── SEO/
 │   └── AI-Generation-Guidelines/
-│       ├── GEMINI.md
-│       ├── README.md
-│       └── templates/
-│           └── article-template.md
 ├── public/
 ├── src/
 │   ├── GEMINI.md

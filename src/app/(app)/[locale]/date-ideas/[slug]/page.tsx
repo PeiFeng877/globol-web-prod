@@ -21,6 +21,8 @@ import { ShareButtons } from '@/components/ui/ShareButtons';
 import { getDictionary } from '@/i18n/server';
 import { locales } from '@/i18n/settings';
 
+export const revalidate = 60;
+
 interface PageProps {
   params: Promise<{
     slug: string;
