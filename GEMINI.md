@@ -25,7 +25,7 @@
 ├── README.md
 ├── docs/
 │   ├── GEMINI.md
-│   ├── Content-Workflow.md
+│   ├── Core-System-Architecture.md
 │   ├── SEO/
 │   └── AI-Generation-Guidelines/
 ├── public/

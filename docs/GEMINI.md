@@ -6,16 +6,14 @@
 docs/
 ├── GEMINI.md
 ├── SEO/
-│   ├── 01-Technical-Architecture.md
 │   ├── 02-Content-Strategy.md
 │   ├── 03-Structured-Data.md
 │   ├── 04-Social-Sharing.md
-│   ├── 06-Architecture-Evolution-2026.md
 │   ├── SEO_AUDIT.md
 │   ├── SEO_WORK_LOG.md
 │   ├── seo-audit-acceptance.md
 │   └── README.md
-├── Content-Workflow.md
+├── Core-System-Architecture.md
 ├── analytics-monitoring.md
 ├── i18n-standard.md
 └── AI-Generation-Guidelines/
@@ -27,8 +25,8 @@ docs/
 
 ## 2. 🧩 模块 (Modules)
 - `AI-Generation-Guidelines/`: AI 生成内容规范与模板集合。
-- `SEO/`: SEO 技术架构与执行策略文档集，包含架构分析、内容策略、结构化数据、社群分享等，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
-- `Content-Workflow.md`: 内容管理流转指南，包含文章的多语言存储分布与一键同步编排机制。
+- `SEO/`: SEO 执行策略文档集，包含内容策略、结构化数据、社群分享，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
+- `Core-System-Architecture.md`: 核心系统架构与工作流宪法，详述底层数据库选型 (Supabase vs Vercel)、渲染缓存机制 (ISR)、Vercel 部署脱钩安全策略及多语言一键发布 SOP。
 - `i18n-standard.md`: 国际化标准与实施指南。
 - `analytics-monitoring.md`: Firebase/GA4 监控方案与指标定义。
 
@@ -37,6 +35,7 @@ docs/
 - 任何新增模板或目录层级必须同步更新本文件与子模块 L2。
 
 ## 4. 🧾 变更日志 (Changelog)
+- 2026-02-22: 回收并清理历史过期的多份架构探讨文档，熔炼精简出唯一的 `Core-System-Architecture.md` 统领数据流转宪法。
 - 2026-02-21: 新增 `Content-Workflow.md` 详述基于扁平化实体与语言标签的内容发布与同步机制。
 - 2026-02-20: 新增 `06-Architecture-Evolution-2026.md` 架构演进与内容扩展方案探讨文档。
 - 2026-02-19: 同步 SEO 文档集、审计日志与国际化标准文档。
