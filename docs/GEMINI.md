@@ -10,7 +10,6 @@ docs/
 │   ├── 02-Content-Strategy.md
 │   ├── 03-Structured-Data.md
 │   ├── 04-Social-Sharing.md
-│   ├── 05-Content-Management.md
 │   ├── 06-Architecture-Evolution-2026.md
 │   ├── SEO_AUDIT.md
 │   ├── SEO_WORK_LOG.md
