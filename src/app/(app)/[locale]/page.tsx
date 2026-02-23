@@ -72,6 +72,9 @@ export default async function Home({ params }: PageProps) {
     { id: 4, title: t.carousel.slide4, image: '/assets/slide-4.webp', bgGradient: 'from-purple-50 to-pink-50' },
   ];
 
+  // 首屏图片路径：与 slides[0].image 保持同步
+  const firstSlideImage = '/assets/slide-1.webp';
+
   return (
     <main className="min-h-screen bg-off-white">
       <h1 className="sr-only">{t.seo.homeTitle}</h1>

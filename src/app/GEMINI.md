@@ -1,5 +1,6 @@
 # src/app/GEMINI.md - 路由与页面 (L2)
 [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 ## 1. 🗺 地图 (结构)
 ```
@@ -25,8 +26,7 @@ app/
 │   │   ├── GEMINI.md
 │   │   └── ai-chat/route.ts
 │   ├── favicon.ico
-│   ├── globals.css
-│   └── layout.tsx
+│   └── globals.css
 ├── (payload)/
 │   ├── admin/
 │   ├── api/[...slug]/
@@ -36,7 +36,7 @@ app/
 ```
 
 ## 2. 📄 文件说明 (Files)
-- `layout.tsx`: 全局 HTML 骨架、字体、导航/页脚布局与统计挂载。
+- `[locale]/layout.tsx`: 全局 HTML 骨架、动态 lang 属性赋值、字体、导航/页脚布局与统计挂载。
 - `globals.css`: 全站基础样式与通用类定义。
 - `robots.ts`: 站点爬虫规则与 sitemap 入口。
 - `sitemap.ts`: 生成多语言 sitemap 与 alternates。
@@ -62,6 +62,8 @@ app/
 - 结构化数据 (JSON-LD) 只在页面层输出。
 
 ## 5. 🧾 变更日志 (Changelog)
+- 2026-02-23: 在 `[locale]/layout.tsx` 注入 `<SpeedInsights />` 和 `<Analytics />` 组件，接入 Vercel Speed Insights 与 Web Analytics。
+- 2026-02-23: SEO 优化：合并 `(app)/layout.tsx` 逻辑至 `[locale]/layout.tsx`，修复多语言 `<html lang>` 属性；`sitemap` 采用 ISR 提速；部分业务组件懒加载。
 - 2026-02-08: 实现 SEO 优化：动态域名支持 (`constants.ts`)、开启页脚国际交友入口、新增多语言 404 页面。
 - 2026-02-08: 新增 `api/ai-chat/route.ts`，接入 Vercel AI Gateway 聊天能力并增加 3 条上限风控。
 - 2026-02-08: 人物详情页右侧 `Switch` 改为 `Say Hi` 样式按钮，并新增移动端聊天入口。

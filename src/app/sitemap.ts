@@ -5,8 +5,8 @@ import { locales } from '@/i18n/settings';
 import { BASE_URL } from '@/lib/constants';
 import { profiles, getCountries } from '@/data/profiles';
 
-// 强制动态渲染, 绕过 CDN 陈旧缓存
-export const dynamic = 'force-dynamic';
+// 启用 ISR, 避免每次爬虫抓取都全量重算, 提升响应速度
+export const revalidate = 3600;
 
 // ────────────────────────────────────────────────────────────
 // URL 构建工具: 统一不带尾斜杠, 与 Next.js trailingSlash:false 对齐
