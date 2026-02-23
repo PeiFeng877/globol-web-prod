@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title: article.title,
         description: article.subtitle,
-        images: [article.heroImage || ''],
+        images: [article.heroImage?.startsWith('http') ? article.heroImage : `https://globol.im${article.heroImage}`],
       },
       alternates: {
         canonical: locale === 'en' ? `/date-ideas/${slug}` : `/${locale}/date-ideas/${slug}`,
@@ -95,7 +95,7 @@ export default async function ArticlePage({ params }: PageProps) {
     '@type': 'Article',
     headline: article.title,
     description: article.subtitle,
-    image: [`https://globol.im${article.heroImage}`],
+    image: [article.heroImage?.startsWith('http') ? article.heroImage : `https://globol.im${article.heroImage}`],
     datePublished: article.publishedAt,
     author: {
       '@type': 'Organization',

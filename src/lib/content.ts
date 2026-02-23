@@ -11,6 +11,7 @@
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import { Config, LegalText, Destination, PseoTemplate, DateLocation } from '@/payload-types';
+import { marked } from 'marked';
 
 export interface FAQ {
   question: string;
@@ -45,7 +46,17 @@ function convertLexicalToHtml(node: Record<string, unknown> | null | undefined):
   if (!node) return '';
 
   if (node.type === 'text') {
-    let text = escapeHTML((node.text as string) || '');
+    let text = (node.text as string) || '';
+
+    // 如果文本中包含典型的 markdown 结构（如 ## 或者 **），通过 marked 进行解析以恢复被合并的排版
+    if (text.includes('# ') || text.includes('## ') || text.includes('**') || text.includes('*')) {
+      return marked.parse(text) as string;
+    }
+
+    text = escapeHTML(text);
+    // 强制将 Payload CMS 中直接出现的 \n 转换为 <br /> 
+    text = text.replace(/\n/g, '<br />');
+
     const format = (node.format as number) || 0;
     if (format & 1) text = `<strong>${text}</strong>`;
     if (format & 2) text = `<em>${text}</em>`;
@@ -76,6 +87,14 @@ function convertLexicalToHtml(node: Record<string, unknown> | null | undefined):
       const fields = node.fields as { newTab?: boolean; url?: string } | undefined;
       const rel = fields?.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
       return `<a href="${escapeHTML(fields?.url || '')}"${rel}>${childrenHtml}</a>`;
+    case 'linebreak':
+      return `<br />`;
+    case 'upload':
+      const val = node.value as { url?: string; alt?: string } | undefined;
+      if (val && val.url) {
+        return `<img src="${escapeHTML(val.url)}" alt="${escapeHTML(val.alt || '')}" />`;
+      }
+      return '';
     default:
       return childrenHtml;
   }
@@ -104,9 +123,12 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
   const article = data.docs[0];
   const contentHtml = convertLexicalToHtml(article.content?.root as Record<string, unknown>);
 
+  // DEBUG LOG
+  console.log(`[DEBUG] HTML for ${slug}:`, contentHtml.substring(0, 500) + '...');
+
   const heroImageUrl = typeof article.heroImage === 'object' && article.heroImage?.url
     ? article.heroImage.url
-    : '/assets/undraw_love_re_mwbq.svg';
+    : '/assets/article-hero.avif';
 
   const articleObj = article as unknown as Record<string, unknown>;
 
@@ -178,7 +200,7 @@ export async function getAllArticles(locale: string = 'en'): Promise<Omit<Articl
   return (data.docs || []).map(article => {
     const heroImageUrl = typeof article.heroImage === 'object' && article.heroImage?.url
       ? article.heroImage.url
-      : '/assets/undraw_love_re_mwbq.svg';
+      : '/assets/article-hero.avif';
 
     const articleObj = article as unknown as Record<string, unknown>;
 

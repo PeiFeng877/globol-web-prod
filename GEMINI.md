@@ -16,6 +16,7 @@
 - **国际化**: 自定义 i18n 实现 (`src/i18n`)
 - **内容**: Markdown/Remark (`gray-matter`, `remark`, `remark-html`)
 - **图标**: Lucide React
+- **测试**: Playwright (E2E)
 - **部署**: Vercel (隐含配置)
 
 ## 3. 🗺 目录结构 (Project Map)
@@ -27,6 +28,7 @@
 │   ├── GEMINI.md
 │   ├── Core-System-Architecture.md
 │   ├── SEO/
+│   ├── testing/            # 测试规范与流程文档
 │   └── AI-Generation-Guidelines/
 ├── public/
 ├── src/
@@ -38,6 +40,8 @@
 │   ├── i18n/
 │   ├── lib/
 │   └── middleware.ts
+├── tests/                  # Playwright E2E 测试
+├── playwright.config.ts
 ├── next.config.ts
 ├── package.json
 ├── postcss.config.mjs
@@ -57,6 +61,7 @@
 - 国际化字典只从 `src/i18n` 读取，不在组件内硬编码。
 
 ## 6. 🧾 变更日志 (Changelog)
+- 2026-02-22: 新增 Playwright E2E 测试体系 (`tests/`、`playwright.config.ts`) 与测试规范文档 (`docs/testing/`)。
 - 2026-02-05: 添加 Firebase 环境变量示例文件。
 - 2026-02-03: 补齐 L2/L3 文档与协议头部，补全项目结构地图。
 

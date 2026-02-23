@@ -51,6 +51,35 @@ export const Articles: CollectionConfig = {
             type: 'date',
         },
         {
+            name: 'category',
+            type: 'text',
+            defaultValue: 'Relationships',
+            admin: {
+                position: 'sidebar',
+                description: 'Article category',
+            }
+        },
+        {
+            name: 'faqs',
+            type: 'array',
+            labels: {
+                singular: 'FAQ',
+                plural: 'FAQs',
+            },
+            fields: [
+                {
+                    name: 'question',
+                    type: 'text',
+                    required: true,
+                },
+                {
+                    name: 'answer',
+                    type: 'textarea',
+                    required: true,
+                },
+            ],
+        },
+        {
             name: 'language',
             type: 'select',
             required: true,
