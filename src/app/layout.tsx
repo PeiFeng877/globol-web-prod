@@ -15,6 +15,7 @@ import "./globals.css";
 import { FirebaseAnalytics } from "@/components/analytics/FirebaseAnalytics";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { defaultLocale } from "@/i18n/settings";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
           <PageViewTracker />
         </Suspense>
         {children}
+        <Analytics />
       </body>
     </html>
   );
