@@ -104,6 +104,61 @@ GSC 报告了 412 个因重定向导致未建立索引的页面，URL 涵盖：
 
 ---
 
+## Issue #005 - BreadcrumbList Schema 缺少 "name" 或 "item.name" 属性
+**发现日期**: 2026-02-23  
+**严重程度**: 🟡 中 (导致对应页面的面包屑富摘要失效)  
+**来源**: Google Search Console (结构化数据未通过解析)  
+
+### 问题描述
+Google Search Console 报错提示 `/ko/international-dating/woman` 等页面的 BreadcrumbList 结构化数据解析失败，错误原因为 `itemListElement` 中的条目应指定 "name" 或 "item.name"。这导致页面在搜索结果中无法展示层次清晰的面包屑导航。
+
+### 根本原因
+在处理 BreadcrumbList schema 的生成逻辑时，部分字段赋值错误。以 `src/app/(app)/[locale]/international-dating/[[...slug]]/page.tsx` 为例，代码在向 `breadcrumbs` 数组追加 `gender` 和 `country` 层级时，错误地直接展开了属性：
+```typescript
+// 错误示范：
+breadcrumbs.push({
+  '@type': 'ListItem',
+  position: 3,
+  name: gender === 'man' ? t.common.men : t.common.women,
+  item: `${baseUrl}${datingLink}/${gender}`
+});
+```
+根据 Schema.org/BreadcrumbList 规范，`itemListElement` 数组中的元素虽然是 `ListItem`，但如果不包裹一个完整的 URL/名称节点，Google 解析器便严格拒收。
+
+### 修复方法
+排查所有输出 `BreadcrumbList` 的页面（主要为 `date-ideas/[slug]`、`international-dating/[[...slug]]` 和 `international-dating/profile/[name]`）。修正 `itemListElement` 内部子项的结构对齐：
+
+*(注：下述步骤为排查出的需要代码实施的地方，当前文档仅记录架构缺陷。)*
+- 检查 `ListItem` 的 `item` 属性是否正确包裹，或者是将 `name` 严格赋给了正确的层级。实际上，上述截图反映的问题在于 `item.name` 与顶层 `name` 的结构性混用。正确的写法应当确保向后兼容所有 schema 解析器：
+```typescript
+{
+  '@type': 'ListItem',
+  position: 1,
+  name: "Home",     // 必须提供
+  item: "https://globol.im/" // URL
+}
+```
+经过仔细审查上述代码，发现问题其实在于 `Next.js` 输出的 JSON 被 Google 抓取时的部分非标准 URL 导致其退回验证。我们需要确保所有的 `item` (URL) 和 `name` 都绝对保证非空。
+
+*(真正的代码漏洞诊断)*：在 `international-dating/[[...slug]]/page.tsx` 中：
+```typescript
+  if (gender) {
+    breadcrumbs.push({
+      '@type': 'ListItem',
+      position: 3,
+      name: gender === 'man' ? t.common.men : t.common.women,  // <-- 如果 t.common 字典中缺失这些 key，name 就会变成 undefined/空！
+      item: `${baseUrl}${datingLink}/${gender}`
+    });
+  }
+```
+并且在使用 `sampleProfile?.countryDisplay?.[locale]` 时，如果匹配不到，`name` 也变成了不合法的值。这就解释了为什么偏偏在特定的过滤路径下 GSC 会报错。
+
+### 预防机制
+- **规则**: 任何 JSON-LD 结构化数据在输出前，必须提供有效的 Fallback 兜底方案。尤其涉及到从 i18n 字典读取动态 `name` 时（如 `${t.common.men || 'Men'}`）。
+- **检查方法**: 上线前，选取动态生成的页面 URL 放进 [Google 结构化数据测试工具 (Rich Results Test)](https://search.google.com/test/rich-results) 跑一遍，确保 `BreadcrumbList` 完全变绿。
+
+---
+
 ## 预防检查清单 (Pre-deployment SEO Checklist)
 
 每次功能迭代上线前，必须快速执行以下检查：
@@ -125,4 +180,7 @@ STATUS=$(curl -Ls -o /dev/null -w "%{http_code}" "https://www.globol.im/zh")
 # 5. 带尾斜杠正确重定向
 FINAL_URL=$(curl -Ls -o /dev/null -w "%{url_effective}" "https://www.globol.im/zh/")
 [ "$FINAL_URL" = "https://www.globol.im/zh" ] && echo "✅ 尾斜杠重定向正确" || echo "❌ 尾斜杠重定向落点: $FINAL_URL"
+
+# 6. BreadcrumbList Schema 'name' 字段非空检查
+curl -s https://www.globol.im/ko/international-dating/woman | grep -q '"name":""\|"name":undefined\|"name":null' && echo "❌ 发现不合法的 JSON-LD name 属性" || echo "✅ 面包屑 name 字段检查通过"
 ```

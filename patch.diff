@@ -1,0 +1,1320 @@
+diff --git a/docs/GEMINI.md b/docs/GEMINI.md
+index 5d13c8c..00542eb 100644
+--- a/docs/GEMINI.md
++++ b/docs/GEMINI.md
+@@ -10,6 +10,7 @@ docs/
+ │   ├── 03-Structured-Data.md
+ │   ├── 04-Social-Sharing.md
+ │   ├── SEO_AUDIT.md
++│   ├── SEO_ISSUE_LOG.md
+ │   ├── SEO_WORK_LOG.md
+ │   ├── seo-audit-acceptance.md
+ │   └── README.md
+@@ -30,6 +31,7 @@ docs/
+ - `AI-Generation-Guidelines/`: AI 生成内容规范与模板集合。
+ - `SEO/`: SEO 执行策略文档集，包含内容策略、结构化数据、社群分享，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
+ - `testing/`: 测试规范与流程文档，定义小变更/大发版的测试流程与通过标准。
++- `SEO/SEO_ISSUE_LOG.md`: SEO 问题历史日志，记录所有发现与修复过的 SEO 问题、根因及预防机制，含可执行的上线前检查命令。
+ - `Core-System-Architecture.md`: 核心系统架构与工作流宪法，详述底层数据库选型 (Supabase vs Vercel)、渲染缓存机制 (ISR)、Vercel 部署脱钩安全策略及多语言一键发布 SOP。
+ - `Production-Deployment-Checklist.md`: 生产环境部署清单，专门记录 Vercel/Supabase 线上云资源的配置状态及正式服上线前必须补齐的环境变量操作规范。
+ - `i18n-standard.md`: 国际化标准与实施指南。
+@@ -40,6 +42,7 @@ docs/
+ - 任何新增模板或目录层级必须同步更新本文件与子模块 L2。
+ 
+ ## 4. 🧾 变更日志 (Changelog)
++- 2026-02-23: 新增 `SEO/SEO_ISSUE_LOG.md`，记录 4 大历史 SEO 问题（重复 URL、尾斜杠、html lang 硬编码、GSC 重定向）及预防机制。
+ - 2026-02-22: 新增 `testing/TESTING-STANDARD.md` 测试规范文档，定义四维度测试体系与开发测试流程。
+ - 2026-02-22: 新增 `Production-Deployment-Checklist.md` 生产部署清单，记录同机房零延迟的 Supabase 及 Vercel 线上资源状态。
+ - 2026-02-22: 回收并清理历史过期的多份架构探讨文档，熔炼精简出唯一的 `Core-System-Architecture.md` 统领数据流转宪法。
+diff --git a/docs/SEO/SEO_ISSUE_LOG.md b/docs/SEO/SEO_ISSUE_LOG.md
+new file mode 100644
+index 0000000..1c9875d
+--- /dev/null
++++ b/docs/SEO/SEO_ISSUE_LOG.md
+@@ -0,0 +1,128 @@
++# SEO 问题历史日志 (SEO Issue Log)
++[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
++
++> **文档目标**: 记录 Globol 项目曾经发现和处理过的所有 SEO 问题，防止相同问题在功能迭代中复发。  
++> **更新规范**: 每次修复 SEO 问题后，必须在本文档中追加一条记录。  
++> **格式**: 问题描述 → 根因 → 修复方法 → 预防机制
++
++---
++
++## Issue #001 - Sitemap 含重复 URL（非规范协议/路径变体）
++**发现日期**: 2026-02-12  
++**严重程度**: 🔴 高  
++**来源**: Semrush SEO 审计
++
++### 问题描述
++Sitemap.xml 中同时输出了 `https://` 和无协议前缀的 URL，以及多语言路径的多种变体（如 `/en/` 和 `/`），导致 Google 将它们识别为重复内容。
++
++### 根本原因
++`sitemap.ts` 使用了 `process.env.NEXT_PUBLIC_BASE_URL` 作为域名基础，在不同环境下可能被设置为不同值（如 `http://` 或者无 www）。
++
++### 修复方法
++1. 在 `src/lib/constants.ts` 中写死 `BASE_URL = 'https://www.globol.im'`，不再读取环境变量。
++2. `sitemap.ts` 统一从 `BASE_URL` 构建所有 URL，保证协议和域名一致。
++
++### 预防机制
++- **规则**: `BASE_URL` 永远不得从环境变量读取，必须是硬编码的 www + https 域名。
++- **检查方法**: `curl https://www.globol.im/sitemap.xml | grep "http://"` 期望无输出。
++
++---
++
++## Issue #002 - Sitemap URL 末尾含尾斜杠，触发 308 重定向
++**发现日期**: 2026-02-12  
++**严重程度**: 🔴 高  
++**来源**: Google Search Console（重定向原因导致未建立索引）
++
++### 问题描述
++Sitemap 和 hreflang 标签中输出了带尾斜杠的 URL（如 `https://www.globol.im/zh/`），Next.js 默认 `trailingSlash: false`，访问这些 URL 会触发 308 永久重定向到不带斜杠的版本，导致 Google 认为 Sitemap 中的 URL 是"重定向页"而不建立索引。
++
++### 根本原因
++早期 Sitemap 生成逻辑使用了字符串拼接且未做统一处理，部分路径末尾带有 `/`。
++
++### 修复方法
++1. 在 `sitemap.ts` 中封装 `localizedUrl()` 工具函数，统一构建不含尾斜杠的规范 URL。
++2. 在 `generateMetadata()` 的 `alternates.canonical` 中同步确保不含尾斜杠。
++
++### 预防机制
++- **规则**: 任何硬编码 URL 字符串（Sitemap、canonical、hreflang）末尾均不得有 `/`，根路径 `/` 除外。
++- **检查方法**: `curl https://www.globol.im/sitemap.xml | grep -E "loc>.*/$"` 期望无输出（除首页）。
++
++---
++
++## Issue #003 - `<html lang>` 属性全局硬编码为 `"en"`
++**发现日期**: 2026-02-23  
++**严重程度**: 🔴 高  
++**来源**: 内部代码审计
++
++### 问题描述
++根布局文件 `src/app/(app)/layout.tsx` 中写死了 `<html lang="en">`。由于 Next.js App Router 机制，无论访问的是哪个多语言页面（`/zh/`、`/es/` 等），浏览器和搜索引擎爬虫获取到的 HTML 始终声明自己是英语页面。这与页面的实际内容语言完全矛盾，对多语言 SEO 权重造成严重损害。
++
++### 根本原因
++布局文件的层级拆分问题：全局 `<html>` 骨架放在了不知道当前 `locale` 的父级 Layout 中，导致无法动态设置语言。
++
++### 修复方法
++将 `(app)/layout.tsx`（全局 HTML 骨架）和 `[locale]/layout.tsx`（多语言 i18n 注入）合并，由带有 `locale` 参数的 Layout 统一负责输出 `<html lang={locale}>`。
++
++### 预防机制
++- **规则**: `<html>` 标签必须位于能访问到 `locale` 参数的 Layout 层级中，不得在 `(app)/layout.tsx` 等无 locale 参数的文件中定义 `<html>`。
++- **检查方法**: 执行 `curl -s https://www.globol.im/zh | grep -o '<html[^>]*>'`，输出应为 `<html lang="zh">`。
++
++---
++
++## Issue #004 - Google Search Console 报告大量"因重定向未建立索引"
++**发现日期**: 2026-02-23  
++**严重程度**: 🟡 中  
++**来源**: Google Search Console（覆盖率报告）
++
++### 问题描述
++GSC 报告了 412 个因重定向导致未建立索引的页面，URL 涵盖：
++- `http://globol.im/...` 和 `https://globol.im/...`（无 www）
++- `https://www.globol.im/zh/`（带尾斜杠）
++- `https://www.globol.im/privacy/` 和 `/terms/`（302 跳转 CDN）
++- `https://www.globol.im/zh-TW/...` 和 `zh-CN/`（不支持的 locale 变体）
++
++### 根本原因
++这些 URL **本身的重定向行为是正确的**，根本问题是站点历史上曾将这些非规范 URL 泄露给爬虫（通过旧版 Sitemap 或 hreflang 标签），导致 Google 误认为这些应该是独立有效页面。具体归因：
++
++| URL 类型 | 触发来源 |
++|---|---|
++| non-www | 早期部署时配置了两个域名均有效 |
++| 尾斜杠 | Issue #002 修复前的旧版 Sitemap |
++| privacy/terms | 早期曾在 Sitemap 中包含这两个路径 |
++| zh-TW/zh-CN | 早期 hreflang 标签输出了非标准 locale 代码 |
++
++### 修复方法
++1. 确保 `next.config.ts` 明确声明 `trailingSlash: false`，防止行为随 Next.js 升级漂移。
++2. 确保 `sitemap.ts` 不含 `privacy`、`terms` 路径。
++3. 确保 `i18n/settings.ts` 中只声明官方支持的 locale 代码（如 `zh` 而非 `zh-CN`/`zh-TW`）。
++4. GSC 侧：通过「URL 检查」工具对各语言主要页面申请重新索引，加速 Google 纠正。
++
++### 预防机制
++- **规则**: Sitemap 中只能包含在 `i18n/settings.ts` `locales` 数组中声明的 locale，且不包含会被 redirect 的路由（如 privacy/terms）。
++- **Sitemap 不应包含的路径**: `privacy`, `terms`（这两个路径走 302 CDN 跳转）。
++- **检查方法**: `curl https://www.globol.im/sitemap.xml | grep -E "(privacy|terms)"` 期望无输出。
++
++---
++
++## 预防检查清单 (Pre-deployment SEO Checklist)
++
++每次功能迭代上线前，必须快速执行以下检查：
++
++```bash
++# 1. Sitemap 不含尾斜杠（除根路径）
++curl -s https://www.globol.im/sitemap.xml | grep -E "<loc>.*[^/]/$" && echo "❌ 发现尾斜杠问题" || echo "✅ 尾斜杠检查通过"
++
++# 2. Sitemap 不含 privacy/terms
++curl -s https://www.globol.im/sitemap.xml | grep -E "(privacy|terms)" && echo "❌ Sitemap 含 privacy/terms，需移除" || echo "✅ 隐私条款检查通过"
++
++# 3. 中文页面 lang 属性正确
++curl -s https://www.globol.im/zh | grep -o '<html[^>]*>' | grep 'lang="zh"' && echo "✅ lang 属性正确" || echo "❌ lang 属性错误，检查 layout"
++
++# 4. 尾斜杠 URL 正确重定向（期望 200，不是 301/308）
++STATUS=$(curl -Ls -o /dev/null -w "%{http_code}" "https://www.globol.im/zh")
++[ "$STATUS" = "200" ] && echo "✅ /zh 状态码 $STATUS" || echo "❌ /zh 状态码 $STATUS"
++
++# 5. 带尾斜杠正确重定向
++FINAL_URL=$(curl -Ls -o /dev/null -w "%{url_effective}" "https://www.globol.im/zh/")
++[ "$FINAL_URL" = "https://www.globol.im/zh" ] && echo "✅ 尾斜杠重定向正确" || echo "❌ 尾斜杠重定向落点: $FINAL_URL"
++```
+diff --git "a/docs/gsc-\351\227\256\351\242\230/2 \346\234\210 23 \347\275\221\347\253\231\346\234\252\345\273\272\347\253\213\347\264\242\345\274\225-\351\207\215\345\256\232\345\220\221.csv" "b/docs/gsc-\351\227\256\351\242\230/2 \346\234\210 23 \347\275\221\347\253\231\346\234\252\345\273\272\347\253\213\347\264\242\345\274\225-\351\207\215\345\256\232\345\220\221.csv"
+new file mode 100644
+index 0000000..575809f
+--- /dev/null
++++ "b/docs/gsc-\351\227\256\351\242\230/2 \346\234\210 23 \347\275\221\347\253\231\346\234\252\345\273\272\347\253\213\347\264\242\345\274\225-\351\207\215\345\256\232\345\220\221.csv"	
+@@ -0,0 +1,413 @@
++网址,上次抓取日期
++https://globol.im/?q=%7Bsearch_term_string%7D,2026-02-21
++https://globol.im/de/international-dating/woman,2026-02-21
++http://globol.im/,2026-02-20
++https://globol.im/,2026-02-20
++https://www.globol.im/es/international-dating/profile/amara/,2026-02-20
++https://www.globol.im/fr/international-dating/profile/amara/,2026-02-20
++https://www.globol.im/vi/international-dating/profile/mina/,2026-02-19
++https://www.globol.im/zh/international-dating/profile/emma/,2026-02-19
++https://globol.im/fr,2026-02-18
++https://globol.im/de/international-dating/profile/elara/,2026-02-17
++https://www.globol.im/de/international-dating/profile/elara/,2026-02-17
++https://globol.im/fr/international-dating/profile/mina/,2026-02-17
++https://www.globol.im/fr/international-dating/profile/mina/,2026-02-17
++https://www.globol.im/id/date-ideas/at-home-date-night-ideas/,2026-02-17
++https://www.globol.im/de/date-ideas/at-home-date-night-ideas/,2026-02-17
++https://www.globol.im/de/date-ideas/good-conversation-starters/,2026-02-17
++https://www.globol.im/es/date-ideas/good-conversation-starters/,2026-02-17
++https://www.globol.im/date-ideas/good-conversation-starters/,2026-02-17
++https://www.globol.im/es/date-ideas/at-home-date-night-ideas/,2026-02-17
++https://www.globol.im/hi/international-dating/profile/lucas/,2026-02-17
++https://www.globol.im/ko/,2026-02-17
++https://www.globol.im/fr/date-ideas/cute-date-ideas/,2026-02-17
++https://globol.im/th/international-dating,2026-02-17
++https://www.globol.im/pt/date-ideas/cheap-date-ideas/,2026-02-17
++https://www.globol.im/id/international-dating/profile/elara/,2026-02-17
++https://www.globol.im/ru/international-dating/profile/ji-oon/,2026-02-17
++https://www.globol.im/th/date-ideas/at-home-date-night-ideas/,2026-02-17
++https://globol.im/hi/international-dating/woman/nigeria,2026-02-17
++https://www.globol.im/date-ideas/first-date-questions/,2026-02-17
++https://globol.im/pt/international-dating/profile/mina,2026-02-17
++https://globol.im/zh,2026-02-17
++https://www.globol.im/fr/date-ideas/at-home-date-night-ideas/,2026-02-17
++https://globol.im/ja/international-dating/profile/emma/,2026-02-16
++https://www.globol.im/ja/international-dating/profile/emma/,2026-02-16
++https://globol.im/zh/international-dating,2026-02-16
++https://globol.im/international-dating/woman/usa/,2026-02-16
++https://www.globol.im/international-dating/woman/usa/,2026-02-16
++https://www.globol.im/international-dating/profile/emma/,2026-02-16
++https://globol.im/zh/,2026-02-16
++https://www.globol.im/zh/,2026-02-16
++https://www.globol.im/th/international-dating/woman/,2026-02-16
++https://www.globol.im/de/international-dating/woman/,2026-02-16
++https://globol.im/es/date-ideas/at-home-date-night-ideas,2026-02-16
++https://globol.im/en,2026-02-15
++https://globol.im/hi,2026-02-15
++https://globol.im/de/international-dating/woman/france,2026-02-15
++https://globol.im/international-dating/woman/thailand/,2026-02-15
++https://www.globol.im/international-dating/woman/thailand/,2026-02-15
++https://www.globol.im/es/international-dating/profile/haru/,2026-02-15
++https://www.globol.im/ja/international-dating/profile/elara/,2026-02-15
++https://www.globol.im/vi/international-dating/profile/som/,2026-02-15
++https://www.globol.im/id/international-dating/profile/lucas/,2026-02-15
++https://globol.im/fr/international-dating/woman/france,2026-02-15
++https://www.globol.im/fr/international-dating/man/brazil/,2026-02-15
++https://globol.im/fr/international-dating/woman/nigeria/,2026-02-15
++https://www.globol.im/fr/international-dating/woman/nigeria/,2026-02-15
++https://www.globol.im/id/international-dating/woman/nigeria/,2026-02-15
++https://www.globol.im/ko/international-dating/woman/nigeria/,2026-02-15
++https://www.globol.im/es/date-ideas/conversation-starters-for-couples/,2026-02-15
++https://www.globol.im/ru/international-dating/man/brazil/,2026-02-15
++https://www.globol.im/pt/international-dating/woman/usa/,2026-02-15
++https://globol.im/ru/international-dating/profile/amara/,2026-02-15
++https://www.globol.im/ru/international-dating/profile/amara/,2026-02-15
++https://globol.im/ja/international-dating/woman/thailand/,2026-02-15
++https://www.globol.im/ja/international-dating/woman/thailand/,2026-02-15
++https://www.globol.im/vi/international-dating/profile/emma/,2026-02-15
++https://globol.im/zh/international-dating/man/south-korea/,2026-02-15
++https://www.globol.im/zh/international-dating/man/south-korea/,2026-02-15
++https://www.globol.im/ja/international-dating/profile/haru/,2026-02-15
++https://www.globol.im/it/international-dating/profile/elara/,2026-02-15
++https://www.globol.im/vi/international-dating/man/south-korea/,2026-02-15
++https://www.globol.im/it/international-dating/profile/emma/,2026-02-15
++https://www.globol.im/es/international-dating/woman/france/,2026-02-14
++https://www.globol.im/pt/international-dating/man/,2026-02-14
++https://www.globol.im/zh/date-ideas/at-home-date-night-ideas/,2026-02-14
++https://globol.im/vi/international-dating/profile/amara/,2026-02-14
++https://www.globol.im/vi/international-dating/profile/amara/,2026-02-14
++https://www.globol.im/ru/international-dating/man/south-korea/,2026-02-14
++https://www.globol.im/nl/international-dating/woman/japan/,2026-02-14
++https://globol.im/nl/international-dating/profile/emma,2026-02-14
++https://www.globol.im/ko/international-dating/woman/,2026-02-14
++https://www.globol.im/th/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/ko/international-dating/man/brazil/,2026-02-14
++https://globol.im/it/about/,2026-02-14
++https://www.globol.im/it/about/,2026-02-14
++https://globol.im/international-dating/woman/usa,2026-02-14
++https://www.globol.im/zh/date-ideas/first-date-questions/,2026-02-14
++https://globol.im/pt/international-dating/profile/som/,2026-02-14
++https://www.globol.im/pt/international-dating/profile/som/,2026-02-14
++https://globol.im/es/international-dating/profile/ji-oon,2026-02-14
++https://www.globol.im/id/international-dating/woman/japan/,2026-02-14
++https://globol.im/hi/about/,2026-02-14
++https://www.globol.im/hi/about/,2026-02-14
++https://www.globol.im/hi/international-dating/woman/thailand/,2026-02-14
++https://www.globol.im/es/date-ideas/,2026-02-14
++https://www.globol.im/id/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/ru/international-dating/man/,2026-02-14
++https://www.globol.im/pt/international-dating/man/japan/,2026-02-14
++https://globol.im/zh/international-dating/man/brazil,2026-02-14
++https://globol.im/zh/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/zh/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/ko/international-dating/profile/haru/,2026-02-14
++https://globol.im/vi/international-dating/profile/lucas,2026-02-14
++https://globol.im/vi/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/vi/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/it/international-dating/man/south-korea/,2026-02-14
++https://www.globol.im/pt/international-dating/woman/france/,2026-02-14
++https://www.globol.im/es/international-dating/man/japan/,2026-02-14
++https://www.globol.im/th/international-dating/woman/nigeria/,2026-02-14
++https://www.globol.im/zh/international-dating/profile/som/,2026-02-14
++https://www.globol.im/hi/international-dating/woman/nigeria/,2026-02-14
++https://www.globol.im/hi/international-dating/profile/amara/,2026-02-14
++https://globol.im/hi/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/it/international-dating/woman/thailand/,2026-02-14
++https://globol.im/it/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/it/international-dating/man/brazil/,2026-02-14
++https://globol.im/th/terms/,2026-02-14
++https://www.globol.im/th/terms,2026-02-14
++https://www.globol.im/th/terms/,2026-02-14
++https://www.globol.im/id/international-dating/profile/som/,2026-02-14
++https://www.globol.im/it/international-dating/woman/nigeria/,2026-02-14
++https://www.globol.im/ja/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/ja/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/es/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/hi/international-dating/man/south-korea/,2026-02-14
++https://globol.im/ja/international-dating/man/japan/,2026-02-14
++https://www.globol.im/pt/international-dating/profile/ji-oon/,2026-02-14
++https://globol.im/th/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/th/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/de/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/vi/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/fr/international-dating/woman/france/,2026-02-14
++https://www.globol.im/vi/international-dating/woman/nigeria/,2026-02-14
++https://www.globol.im/id/international-dating/profile/haru/,2026-02-14
++https://www.globol.im/it/international-dating/profile/amara/,2026-02-14
++https://www.globol.im/pt/international-dating/woman/japan/,2026-02-14
++https://www.globol.im/zh/international-dating/profile/haru/,2026-02-14
++https://www.globol.im/pt/international-dating/profile/haru/,2026-02-14
++https://www.globol.im/hi/international-dating/profile/elara/,2026-02-14
++https://www.globol.im/hi/international-dating/profile/haru/,2026-02-14
++https://www.globol.im/fr/international-dating/woman/,2026-02-14
++https://globol.im/es/,2026-02-14
++https://www.globol.im/es/,2026-02-14
++https://globol.im/ru/,2026-02-14
++https://www.globol.im/ru/,2026-02-14
++https://www.globol.im/fr/date-ideas/good-conversation-starters/,2026-02-14
++https://globol.im/it/,2026-02-14
++https://www.globol.im/it/,2026-02-14
++https://globol.im/nl/,2026-02-14
++https://www.globol.im/nl/,2026-02-14
++https://globol.im/de/,2026-02-14
++https://www.globol.im/de/,2026-02-14
++https://globol.im/fr/international-dating/woman/usa,2026-02-14
++https://www.globol.im/date-ideas/at-home-date-night-ideas/,2026-02-14
++https://www.globol.im/th/date-ideas/,2026-02-14
++https://www.globol.im/th/international-dating/profile/mina/,2026-02-14
++https://www.globol.im/vi/date-ideas/best-first-date-ideas/,2026-02-14
++https://www.globol.im/hi/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/de/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/vi/international-dating/man/japan/,2026-02-14
++https://globol.im/it/international-dating/man/japan/,2026-02-14
++https://www.globol.im/it/international-dating/man/japan/,2026-02-14
++https://www.globol.im/ja/international-dating/woman/nigeria/,2026-02-14
++https://globol.im/fr/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/de/international-dating/man/japan/,2026-02-14
++https://www.globol.im/zh/international-dating/woman/thailand/,2026-02-14
++https://www.globol.im/nl/international-dating/profile/amara/,2026-02-14
++https://globol.im/zh/international-dating/woman/france/,2026-02-14
++https://www.globol.im/zh/international-dating/woman/france/,2026-02-14
++https://globol.im/pt/international-dating/profile/mina/,2026-02-14
++https://www.globol.im/pt/international-dating/profile/mina/,2026-02-14
++https://www.globol.im/hi/international-dating/profile/som/,2026-02-14
++https://www.globol.im/nl/international-dating/man/south-korea/,2026-02-14
++https://www.globol.im/de/international-dating/woman/france/,2026-02-14
++https://www.globol.im/nl/international-dating/woman/nigeria/,2026-02-14
++https://www.globol.im/hi/international-dating/woman/japan/,2026-02-14
++https://globol.im/ru/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/th/international-dating/profile/haru/,2026-02-14
++https://www.globol.im/ko/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/hi/international-dating/profile/mina/,2026-02-14
++https://www.globol.im/ru/international-dating/profile/mina/,2026-02-14
++https://www.globol.im/id/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/ko/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/ru/international-dating/profile/elara/,2026-02-14
++https://www.globol.im/id/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/fr/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/ko/international-dating/man/,2026-02-14
++https://www.globol.im/ru/international-dating/woman/france/,2026-02-14
++https://www.globol.im/nl/international-dating/profile/mina/,2026-02-14
++https://globol.im/de/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/de/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/ko/international-dating/man/japan/,2026-02-14
++https://globol.im/de/international-dating/woman/thailand/,2026-02-14
++https://www.globol.im/de/international-dating/woman/thailand/,2026-02-14
++https://globol.im/ko/international-dating/profile/amara/,2026-02-14
++https://www.globol.im/ko/international-dating/profile/amara/,2026-02-14
++https://www.globol.im/ru/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/nl/international-dating/man/brazil/,2026-02-14
++https://globol.im/hi/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/hi/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/pt/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/es/international-dating/profile/som/,2026-02-14
++https://www.globol.im/ja/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/pt/international-dating/man/brazil/,2026-02-14
++https://www.globol.im/pt/international-dating/profile/amara/,2026-02-14
++https://globol.im/de/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/de/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/de/international-dating/profile/mina/,2026-02-14
++https://www.globol.im/pt/international-dating/woman/thailand/,2026-02-14
++https://globol.im/id/date-ideas/,2026-02-14
++https://www.globol.im/id/date-ideas/,2026-02-14
++https://www.globol.im/de/international-dating/,2026-02-14
++https://www.globol.im/ko/contact/,2026-02-14
++https://globol.im/vi/international-dating/woman/japan/,2026-02-14
++https://www.globol.im/vi/international-dating/woman/japan/,2026-02-14
++https://www.globol.im/id/international-dating/,2026-02-14
++https://globol.im/zh/international-dating/,2026-02-14
++https://www.globol.im/zh/international-dating/,2026-02-14
++https://globol.im/contact/,2026-02-14
++https://www.globol.im/contact/,2026-02-14
++https://globol.im/hi/contact/,2026-02-14
++https://www.globol.im/hi/contact/,2026-02-14
++https://globol.im/pt/international-dating/,2026-02-14
++https://www.globol.im/pt/international-dating/,2026-02-14
++https://www.globol.im/th/about/,2026-02-14
++https://www.globol.im/nl/international-dating/woman/,2026-02-14
++https://globol.im/it/contact/,2026-02-14
++https://www.globol.im/it/contact/,2026-02-14
++https://www.globol.im/hi/date-ideas/,2026-02-14
++https://www.globol.im/es/international-dating/profile/lucas/,2026-02-14
++https://globol.im/ja/,2026-02-14
++https://www.globol.im/ja/,2026-02-14
++https://www.globol.im/nl/international-dating/profile/emma/,2026-02-14
++https://www.globol.im/ru/about/,2026-02-14
++https://www.globol.im/fr/date-ideas/,2026-02-14
++https://www.globol.im/th/international-dating/woman/thailand/,2026-02-14
++https://www.globol.im/th/contact/,2026-02-14
++https://globol.im/nl/about/,2026-02-14
++https://www.globol.im/nl/about/,2026-02-14
++https://globol.im/zh/contact/,2026-02-14
++https://www.globol.im/zh/contact/,2026-02-14
++https://www.globol.im/nl/international-dating/,2026-02-14
++https://www.globol.im/th/,2026-02-14
++https://globol.im/pt/,2026-02-14
++https://www.globol.im/pt/,2026-02-14
++https://www.globol.im/es/international-dating/woman/japan/,2026-02-14
++https://www.globol.im/id/international-dating/man/japan/,2026-02-14
++https://www.globol.im/it/international-dating/woman/france/,2026-02-14
++https://www.globol.im/th/international-dating/profile/som/,2026-02-14
++https://www.globol.im/es/international-dating/profile/elara/,2026-02-14
++https://www.globol.im/zh/international-dating/profile/lucas/,2026-02-14
++https://www.globol.im/th/international-dating/man/brazil/,2026-02-14
++https://globol.im/hi/international-dating/,2026-02-14
++https://www.globol.im/hi/international-dating/,2026-02-14
++https://www.globol.im/it/international-dating/woman/japan/,2026-02-14
++https://www.globol.im/vi/international-dating/woman/thailand/,2026-02-14
++https://globol.im/es/international-dating,2026-02-14
++https://globol.im/es/international-dating/,2026-02-14
++https://www.globol.im/es/international-dating/,2026-02-14
++https://globol.im/zh/date-ideas/best-first-date-ideas,2026-02-14
++https://www.globol.im/zh/date-ideas/best-first-date-ideas/,2026-02-14
++https://globol.im/de/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/de/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/ru/date-ideas/,2026-02-14
++https://www.globol.im/it/date-ideas/,2026-02-14
++https://globol.im/hi/international-dating/man/japan/,2026-02-14
++https://www.globol.im/hi/international-dating/man/japan/,2026-02-14
++https://www.globol.im/international-dating/profile/mina/,2026-02-14
++https://globol.im/international-dating/man/japan/,2026-02-14
++https://www.globol.im/international-dating/man/japan/,2026-02-14
++https://www.globol.im/th/international-dating/man/,2026-02-14
++https://www.globol.im/id/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/nl/international-dating/man/japan/,2026-02-14
++https://globol.im/fr/international-dating/man/south-korea/,2026-02-14
++https://www.globol.im/fr/international-dating/man/south-korea/,2026-02-14
++https://www.globol.im/ko/international-dating/profile/lucas/,2026-02-14
++https://globol.im/vi/international-dating/profile/elara/,2026-02-14
++https://www.globol.im/vi/international-dating/profile/elara/,2026-02-14
++https://www.globol.im/ko/international-dating/profile/som/,2026-02-14
++https://www.globol.im/th/international-dating/woman/usa/,2026-02-14
++https://globol.im/es/international-dating/profile/ji-oon/,2026-02-14
++https://www.globol.im/es/international-dating/profile/ji-oon/,2026-02-14
++https://globol.im/id/international-dating/woman/thailand/,2026-02-14
++https://www.globol.im/id/international-dating/woman/thailand/,2026-02-14
++https://www.globol.im/vi/international-dating/,2026-02-14
++https://globol.im/pt/contact/,2026-02-14
++https://www.globol.im/pt/contact/,2026-02-14
++https://globol.im/ja/about/,2026-02-14
++https://www.globol.im/ja/about/,2026-02-14
++https://www.globol.im/de/international-dating/profile/som/,2026-02-14
++https://globol.im/fr/international-dating/,2026-02-14
++https://www.globol.im/fr/international-dating/,2026-02-14
++https://globol.im/vi/about/,2026-02-14
++https://www.globol.im/vi/about/,2026-02-14
++https://globol.im/es/international-dating/woman/usa,2026-02-14
++https://globol.im/es/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/es/international-dating/woman/usa/,2026-02-14
++https://globol.im/de/contact/,2026-02-14
++https://www.globol.im/de/contact/,2026-02-14
++https://globol.im/vi/,2026-02-14
++https://www.globol.im/vi/,2026-02-14
++https://globol.im/es/privacy/,2026-02-14
++https://globol.im/it/privacy/,2026-02-14
++https://globol.im/ja/privacy/,2026-02-14
++https://globol.im/privacy/,2026-02-14
++https://globol.im/pt/privacy/,2026-02-14
++https://globol.im/th/privacy/,2026-02-14
++https://globol.im/zh/privacy/,2026-02-14
++https://www.globol.im/es/privacy,2026-02-14
++https://www.globol.im/es/privacy/,2026-02-14
++https://www.globol.im/it/privacy,2026-02-14
++https://www.globol.im/it/privacy/,2026-02-14
++https://www.globol.im/ja/privacy,2026-02-14
++https://www.globol.im/ja/privacy/,2026-02-14
++https://www.globol.im/privacy,2026-02-14
++https://www.globol.im/privacy/,2026-02-14
++https://www.globol.im/th/privacy,2026-02-14
++https://www.globol.im/th/privacy/,2026-02-14
++https://www.globol.im/zh/privacy,2026-02-14
++https://www.globol.im/zh/privacy/,2026-02-14
++https://globol.im/fr/,2026-02-14
++https://www.globol.im/fr/,2026-02-14
++https://www.globol.im/vi/date-ideas/,2026-02-14
++https://globol.im/ko/,2026-02-14
++https://globol.im/de/terms/,2026-02-14
++https://globol.im/es/terms/,2026-02-14
++https://globol.im/hi/terms/,2026-02-14
++https://globol.im/id/terms/,2026-02-14
++https://globol.im/ko/terms/,2026-02-14
++https://globol.im/nl/terms/,2026-02-14
++https://globol.im/pt/terms/,2026-02-14
++https://globol.im/ru/terms/,2026-02-14
++https://globol.im/terms/,2026-02-14
++https://globol.im/zh/terms/,2026-02-14
++https://www.globol.im/de/terms,2026-02-14
++https://www.globol.im/de/terms/,2026-02-14
++https://www.globol.im/es/terms,2026-02-14
++https://www.globol.im/es/terms/,2026-02-14
++https://www.globol.im/hi/terms,2026-02-14
++https://www.globol.im/hi/terms/,2026-02-14
++https://www.globol.im/id/terms,2026-02-14
++https://www.globol.im/id/terms/,2026-02-14
++https://www.globol.im/ko/terms,2026-02-14
++https://www.globol.im/ko/terms/,2026-02-14
++https://www.globol.im/nl/terms,2026-02-14
++https://www.globol.im/nl/terms/,2026-02-14
++https://www.globol.im/pt/terms,2026-02-14
++https://www.globol.im/pt/terms/,2026-02-14
++https://www.globol.im/ru/terms,2026-02-14
++https://www.globol.im/ru/terms/,2026-02-14
++https://www.globol.im/terms,2026-02-14
++https://www.globol.im/terms/,2026-02-14
++https://www.globol.im/zh/terms,2026-02-14
++https://www.globol.im/zh/terms/,2026-02-14
++https://www.globol.im/ko/international-dating/woman/thailand/,2026-02-14
++https://globol.im/zh/international-dating/woman/usa/,2026-02-14
++https://www.globol.im/zh/international-dating/woman/usa/,2026-02-14
++https://globol.im/international-dating/woman/,2026-02-14
++https://www.globol.im/international-dating/woman/,2026-02-14
++https://globol.im/zh/about,2026-02-14
++https://globol.im/it/international-dating,2026-02-14
++https://globol.im/it/international-dating/,2026-02-14
++https://www.globol.im/it/international-dating/,2026-02-14
++https://globol.im/de/about,2026-02-14
++https://globol.im/de/about/,2026-02-14
++https://www.globol.im/de/about/,2026-02-14
++https://globol.im/ru/international-dating,2026-02-14
++https://globol.im/ru/international-dating/,2026-02-14
++https://www.globol.im/ru/international-dating/,2026-02-14
++https://globol.im/de/international-dating/woman/usa,2026-02-13
++https://globol.im/zh/international-dating/man/south-korea,2026-02-12
++https://globol.im/th/international-dating/profile/elara,2026-02-12
++https://globol.im/fr/date-ideas/good-conversation-starters,2026-02-12
++https://globol.im/id/date-ideas,2026-02-12
++https://globol.im/fr/date-ideas/at-home-date-night-ideas,2026-02-12
++https://globol.im/de/international-dating/woman/thailand,2026-02-12
++https://globol.im/hi/international-dating/profile/emma,2026-02-12
++https://globol.im/vi/international-dating/profile/elara,2026-02-12
++https://globol.im/hi/international-dating,2026-02-12
++https://globol.im/ko/international-dating/profile/amara,2026-02-12
++https://globol.im/it/international-dating/man/brazil,2026-02-12
++https://globol.im/de/terms,2026-02-12
++https://globol.im/ru/international-dating/profile/amara,2026-02-12
++https://globol.im/de/privacy,2026-02-12
++https://globol.im/ru/privacy,2026-02-12
++https://globol.im/vi/privacy,2026-02-12
++https://www.globol.im/de/privacy,2026-02-12
++https://www.globol.im/ru/privacy,2026-02-12
++https://www.globol.im/vi/privacy,2026-02-12
++https://www.globol.im/zh-TW/privacy,2026-02-12
++https://globol.im/pt/international-dating/profile/som,2026-02-12
++https://globol.im/ja,2026-02-11
++https://globol.im/it,2026-02-11
++https://globol.im/fr/international-dating/man/south-korea,2026-02-10
++https://globol.im/vi/terms,2026-02-10
++https://globol.im/zh/privacy,2026-02-10
++https://www.globol.im/zh-TW/terms,2026-02-10
++https://globol.im/es,2026-02-10
++https://globol.im/pt/contact,2026-02-10
++https://globol.im/fr/international-dating/woman,2026-02-09
++https://globol.im/fr/terms,2026-02-09
++https://www.globol.im/fr/terms,2026-02-09
++https://www.globol.im/zh-CN/terms,2026-02-09
++https://globol.im/it/contact,2026-02-09
++https://globol.im/it/privacy,2026-02-09
++https://globol.im/th/privacy,2026-02-09
++https://globol.im/pt/international-dating,2026-02-09
++https://globol.im/es/terms,2026-02-09
++https://globol.im/id/terms,2026-02-09
++https://globol.im/ko/terms,2026-02-09
++https://www.globol.im/vi/terms,2026-02-09
++https://www.globol.im/zh-CN/privacy,2026-02-04
+\ No newline at end of file
+diff --git a/next.config.ts b/next.config.ts
+index 93f5d0e..c40825e 100644
+--- a/next.config.ts
++++ b/next.config.ts
+@@ -2,9 +2,18 @@ import { withPayload } from '@payloadcms/next/withPayload'
+ import type { NextConfig } from "next";
+ 
+ const nextConfig: NextConfig = {
++  // [SEO-ISSUE#002] 明确禁止尾斜杠，防止 Next.js 升级后默认行为漂移
++  // 尾斜杠 URL 会触发 308 重定向，导致 Google 不建立索引
++  trailingSlash: false,
++
++  // 显式开启 HTTP 响应压缩（防止 withPayload 包裹后默认行为漂移）
++  compress: true,
++
+   // Image optimization
+   images: {
+     formats: ['image/avif', 'image/webp'],
++    // 图片 CDN 边缘节点最大缓存时间：1 年，减少重复回源
++    minimumCacheTTL: 31536000,
+     remotePatterns: [
+       {
+         protocol: 'https',
+diff --git a/package-lock.json b/package-lock.json
+index 994fde2..689ffd7 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -13,7 +13,9 @@
+         "@payloadcms/richtext-lexical": "^3.77.0",
+         "@payloadcms/storage-vercel-blob": "^3.77.0",
+         "@tailwindcss/typography": "^0.5.19",
++        "@vercel/analytics": "^1.6.1",
+         "@vercel/blob": "^2.3.0",
++        "@vercel/speed-insights": "^1.3.1",
+         "firebase": "^12.8.0",
+         "graphql": "^16.12.0",
+         "gray-matter": "^4.0.3",
+@@ -5601,6 +5603,44 @@
+         "win32"
+       ]
+     },
++    "node_modules/@vercel/analytics": {
++      "version": "1.6.1",
++      "resolved": "https://registry.npmmirror.com/@vercel/analytics/-/analytics-1.6.1.tgz",
++      "integrity": "sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==",
++      "license": "MPL-2.0",
++      "peerDependencies": {
++        "@remix-run/react": "^2",
++        "@sveltejs/kit": "^1 || ^2",
++        "next": ">= 13",
++        "react": "^18 || ^19 || ^19.0.0-rc",
++        "svelte": ">= 4",
++        "vue": "^3",
++        "vue-router": "^4"
++      },
++      "peerDependenciesMeta": {
++        "@remix-run/react": {
++          "optional": true
++        },
++        "@sveltejs/kit": {
++          "optional": true
++        },
++        "next": {
++          "optional": true
++        },
++        "react": {
++          "optional": true
++        },
++        "svelte": {
++          "optional": true
++        },
++        "vue": {
++          "optional": true
++        },
++        "vue-router": {
++          "optional": true
++        }
++      }
++    },
+     "node_modules/@vercel/backends": {
+       "version": "0.0.36",
+       "resolved": "https://registry.npmmirror.com/@vercel/backends/-/backends-0.0.36.tgz",
+@@ -7593,6 +7633,40 @@
+       "dev": true,
+       "license": "ISC"
+     },
++    "node_modules/@vercel/speed-insights": {
++      "version": "1.3.1",
++      "resolved": "https://registry.npmmirror.com/@vercel/speed-insights/-/speed-insights-1.3.1.tgz",
++      "integrity": "sha512-PbEr7FrMkUrGYvlcLHGkXdCkxnylCWePx7lPxxq36DNdfo9mcUjLOmqOyPDHAOgnfqgGGdmE3XI9L/4+5fr+vQ==",
++      "license": "Apache-2.0",
++      "peerDependencies": {
++        "@sveltejs/kit": "^1 || ^2",
++        "next": ">= 13",
++        "react": "^18 || ^19 || ^19.0.0-rc",
++        "svelte": ">= 4",
++        "vue": "^3",
++        "vue-router": "^4"
++      },
++      "peerDependenciesMeta": {
++        "@sveltejs/kit": {
++          "optional": true
++        },
++        "next": {
++          "optional": true
++        },
++        "react": {
++          "optional": true
++        },
++        "svelte": {
++          "optional": true
++        },
++        "vue": {
++          "optional": true
++        },
++        "vue-router": {
++          "optional": true
++        }
++      }
++    },
+     "node_modules/@vercel/static-build": {
+       "version": "2.8.40",
+       "resolved": "https://registry.npmmirror.com/@vercel/static-build/-/static-build-2.8.40.tgz",
+diff --git a/package.json b/package.json
+index 99e1b28..983c5cf 100644
+--- a/package.json
++++ b/package.json
+@@ -21,7 +21,9 @@
+     "@payloadcms/richtext-lexical": "^3.77.0",
+     "@payloadcms/storage-vercel-blob": "^3.77.0",
+     "@tailwindcss/typography": "^0.5.19",
++    "@vercel/analytics": "^1.6.1",
+     "@vercel/blob": "^2.3.0",
++    "@vercel/speed-insights": "^1.3.1",
+     "firebase": "^12.8.0",
+     "graphql": "^16.12.0",
+     "gray-matter": "^4.0.3",
+diff --git a/scripts-out/patch-faqs.js b/scripts-out/patch-faqs.js
+deleted file mode 100644
+index 3313483..0000000
+--- a/scripts-out/patch-faqs.js
++++ /dev/null
+@@ -1,156 +0,0 @@
+-"use strict";
+-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+-    return new (P || (P = Promise))(function (resolve, reject) {
+-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+-        step((generator = generator.apply(thisArg, _arguments || [])).next());
+-    });
+-};
+-var __generator = (this && this.__generator) || function (thisArg, body) {
+-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+-    function verb(n) { return function (v) { return step([n, v]); }; }
+-    function step(op) {
+-        if (f) throw new TypeError("Generator is already executing.");
+-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+-            if (y = 0, t) op = [op[0] & 2, t.value];
+-            switch (op[0]) {
+-                case 0: case 1: t = op; break;
+-                case 4: _.label++; return { value: op[1], done: false };
+-                case 5: _.label++; y = op[1]; op = [0]; continue;
+-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+-                default:
+-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+-                    if (t[2]) _.ops.pop();
+-                    _.trys.pop(); continue;
+-            }
+-            op = body.call(thisArg, _);
+-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+-    }
+-};
+-var __importDefault = (this && this.__importDefault) || function (mod) {
+-    return (mod && mod.__esModule) ? mod : { "default": mod };
+-};
+-Object.defineProperty(exports, "__esModule", { value: true });
+-var fs_1 = __importDefault(require("fs"));
+-var path_1 = __importDefault(require("path"));
+-var gray_matter_1 = __importDefault(require("gray-matter"));
+-var payload_1 = require("payload");
+-var _payload_config_1 = __importDefault(require("@payload-config"));
+-var dotenv_1 = __importDefault(require("dotenv"));
+-dotenv_1.default.config({ path: '.env.local' });
+-var LOCALE_MAP = {
+-    en: 'en',
+-    zh: 'zh',
+-    de: 'de',
+-    es: 'es',
+-    fr: 'fr',
+-    hi: 'hi',
+-    id: 'id',
+-    it: 'it',
+-    ja: 'ja',
+-    ko: 'ko',
+-    nl: 'nl',
+-    pt: 'pt',
+-    ru: 'ru',
+-    th: 'th',
+-    vi: 'vi',
+-};
+-function patchFAQs() {
+-    return __awaiter(this, void 0, void 0, function () {
+-        var payload, articlesDir, locales, updateCount, _i, locales_1, locale, localeDir, files, _a, files_1, file, filePath, fileContent, data, slug, language, faqs, category, existing, doc;
+-        return __generator(this, function (_b) {
+-            switch (_b.label) {
+-                case 0: return [4 /*yield*/, (0, payload_1.getPayload)({ config: _payload_config_1.default })];
+-                case 1:
+-                    payload = _b.sent();
+-                    console.log('Starting FAQ patch from Markdown to Payload CMS...');
+-                    articlesDir = path_1.default.join(process.cwd(), 'src/content/articles');
+-                    if (!fs_1.default.existsSync(articlesDir)) {
+-                        console.error('Articles directory not found at', articlesDir);
+-                        process.exit(1);
+-                    }
+-                    locales = fs_1.default.readdirSync(articlesDir).filter(function (dir) { return !dir.startsWith('.'); });
+-                    updateCount = 0;
+-                    _i = 0, locales_1 = locales;
+-                    _b.label = 2;
+-                case 2:
+-                    if (!(_i < locales_1.length)) return [3 /*break*/, 9];
+-                    locale = locales_1[_i];
+-                    localeDir = path_1.default.join(articlesDir, locale);
+-                    if (!fs_1.default.statSync(localeDir).isDirectory())
+-                        return [3 /*break*/, 8];
+-                    files = fs_1.default.readdirSync(localeDir).filter(function (f) { return f.endsWith('.md'); });
+-                    _a = 0, files_1 = files;
+-                    _b.label = 3;
+-                case 3:
+-                    if (!(_a < files_1.length)) return [3 /*break*/, 8];
+-                    file = files_1[_a];
+-                    filePath = path_1.default.join(localeDir, file);
+-                    fileContent = fs_1.default.readFileSync(filePath, 'utf-8');
+-                    data = (0, gray_matter_1.default)(fileContent).data;
+-                    slug = file.replace('.md', '');
+-                    language = LOCALE_MAP[locale] || 'en';
+-                    faqs = Array.isArray(data.faqs) ? data.faqs.map(function (f) { return ({
+-                        question: String(f.question || ''),
+-                        answer: String(f.answer || ''),
+-                    }); }) : [];
+-                    category = typeof data.category === 'string' ? data.category : 'Relationships';
+-                    if (faqs.length === 0 && !data.category) {
+-                        // If there's neither FAQ nor category explicitly in the matter, maybe just skip patching to be faster
+-                        return [3 /*break*/, 7];
+-                    }
+-                    return [4 /*yield*/, payload.find({
+-                            collection: 'articles',
+-                            where: {
+-                                and: [
+-                                    { slug: { equals: slug } },
+-                                    { language: { equals: language } }
+-                                ]
+-                            }
+-                        })];
+-                case 4:
+-                    existing = _b.sent();
+-                    if (!(existing.docs.length > 0)) return [3 /*break*/, 6];
+-                    doc = existing.docs[0];
+-                    return [4 /*yield*/, payload.update({
+-                            collection: 'articles',
+-                            id: doc.id,
+-                            data: {
+-                                faqs: faqs,
+-                                category: category,
+-                            },
+-                        })];
+-                case 5:
+-                    _b.sent();
+-                    console.log("[UPDATED] ".concat(slug, " (").concat(language, ") - FAQs: ").concat(faqs.length));
+-                    updateCount++;
+-                    return [3 /*break*/, 7];
+-                case 6:
+-                    console.log("[NOT FOUND IN CMS] ".concat(slug, " (").concat(language, ") - Skipping update"));
+-                    _b.label = 7;
+-                case 7:
+-                    _a++;
+-                    return [3 /*break*/, 3];
+-                case 8:
+-                    _i++;
+-                    return [3 /*break*/, 2];
+-                case 9:
+-                    console.log("\n\u2705 Patching complete! Updated ".concat(updateCount, " articles with FAQs & Category."));
+-                    process.exit(0);
+-                    return [2 /*return*/];
+-            }
+-        });
+-    });
+-}
+-patchFAQs().catch(function (err) {
+-    console.error(err);
+-    process.exit(1);
+-});
+diff --git a/scripts-out/seed-media.js b/scripts-out/seed-media.js
+deleted file mode 100644
+index 4b68eb1..0000000
+--- a/scripts-out/seed-media.js
++++ /dev/null
+@@ -1,141 +0,0 @@
+-"use strict";
+-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+-    return new (P || (P = Promise))(function (resolve, reject) {
+-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+-        step((generator = generator.apply(thisArg, _arguments || [])).next());
+-    });
+-};
+-var __generator = (this && this.__generator) || function (thisArg, body) {
+-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+-    function verb(n) { return function (v) { return step([n, v]); }; }
+-    function step(op) {
+-        if (f) throw new TypeError("Generator is already executing.");
+-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+-            if (y = 0, t) op = [op[0] & 2, t.value];
+-            switch (op[0]) {
+-                case 0: case 1: t = op; break;
+-                case 4: _.label++; return { value: op[1], done: false };
+-                case 5: _.label++; y = op[1]; op = [0]; continue;
+-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+-                default:
+-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+-                    if (t[2]) _.ops.pop();
+-                    _.trys.pop(); continue;
+-            }
+-            op = body.call(thisArg, _);
+-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+-    }
+-};
+-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+-        if (ar || !(i in from)) {
+-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+-            ar[i] = from[i];
+-        }
+-    }
+-    return to.concat(ar || Array.prototype.slice.call(from));
+-};
+-var __importDefault = (this && this.__importDefault) || function (mod) {
+-    return (mod && mod.__esModule) ? mod : { "default": mod };
+-};
+-Object.defineProperty(exports, "__esModule", { value: true });
+-var path_1 = __importDefault(require("path"));
+-var fs_1 = __importDefault(require("fs"));
+-var payload_1 = require("payload");
+-var _payload_config_1 = __importDefault(require("@payload-config"));
+-var dotenv_1 = __importDefault(require("dotenv"));
+-dotenv_1.default.config({ path: '.env.local' });
+-function getFilesRecursively(dir, fileList) {
+-    if (fileList === void 0) { fileList = []; }
+-    if (!fs_1.default.existsSync(dir))
+-        return fileList;
+-    var files = fs_1.default.readdirSync(dir);
+-    for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
+-        var file = files_1[_i];
+-        var filePath = path_1.default.join(dir, file);
+-        if (fs_1.default.statSync(filePath).isDirectory()) {
+-            getFilesRecursively(filePath, fileList);
+-        }
+-        else {
+-            // Filter out non-image files like .DS_Store
+-            if (/\.(png|jpe?g|gif|webp|avif|svg)$/i.test(file)) {
+-                fileList.push(filePath);
+-            }
+-        }
+-    }
+-    return fileList;
+-}
+-function seedMedia() {
+-    return __awaiter(this, void 0, void 0, function () {
+-        var payload, assetsDir, avatarsDir, mediaFiles, count, _i, mediaFiles_1, filePath, filename, existing, err_1;
+-        return __generator(this, function (_a) {
+-            switch (_a.label) {
+-                case 0: return [4 /*yield*/, (0, payload_1.getPayload)({ config: _payload_config_1.default })];
+-                case 1:
+-                    payload = _a.sent();
+-                    console.log('Seeding existing images into Payload Media...');
+-                    assetsDir = path_1.default.join(process.cwd(), 'public/assets');
+-                    avatarsDir = path_1.default.join(process.cwd(), 'public/avatars');
+-                    mediaFiles = __spreadArray(__spreadArray([], getFilesRecursively(assetsDir), true), getFilesRecursively(avatarsDir), true);
+-                    count = 0;
+-                    _i = 0, mediaFiles_1 = mediaFiles;
+-                    _a.label = 2;
+-                case 2:
+-                    if (!(_i < mediaFiles_1.length)) return [3 /*break*/, 8];
+-                    filePath = mediaFiles_1[_i];
+-                    filename = path_1.default.basename(filePath);
+-                    return [4 /*yield*/, payload.find({
+-                            collection: 'media',
+-                            where: {
+-                                filename: { equals: filename }
+-                            },
+-                        })];
+-                case 3:
+-                    existing = _a.sent();
+-                    if (existing.docs.length > 0) {
+-                        console.log("[SKIP] Media already exists: ".concat(filename));
+-                        return [3 /*break*/, 7];
+-                    }
+-                    _a.label = 4;
+-                case 4:
+-                    _a.trys.push([4, 6, , 7]);
+-                    return [4 /*yield*/, payload.create({
+-                            collection: 'media',
+-                            data: {
+-                                alt: filename.replace(/\.[^/.]+$/, ''), // filename without extension
+-                            },
+-                            filePath: filePath,
+-                        })];
+-                case 5:
+-                    _a.sent();
+-                    console.log("[CREATED] Media: ".concat(filename));
+-                    count++;
+-                    return [3 /*break*/, 7];
+-                case 6:
+-                    err_1 = _a.sent();
+-                    console.error("[ERROR] Failed to save media ".concat(filename, ":"), err_1.message);
+-                    return [3 /*break*/, 7];
+-                case 7:
+-                    _i++;
+-                    return [3 /*break*/, 2];
+-                case 8:
+-                    console.log("\n\u2705 Media Seeding complete! Uploaded ".concat(count, " new files via Payload."));
+-                    process.exit(0);
+-                    return [2 /*return*/];
+-            }
+-        });
+-    });
+-}
+-seedMedia().catch(function (err) {
+-    console.error(err);
+-    process.exit(1);
+-});
+diff --git a/src/app/(app)/[locale]/layout.tsx b/src/app/(app)/[locale]/layout.tsx
+index a366539..a47d761 100644
+--- a/src/app/(app)/[locale]/layout.tsx
++++ b/src/app/(app)/[locale]/layout.tsx
+@@ -3,38 +3,93 @@
+  * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+  *
+  * INPUT: children, params: { locale }
+- * OUTPUT: Localized layout with Navbar, Footer, and I18nProvider
+- * POS: Locale Layout
+- * CONTRACT: Injects locale dictionary into I18nProvider for all child client components.
+- * 职责: 多语言布局骨架，注入导航、页脚与 i18n 上下文。
++ * OUTPUT: HTML shell + Localized layout with Navbar, Footer, and I18nProvider
++ * POS: Root Locale Layout
++ * CONTRACT: Applies global metadata, fonts, HTML lang attribute dynamically, and injects i18n context.
++ * 职责: 定义全局骨架、动态设置 HTML lang、挂载客户端统计（Firebase/Vercel Analytics/Speed Insights），并注入导航、页脚与 i18n 上下文。
+  */
++import type { Metadata } from "next";
+ import React, { Suspense } from 'react';
++import { Inter } from "next/font/google";
+ import { Navbar } from "@/components/layout/Navbar";
+ import { Footer } from "@/components/layout/Footer";
+ import { I18nProvider } from "@/i18n/provider";
+ import { getDictionary } from "@/i18n/server";
++import { FirebaseAnalytics } from "@/components/analytics/FirebaseAnalytics";
++import { PageViewTracker } from "@/components/analytics/PageViewTracker";
++import { SpeedInsights } from "@vercel/speed-insights/next";
++import { Analytics } from "@vercel/analytics/react";
++import "../../globals.css";
+ 
+-export default async function LocalizedLayout({
+-    children,
+-    params,
++const inter = Inter({
++  variable: "--font-sans",
++  subsets: ["latin"],
++  display: "swap",
++});
++
++export const metadata: Metadata = {
++  metadataBase: new URL('https://www.globol.im'),
++  title: "Globol - Connect with Global Friends",
++  description: "Globol - Connect with friends worldwide, share your moments, chat in your language with real-time translation",
++};
++
++export default async function LocalizedRootLayout({
++  children,
++  params,
+ }: {
+-    children: React.ReactNode;
+-    params: Promise<{ locale: string }>;
++  children: React.ReactNode;
++  params: Promise<{ locale: string }>;
+ }) {
+-    const { locale } = await params;
+-    const dictionary = getDictionary(locale);
++  const { locale } = await params;
++  const dictionary = getDictionary(locale);
++
++  return (
++    <html lang={locale}>
++      <head>
++        {/* 预连接关键第三方域名，消除图片与字体请求的 DNS/TCP/TLS 握手延迟 */}
++        <link rel="preconnect" href="https://public.blob.vercel-storage.com" />
++        <link rel="dns-prefetch" href="https://public.blob.vercel-storage.com" />
++        <link rel="preconnect" href="https://fonts.googleapis.com" />
++        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
++      </head>
++      <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
++        <script
++          type="application/ld+json"
++          dangerouslySetInnerHTML={{
++            __html: JSON.stringify({
++              "@context": "https://schema.org",
++              "@type": "Organization",
++              "name": "Globol",
++              "url": "https://www.globol.im",
++              "logo": "https://www.globol.im/favicon.ico",
++              "description": "Connect with friends worldwide, share your moments, chat in your language with real-time translation.",
++              "sameAs": [
++                "https://twitter.com/globol_im",
++                "https://www.facebook.com/globol.im",
++                "https://www.instagram.com/globol.im"
++              ]
++            })
++          }}
++        />
++        <FirebaseAnalytics />
++        <SpeedInsights />
++        <Analytics />
++        <Suspense fallback={null}>
++          <PageViewTracker />
++        </Suspense>
+ 
+-    return (
+         <I18nProvider locale={locale} dictionary={dictionary}>
+-            <Suspense fallback={<div className="h-20 bg-white/90 backdrop-blur border-b border-gray-100" />}>
+-                <Navbar />
+-            </Suspense>
+-            <main className="flex-grow pt-20">
+-                {children}
+-            </main>
+-            <Suspense fallback={null}>
+-                <Footer />
+-            </Suspense>
++          <Suspense fallback={<div className="h-20 bg-white/90 backdrop-blur border-b border-gray-100" />}>
++            <Navbar />
++          </Suspense>
++          <main className="flex-grow pt-20">
++            {children}
++          </main>
++          <Suspense fallback={null}>
++            <Footer />
++          </Suspense>
+         </I18nProvider>
+-    );
++      </body>
++    </html>
++  );
+ }
+diff --git a/src/app/(app)/[locale]/page.tsx b/src/app/(app)/[locale]/page.tsx
+index 7bc5193..9908a9c 100644
+--- a/src/app/(app)/[locale]/page.tsx
++++ b/src/app/(app)/[locale]/page.tsx
+@@ -72,6 +72,9 @@ export default async function Home({ params }: PageProps) {
+     { id: 4, title: t.carousel.slide4, image: '/assets/slide-4.webp', bgGradient: 'from-purple-50 to-pink-50' },
+   ];
+ 
++  // 首屏图片路径：与 slides[0].image 保持同步
++  const firstSlideImage = '/assets/slide-1.webp';
++
+   return (
+     <main className="min-h-screen bg-off-white">
+       <h1 className="sr-only">{t.seo.homeTitle}</h1>
+diff --git a/src/app/(app)/layout.tsx b/src/app/(app)/layout.tsx
+deleted file mode 100644
+index 8329183..0000000
+--- a/src/app/(app)/layout.tsx
++++ /dev/null
+@@ -1,65 +0,0 @@
+-/**
+- * [PROTOCOL] L3 - GEB Fractal Documentation
+- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+- *
+- * INPUT: children: React.ReactNode
+- * OUTPUT: HTML shell + global layout
+- * POS: App Root Layout
+- * CONTRACT: Applies global metadata, fonts, layout chrome, and analytics trackers.
+- * 职责: 定义全局骨架、字体与基础布局，并挂载客户端统计。
+- */
+-import type { Metadata } from "next";
+-import { Suspense } from "react";
+-import { Inter } from "next/font/google";
+-import "../globals.css";
+-import { FirebaseAnalytics } from "@/components/analytics/FirebaseAnalytics";
+-import { PageViewTracker } from "@/components/analytics/PageViewTracker";
+-import { defaultLocale } from "@/i18n/settings";
+-
+-const inter = Inter({
+-  variable: "--font-sans",
+-  subsets: ["latin"],
+-  display: "swap",
+-});
+-
+-export const metadata: Metadata = {
+-  metadataBase: new URL('https://www.globol.im'),
+-  title: "Globol - Connect with Global Friends",
+-  description: "Globol - Connect with friends worldwide, share your moments, chat in your language with real-time translation",
+-};
+-
+-export default function RootLayout({
+-  children,
+-}: Readonly<{
+-  children: React.ReactNode;
+-}>) {
+-  return (
+-    <html lang={defaultLocale}>
+-      <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
+-        <script
+-          type="application/ld+json"
+-          dangerouslySetInnerHTML={{
+-            __html: JSON.stringify({
+-              "@context": "https://schema.org",
+-              "@type": "Organization",
+-              "name": "Globol",
+-              "url": "https://www.globol.im",
+-              "logo": "https://www.globol.im/favicon.ico",
+-              "description": "Connect with friends worldwide, share your moments, chat in your language with real-time translation.",
+-              "sameAs": [
+-                "https://twitter.com/globol_im",
+-                "https://www.facebook.com/globol.im",
+-                "https://www.instagram.com/globol.im"
+-              ]
+-            })
+-          }}
+-        />
+-        <FirebaseAnalytics />
+-        <Suspense fallback={null}>
+-          <PageViewTracker />
+-        </Suspense>
+-        {children}
+-      </body>
+-    </html>
+-  );
+-}
+diff --git a/src/app/GEMINI.md b/src/app/GEMINI.md
+index e610131..18e21fe 100644
+--- a/src/app/GEMINI.md
++++ b/src/app/GEMINI.md
+@@ -1,5 +1,6 @@
+ # src/app/GEMINI.md - 路由与页面 (L2)
+ [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
++[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ 
+ ## 1. 🗺 地图 (结构)
+ ```
+@@ -25,8 +26,7 @@ app/
+ │   │   ├── GEMINI.md
+ │   │   └── ai-chat/route.ts
+ │   ├── favicon.ico
+-│   ├── globals.css
+-│   └── layout.tsx
++│   └── globals.css
+ ├── (payload)/
+ │   ├── admin/
+ │   ├── api/[...slug]/
+@@ -36,7 +36,7 @@ app/
+ ```
+ 
+ ## 2. 📄 文件说明 (Files)
+-- `layout.tsx`: 全局 HTML 骨架、字体、导航/页脚布局与统计挂载。
++- `[locale]/layout.tsx`: 全局 HTML 骨架、动态 lang 属性赋值、字体、导航/页脚布局与统计挂载。
+ - `globals.css`: 全站基础样式与通用类定义。
+ - `robots.ts`: 站点爬虫规则与 sitemap 入口。
+ - `sitemap.ts`: 生成多语言 sitemap 与 alternates。
+@@ -62,6 +62,8 @@ app/
+ - 结构化数据 (JSON-LD) 只在页面层输出。
+ 
+ ## 5. 🧾 变更日志 (Changelog)
++- 2026-02-23: 在 `[locale]/layout.tsx` 注入 `<SpeedInsights />` 和 `<Analytics />` 组件，接入 Vercel Speed Insights 与 Web Analytics。
++- 2026-02-23: SEO 优化：合并 `(app)/layout.tsx` 逻辑至 `[locale]/layout.tsx`，修复多语言 `<html lang>` 属性；`sitemap` 采用 ISR 提速；部分业务组件懒加载。
+ - 2026-02-08: 实现 SEO 优化：动态域名支持 (`constants.ts`)、开启页脚国际交友入口、新增多语言 404 页面。
+ - 2026-02-08: 新增 `api/ai-chat/route.ts`，接入 Vercel AI Gateway 聊天能力并增加 3 条上限风控。
+ - 2026-02-08: 人物详情页右侧 `Switch` 改为 `Say Hi` 样式按钮，并新增移动端聊天入口。
+diff --git a/src/app/sitemap.ts b/src/app/sitemap.ts
+index cfa5777..3f97fd3 100644
+--- a/src/app/sitemap.ts
++++ b/src/app/sitemap.ts
+@@ -5,8 +5,8 @@ import { locales } from '@/i18n/settings';
+ import { BASE_URL } from '@/lib/constants';
+ import { profiles, getCountries } from '@/data/profiles';
+ 
+-// 强制动态渲染, 绕过 CDN 陈旧缓存
+-export const dynamic = 'force-dynamic';
++// 启用 ISR, 避免每次爬虫抓取都全量重算, 提升响应速度
++export const revalidate = 3600;
+ 
+ // ────────────────────────────────────────────────────────────
+ // URL 构建工具: 统一不带尾斜杠, 与 Next.js trailingSlash:false 对齐
+diff --git a/test-blob.ts b/test-blob.ts
+deleted file mode 100644
+index d43719c..0000000
+--- a/test-blob.ts
++++ /dev/null
+@@ -1,27 +0,0 @@
+-import { getPayload } from 'payload';
+-import configPromise from '@payload-config';
+-import fs from 'fs';
+-import path from 'path';
+-
+-async function run() {
+-  const payload = await getPayload({ config: configPromise });
+-  const testFile = path.resolve('public/favicon.ico');
+-  const fileBuffer = fs.readFileSync(testFile);
+-  
+-  const created = await payload.create({
+-    collection: 'media',
+-    data: { alt: 'test blob' },
+-    file: {
+-      data: fileBuffer,
+-      mimetype: 'image/x-icon',
+-      name: 'test-favicon.ico',
+-      size: fileBuffer.length
+-    }
+-  });
+-
+-  console.log('Created Media URL:', created.url);
+-  
+-  await payload.delete({ collection: 'media', id: created.id });
+-  process.exit(0);
+-}
+-run();

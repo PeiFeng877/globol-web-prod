@@ -20,6 +20,8 @@ interface PageProps {
   }>;
 }
 
+export const revalidate = 172800;
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = getDictionary(locale);

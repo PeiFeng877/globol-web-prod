@@ -20,6 +20,8 @@ interface PageProps {
   }>;
 }
 
+export const revalidate = 172800;
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({
     locale: locale,
@@ -73,7 +75,6 @@ export default async function Home({ params }: PageProps) {
   ];
 
   // 首屏图片路径：与 slides[0].image 保持同步
-  const firstSlideImage = '/assets/slide-1.webp';
 
   return (
     <main className="min-h-screen bg-off-white">

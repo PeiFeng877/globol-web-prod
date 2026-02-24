@@ -20,7 +20,7 @@ import { locales } from '@/i18n/settings';
 const CARD_IMAGE_SIZES =
   "(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
-export const revalidate = 60;
+export const revalidate = 172800;
 
 interface PageProps {
   params: Promise<{
@@ -189,7 +189,7 @@ function ArticleCard({
         <div className="absolute inset-0">
           <Image
             src={article.heroImage || ''}
-            alt={article.title}
+            alt={article.heroImageAlt || article.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
             sizes={CARD_IMAGE_SIZES}
@@ -212,7 +212,7 @@ function ArticleCard({
         <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:w-1/2 lg:h-full lg:min-h-full overflow-hidden">
           <Image
             src={article.heroImage || ''}
-            alt={article.title}
+            alt={article.heroImageAlt || article.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes={CARD_IMAGE_SIZES}
@@ -246,7 +246,7 @@ function ArticleCard({
       <div className={stackedMediaClassName}>
         <Image
           src={article.heroImage || ''}
-          alt={article.title}
+          alt={article.heroImageAlt || article.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes={CARD_IMAGE_SIZES}

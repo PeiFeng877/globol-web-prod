@@ -13,6 +13,10 @@ docs/
 │   ├── SEO_ISSUE_LOG.md
 │   ├── SEO_WORK_LOG.md
 │   ├── seo-audit-acceptance.md
+│   ├── 07-Image-ALT-Strategy.md
+│   ├── 08-Content-Generation-Architecture.md
+│   ├── 09-Content-Generation-Connection-Guide.md
+│   ├── Performance-Analysis-Report.md
 │   └── README.md
 ├── testing/
 │   └── TESTING-STANDARD.md
@@ -29,7 +33,7 @@ docs/
 
 ## 2. 🧩 模块 (Modules)
 - `AI-Generation-Guidelines/`: AI 生成内容规范与模板集合。
-- `SEO/`: SEO 执行策略文档集，包含内容策略、结构化数据、社群分享，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
+- `SEO/`: SEO 执行策略文档集，包含内容策略、结构化数据、社群分享、图片 ALT 策略、内容规模化生成架构，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
 - `testing/`: 测试规范与流程文档，定义小变更/大发版的测试流程与通过标准。
 - `SEO/SEO_ISSUE_LOG.md`: SEO 问题历史日志，记录所有发现与修复过的 SEO 问题、根因及预防机制，含可执行的上线前检查命令。
 - `Core-System-Architecture.md`: 核心系统架构与工作流宪法，详述底层数据库选型 (Supabase vs Vercel)、渲染缓存机制 (ISR)、Vercel 部署脱钩安全策略及多语言一键发布 SOP。
@@ -42,6 +46,10 @@ docs/
 - 任何新增模板或目录层级必须同步更新本文件与子模块 L2。
 
 ## 4. 🧾 变更日志 (Changelog)
+- 2026-02-24: 新增 `SEO/Performance-Analysis-Report.md`，首页 Core Web Vitals 劣化诊断报告，分析 Vercel 地理延迟、冷启动、Client Component LCP 等问题并给出优先修复清单。
+- 2026-02-24: 新增 `SEO/09-Content-Generation-Connection-Guide.md`，定义内容生成工具的数据库存储连接凭证与安全自动化流转生命周期。
+- 2026-02-23: 新增 `SEO/08-Content-Generation-Architecture.md`，定义基于前端解耦规模化内容生成管线、API 通信标准与专家级作者人设矩阵。
+- 2026-02-23: 新增 `SEO/07-Image-ALT-Strategy.md`，定义基于 AI Hook 的图片 ALT 自动生成与多语言一致性架构原则。
 - 2026-02-23: 新增 `SEO/SEO_ISSUE_LOG.md`，记录 4 大历史 SEO 问题（重复 URL、尾斜杠、html lang 硬编码、GSC 重定向）及预防机制。
 - 2026-02-22: 新增 `testing/TESTING-STANDARD.md` 测试规范文档，定义四维度测试体系与开发测试流程。
 - 2026-02-22: 新增 `Production-Deployment-Checklist.md` 生产部署清单，记录同机房零延迟的 Supabase 及 Vercel 线上资源状态。

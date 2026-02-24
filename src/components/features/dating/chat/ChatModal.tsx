@@ -16,6 +16,7 @@ import { X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { DownloadButtons } from "@/components/ui/DownloadButtons";
 import { useTranslation } from "@/i18n/client";
+import { trackAiChatMessage } from "@/lib/firebase/analytics";
 import {
   createNextState,
   loadChatSession,
@@ -116,6 +117,8 @@ export default function ChatModal({
     saveChatSession(profileId, nextAfterUser);
     setInputValue("");
     setIsSending(true);
+
+    void trackAiChatMessage({ profileId, locale });
 
     try {
       const context = session.messages.slice(-MAX_CONTEXT_MESSAGES).map((message) => ({

@@ -33,6 +33,15 @@
     *   CMS、对象存储选型与方案规划
     *   下一步基础设施升级的行动路线
 
+7.  **[07 - Image ALT 多语言与 AI 生成策略](./07-Image-ALT-Strategy.md)**
+    *   图片 ALT 自动生成流转设计
+    *   多语言架构下 ALT 一致性极简要求
+
+8.  **[08 - SEO 规模化内容生成与分发架构](./08-Content-Generation-Architecture.md)**
+    *   CMS 字段与理想 SEO 文章字段对比
+    *   专家级作者与人设矩阵设计
+    *   解耦式外部 AI 内容成批下发架构与 API 标准
+
 ## 快速维护指南
 
 ### 修改 Meta 信息

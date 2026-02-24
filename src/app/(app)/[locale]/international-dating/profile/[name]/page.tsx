@@ -33,6 +33,8 @@ interface PageProps {
   }>;
 }
 
+export const revalidate = 172800;
+
 const nameToSlug = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
 
 const findProfileBySlug = (slug: string) => {
@@ -96,7 +98,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-const FeedPost = ({ item, profile, locale }: { item: Record<string, unknown> & { timestamp: string, caption: string, image?: string, tone?: string, type?: string }; profile: UserProfileView; locale: string; }) => {
+const FeedPost = ({ item, profile, locale, isFirst = false }: { item: Record<string, unknown> & { timestamp: string, caption: string, image?: string, tone?: string, type?: string }; profile: UserProfileView; locale: string; isFirst?: boolean; }) => {
   const profilePath = locale === 'en'
     ? `/international-dating/profile/${nameToSlug(profile.name)}`
     : `/${locale}/international-dating/profile/${nameToSlug(profile.name)}`;
@@ -121,7 +123,7 @@ const FeedPost = ({ item, profile, locale }: { item: Record<string, unknown> & {
       </div>
       <div className="aspect-[4/3] relative mt-1">
         {item.image ? (
-          <Image src={item.image} alt={`${profile.name} post`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 470px" />
+          <Image src={item.image} alt={`${profile.name} post`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 470px" priority={isFirst} />
         ) : (
           <div className={`h-full w-full bg-gradient-to-br ${toneGradients[item.tone as ProfileFeedTone]}`}>
             <div className="absolute inset-0 flex items-center justify-center">
@@ -180,9 +182,9 @@ export default async function ProfileDetailPage({ params }: PageProps) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t.common.home, item: `${baseUrl}${homeLink}` },
-          { '@type': 'ListItem', position: 2, name: t.common.internationalDating, item: `${baseUrl}${datingLink}` },
-          { '@type': 'ListItem', position: 3, name: profileView.name, item: `${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}` }
+          { '@type': 'ListItem', position: 1, name: t.common.home || 'Home', item: `${baseUrl}${homeLink}` },
+          { '@type': 'ListItem', position: 2, name: t.common.internationalDating || 'International Dating', item: `${baseUrl}${datingLink}` },
+          { '@type': 'ListItem', position: 3, name: profileView.name || 'Profile', item: `${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}` }
         ]
       }
     ]
@@ -197,15 +199,15 @@ export default async function ProfileDetailPage({ params }: PageProps) {
             <div className="mb-6 lg:hidden">
               <ProfileChatLauncher profileId={profile.id} profileName={profileView.name} locale={locale} />
             </div>
-            {detail.feed.map((item) => (
-              <FeedPost key={item.id} item={item} profile={profileView} locale={locale} />
+            {detail.feed.map((item, index) => (
+              <FeedPost key={item.id} item={item} profile={profileView} locale={locale} isFirst={index === 0} />
             ))}
           </div>
           <aside className="hidden lg:block space-y-6 sticky top-24 h-fit">
             <div className="flex items-center justify-between">
               <Link href={`${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}`} className="flex items-center gap-3 group">
                 <div className="relative w-14 h-14 rounded-full overflow-hidden">
-                  <Image src={profileView.avatar || '/assets/placeholder-user.jpg'} alt={profileView.name} fill className="object-cover" sizes="56px" />
+                  <Image src={profileView.avatar || '/assets/placeholder-user.jpg'} alt={profileView.name} fill className="object-cover" sizes="56px" priority />
                 </div>
                 <div className="flex flex-col">
                   <h1 className="font-semibold text-sm group-hover:underline">{profileView.name}</h1>

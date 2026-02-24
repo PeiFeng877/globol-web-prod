@@ -22,6 +22,8 @@ interface PageProps {
   }>;
 }
 
+export const revalidate = 172800;
+
 // 1. Define Valid Paths for SSG
 export async function generateStaticParams() {
   const genders = Array.from(new Set(profiles.map((profile) => profile.gender)));
@@ -154,13 +156,13 @@ export default async function InternationalDatingPage({ params }: PageProps) {
     {
       '@type': 'ListItem',
       position: 1,
-      name: t.common.home,
+      name: t.common.home || 'Home',
       item: `${baseUrl}${homeLink}`
     },
     {
       '@type': 'ListItem',
       position: 2,
-      name: t.common.internationalDating,
+      name: t.common.internationalDating || 'International Dating',
       item: `${baseUrl}${datingLink}`
     }
   ];
@@ -169,7 +171,7 @@ export default async function InternationalDatingPage({ params }: PageProps) {
     breadcrumbs.push({
       '@type': 'ListItem',
       position: 3,
-      name: gender === 'man' ? t.common.men : t.common.women,
+      name: (gender === 'man' ? t.common.men : t.common.women) || (gender === 'man' ? 'Men' : 'Women'),
       item: `${baseUrl}${datingLink}/${gender}`
     });
   }
@@ -179,7 +181,7 @@ export default async function InternationalDatingPage({ params }: PageProps) {
     breadcrumbs.push({
       '@type': 'ListItem',
       position: gender ? 4 : 3,
-      name: countryName,
+      name: countryName || country,
       item: `${baseUrl}${datingLink}${gender ? '/' + gender : ''}/${country}`
     });
   }

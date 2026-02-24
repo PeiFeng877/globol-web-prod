@@ -19,6 +19,8 @@ interface PageProps {
     }>;
 }
 
+export const revalidate = 172800;
+
 export async function generateStaticParams() {
     return locales.map((locale: string) => ({
         locale: locale,

@@ -21,7 +21,7 @@ import { ShareButtons } from '@/components/ui/ShareButtons';
 import { getDictionary } from '@/i18n/server';
 import { locales } from '@/i18n/settings';
 
-export const revalidate = 60;
+export const revalidate = 172800;
 
 interface PageProps {
   params: Promise<{
@@ -136,19 +136,19 @@ export default async function ArticlePage({ params }: PageProps) {
           {
             '@type': 'ListItem',
             position: 1,
-            name: t.common.home,
+            name: t.common.home || 'Home',
             item: `https://globol.im${homeLink}`
           },
           {
             '@type': 'ListItem',
             position: 2,
-            name: t.common.dateIdeas,
+            name: t.common.dateIdeas || 'Date Ideas',
             item: `https://globol.im${dateIdeasLink}`
           },
           {
             '@type': 'ListItem',
             position: 3,
-            name: article.title,
+            name: article.title || 'Article',
             item: canonicalUrl
           }
         ]
@@ -169,7 +169,7 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="w-full h-[500px] md:h-[600px] relative">
           <Image
             src={article.heroImage || ''}
-            alt={article.title}
+            alt={article.heroImageAlt || article.title}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
@@ -304,7 +304,7 @@ export default async function ArticlePage({ params }: PageProps) {
                   <div className="relative h-56 w-full overflow-hidden">
                     <Image
                       src={post.heroImage || ''}
-                      alt={post.title}
+                      alt={post.heroImageAlt || post.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"

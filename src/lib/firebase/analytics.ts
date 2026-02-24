@@ -27,6 +27,11 @@ type DownloadClickPayload = {
   path?: string;
 };
 
+type AiChatMessagePayload = {
+  profileId: string;
+  locale?: string;
+};
+
 let analyticsInstance: Analytics | null = null;
 let analyticsInitPromise: Promise<Analytics | null> | null = null;
 
@@ -74,5 +79,13 @@ export async function trackDownloadClick(payload: DownloadClickPayload) {
     placement,
     locale,
     page_path: path,
+  });
+}
+
+export async function trackAiChatMessage(payload: AiChatMessagePayload) {
+  const { profileId, locale } = payload;
+  await track("ai_chat_message", {
+    profile_id: profileId,
+    locale,
   });
 }

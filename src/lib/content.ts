@@ -8,10 +8,10 @@
  * CONTRACT: Fetches data via API, extracts localization, converts Lexical AST to HTML.
  * 职责: 文章与法律文本的内容解析与数据封装（现已迁移至 CMS 数据库驱动）。
  */
-import { getPayload } from 'payload';
-import configPromise from '@payload-config';
-import { Config, LegalText, Destination, PseoTemplate, DateLocation } from '@/payload-types';
 import { marked } from 'marked';
+import { LegalText, Destination, PseoTemplate, DateLocation } from '@/payload-types';
+
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001';
 
 export interface FAQ {
   question: string;
@@ -24,6 +24,7 @@ export interface ArticleData {
   subtitle?: string;
   category?: string;
   heroImage?: string;
+  heroImageAlt?: string;
   publishedAt: string;
   faqs?: FAQ[];
   contentHtml: string;
@@ -105,16 +106,9 @@ function convertLexicalToHtml(node: Record<string, unknown> | null | undefined):
 // -------------------------------------------------------------
 
 export async function getArticleBySlug(locale: string, slug: string): Promise<ArticleData> {
-  const payload = await getPayload({ config: configPromise });
-  const data = await payload.find({
-    collection: 'articles',
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { language: { equals: locale } }
-      ]
-    },
-  });
+  const res = await fetch(`${CMS_URL}/api/articles?where[and][0][slug][equals]=${slug}&where[and][1][language][equals]=${locale}`);
+  if (!res.ok) throw new Error(`CMS API Error: ${res.statusText}`);
+  const data = await res.json();
 
   if (!data.docs || data.docs.length === 0) {
     throw new Error(`Article not found in CMS: ${slug}`);
@@ -130,6 +124,10 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
     ? article.heroImage.url
     : '/assets/article-hero.avif';
 
+  const heroImageAlt = typeof article.heroImage === 'object' && article.heroImage?.alt
+    ? (article.heroImage.alt as string)
+    : (article.title as string);
+
   const articleObj = article as unknown as Record<string, unknown>;
 
   return {
@@ -138,6 +136,7 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
     subtitle: article.description as string || '',
     category: (articleObj.category as string) || 'Relationships',
     heroImage: heroImageUrl,
+    heroImageAlt: heroImageAlt,
     publishedAt: article.publishedAt || new Date().toISOString(),
     faqs: (articleObj.faqs as FAQ[]) || [],
     contentHtml,
@@ -145,28 +144,13 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
 }
 
 export async function getLegalContent(locale: string, slug: 'privacy' | 'terms'): Promise<string> {
-  const payload = await getPayload({ config: configPromise });
-  let data = await payload.find({
-    collection: 'legal-texts',
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { language: { equals: locale } }
-      ]
-    },
-  });
+  let res = await fetch(`${CMS_URL}/api/legal-texts?where[and][0][slug][equals]=${slug}&where[and][1][language][equals]=${locale}`);
+  let data = res.ok ? await res.json() : { docs: [] };
 
   // Fallback to English if translation is missing
   if (!data.docs || data.docs.length === 0) {
-    data = await payload.find({
-      collection: 'legal-texts',
-      where: {
-        and: [
-          { slug: { equals: slug } },
-          { language: { equals: 'en' } }
-        ]
-      },
-    });
+    res = await fetch(`${CMS_URL}/api/legal-texts?where[and][0][slug][equals]=${slug}&where[and][1][language][equals]=en`);
+    data = res.ok ? await res.json() : { docs: [] };
   }
 
   if (!data.docs || data.docs.length === 0) {
@@ -178,29 +162,25 @@ export async function getLegalContent(locale: string, slug: 'privacy' | 'terms')
 }
 
 export async function getAllSlugs(): Promise<string[]> {
-  const payload = await getPayload({ config: configPromise });
-  const data = await payload.find({
-    collection: 'articles',
-    limit: 1000,
-    depth: 0,
-    where: { language: { equals: 'en' } }, // Use 'en' as baseline for static slugs
-  });
-  return (data.docs || []).map(doc => doc.slug!);
+  const res = await fetch(`${CMS_URL}/api/articles?limit=1000&depth=0&where[language][equals]=en`);
+  if (!res.ok) throw new Error(`CMS API Error: ${res.statusText}`);
+  const data = await res.json();
+  return (data.docs || []).map((doc: { slug?: string | null }) => doc.slug!);
 }
 
 export async function getAllArticles(locale: string = 'en'): Promise<Omit<ArticleData, 'contentHtml'>[]> {
-  const payload = await getPayload({ config: configPromise });
-  const data = await payload.find({
-    collection: 'articles',
-    where: { language: { equals: locale } },
-    limit: 100,
-    sort: '-publishedAt',
-  });
+  const res = await fetch(`${CMS_URL}/api/articles?where[language][equals]=${locale}&limit=100&sort=-publishedAt`);
+  if (!res.ok) throw new Error(`CMS API Error: ${res.statusText}`);
+  const data = await res.json();
 
-  return (data.docs || []).map(article => {
+  return (data.docs || []).map((article: Record<string, unknown>) => {
     const heroImageUrl = typeof article.heroImage === 'object' && article.heroImage?.url
       ? article.heroImage.url
       : '/assets/article-hero.avif';
+
+    const heroImageAlt = typeof article.heroImage === 'object' && article.heroImage?.alt
+      ? (article.heroImage.alt as string)
+      : (article.title as string);
 
     const articleObj = article as unknown as Record<string, unknown>;
 
@@ -210,6 +190,7 @@ export async function getAllArticles(locale: string = 'en'): Promise<Omit<Articl
       subtitle: article.description as string || '',
       category: (articleObj.category as string) || 'Relationships',
       heroImage: heroImageUrl,
+      heroImageAlt: heroImageAlt,
       publishedAt: article.publishedAt || new Date().toISOString(),
       faqs: (articleObj.faqs as FAQ[]) || [],
     };
@@ -263,38 +244,21 @@ export interface PseoPageData {
 }
 
 export async function getPseoData(locale: string, citySlug: string, vibe: string): Promise<PseoPageData | null> {
-  const payload = await getPayload({ config: configPromise });
-
   // 1. Get Destination
-  const destRes = await payload.find({
-    collection: 'destinations',
-    where: { slug: { equals: citySlug } },
-  });
-
+  let res = await fetch(`${CMS_URL}/api/destinations?where[slug][equals]=${citySlug}`);
+  const destRes = res.ok ? await res.json() : { docs: [] };
   if (!destRes.docs || destRes.docs.length === 0) return null;
   const destination = destRes.docs[0] as unknown as Destination;
 
   // 2. Get Template
-  const templateRes = await payload.find({
-    collection: 'pseo-templates',
-    where: { vibe: { equals: vibe } },
-  });
-
+  res = await fetch(`${CMS_URL}/api/pseo-templates?where[vibe][equals]=${vibe}`);
+  const templateRes = res.ok ? await res.json() : { docs: [] };
   if (!templateRes.docs || templateRes.docs.length === 0) return null;
   const template = templateRes.docs[0] as unknown as PseoTemplate;
 
   // 3. Get Locations
-  const locRes = await payload.find({
-    collection: 'date-locations',
-    where: {
-      and: [
-        { destination: { equals: destination.id } },
-        { vibe: { equals: vibe } },
-        { language: { equals: locale } }
-      ]
-    },
-    sort: 'title',
-  });
+  res = await fetch(`${CMS_URL}/api/date-locations?where[and][0][destination][equals]=${destination.id}&where[and][1][vibe][equals]=${vibe}&where[and][2][language][equals]=${locale}&sort=title`);
+  const locRes = res.ok ? await res.json() : { docs: [] };
 
   const locations = (locRes.docs || []).map(doc => {
     const loc = doc as unknown as DateLocation;
