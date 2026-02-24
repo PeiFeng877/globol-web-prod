@@ -43,22 +43,22 @@ const nextConfig: NextConfig = {
       {
         source: '/privacy',
         destination: 'https://cdn.globol.im/term/privacy.html',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/terms',
         destination: 'https://cdn.globol.im/term/agreement.html',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/:locale/privacy',
         destination: 'https://cdn.globol.im/term/privacy.html',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/:locale/terms',
         destination: 'https://cdn.globol.im/term/agreement.html',
-        permanent: false,
+        permanent: true,
       },
     ];
   },

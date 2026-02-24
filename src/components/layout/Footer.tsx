@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-25 Footer 法务入口改为 CDN 直链，变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: Locale dictionary
  * OUTPUT: Footer section
@@ -21,6 +21,8 @@ import { Globe } from 'lucide-react';
 export const Footer = () => {
   const { t, locale } = useTranslation();
   const showInternationalDating = true;
+  const privacyCdnUrl = 'https://cdn.globol.im/term/privacy.html';
+  const termsCdnUrl = 'https://cdn.globol.im/term/agreement.html';
 
   const getLocalizedLink = (path: string) => {
     if (locale === 'en') return path;
@@ -121,20 +123,14 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  href={getLocalizedLink('/privacy')}
-                  className="hover:text-yellow-600 transition-colors"
-                >
+                <a href={privacyCdnUrl} className="hover:text-yellow-600 transition-colors">
                   {t.footer.privacy}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href={getLocalizedLink('/terms')}
-                  className="hover:text-yellow-600 transition-colors"
-                >
+                <a href={termsCdnUrl} className="hover:text-yellow-600 transition-colors">
                   {t.footer.terms}
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

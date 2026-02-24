@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-25 默认语言切换改为无前缀路径，变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: Current locale + router
  * OUTPUT: Language switcher UI
@@ -15,7 +15,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from '@/i18n/client';
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Globe } from 'lucide-react';
-import { locales } from '@/i18n/settings';
+import { defaultLocale, locales } from '@/i18n/settings';
 
 const LOCALE_LABELS: Record<string, string> = {
   en: 'English',
@@ -67,25 +67,21 @@ export default function LanguageSwitcher({ variant = 'inline', className = '' }:
       return;
     }
 
-    // Replace the locale prefix in the pathname
-    // Regex: Start with / + currentLocale + (/ or end of string)
-    // We need to handle the case where currentLocale is default (hidden) or explicitly present
-    
     const segments = pathname.split('/');
-    // segments[0] is always empty string for absolute paths
     const firstSegment = segments[1];
+    const hasLocalePrefix = locales.includes(firstSegment);
+    const restPath = hasLocalePrefix
+      ? `/${segments.slice(2).join('/')}`.replace(/\/+$/, '') || '/'
+      : pathname;
 
     let newPath;
-    
-    // Check if the first segment is a known locale
-    if (locales.includes(firstSegment)) {
-      // Replace existing locale
-      segments[1] = newLocale;
-      newPath = segments.join('/');
+
+    if (newLocale === defaultLocale) {
+      newPath = restPath;
+    } else if (restPath === '/') {
+      newPath = `/${newLocale}`;
     } else {
-      // No locale prefix (default locale), prepend new locale
-      // Note: If newLocale is defaultLocale, middleware might strip it, but pushing /en/... is safe
-      newPath = `/${newLocale}${pathname === '/' ? '' : pathname}`;
+      newPath = `/${newLocale}${restPath}`;
     }
 
     router.push(newPath);
