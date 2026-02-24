@@ -15,7 +15,9 @@ import { ProfileGrid } from '@/components/features/dating/ProfileGrid';
 import { getDictionary } from '@/i18n/server';
 import { locales } from '@/i18n/settings';
 import { BASE_URL } from '@/lib/constants';
-Sands
+
+const getGenderLabel = (gender: string, t: ReturnType<typeof getDictionary>) =>
+  gender === 'man' ? (t.common.men || 'Men') : (t.common.women || 'Women');
 
 interface PageProps {
   params: Promise<{
@@ -69,13 +71,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = t.seo.datingDescription;
 
   if (gender && !country) {
-    const genderText = gender === 'man' ? t.common.men : t.common.women;
-    title = `${t.common.meet || 'Meet'} ${genderText} - ${t.common.internationalDating} | Globol`;
+    const genderText = getGenderLabel(gender, t);
+    title = `${t.common.meet || 'Meet'} ${genderText} - ${t.common.internationalDating || 'International Dating'} | Globol`;
   } else if (gender && country) {
     const sampleProfile = profiles.find(p => p.country === country);
     const countryName = sampleProfile?.countryDisplay?.[locale as keyof LocalizedText] || country;
-    const genderText = gender === 'man' ? t.common.men : t.common.women;
-    title = `${t.common.dating || 'Dating'} ${genderText} ${t.common.from || 'from'} ${countryName} - ${t.common.internationalDating} | Globol`;
+    const genderText = getGenderLabel(gender, t);
+    title = `${t.common.dating || 'Dating'} ${genderText} ${t.common.from || 'from'} ${countryName} - ${t.common.internationalDating || 'International Dating'} | Globol`;
   }
 
   const filterSuffix = `${gender ? '/' + gender : ''}${country ? '/' + country : ''}`;
@@ -142,11 +144,11 @@ export default async function InternationalDatingPage({ params }: PageProps) {
   let pageTitle = t.common.internationalDating;
 
   if (gender && !country) {
-    const genderText = gender === 'man' ? t.common.men : t.common.women;
+    const genderText = getGenderLabel(gender, t);
     pageTitle = `${t.common.meet || 'Meet'} ${genderText}`;
   } else if (gender && country) {
     const countryName = viewProfiles[0]?.countryDisplay || country;
-    const genderText = gender === 'man' ? t.common.men : t.common.women;
+    const genderText = getGenderLabel(gender, t);
     pageTitle = `${genderText} ${t.common.from || 'from'} ${countryName}`;
   }
 
@@ -171,7 +173,7 @@ export default async function InternationalDatingPage({ params }: PageProps) {
     breadcrumbs.push({
       '@type': 'ListItem',
       position: 3,
-      name: (gender === 'man' ? t.common.men : t.common.women) || (gender === 'man' ? 'Men' : 'Women'),
+      name: getGenderLabel(gender, t),
       item: `${BASE_URL}${datingLink}/${gender}`
     });
   }
