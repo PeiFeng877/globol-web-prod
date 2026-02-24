@@ -93,7 +93,8 @@ function convertLexicalToHtml(node: Record<string, unknown> | null | undefined):
     case 'upload':
       const val = node.value as { url?: string; alt?: string } | undefined;
       if (val && val.url) {
-        return `<img src="${escapeHTML(val.url)}" alt="${escapeHTML(val.alt || '')}" />`;
+        const url = val.url.startsWith('/') ? `${CMS_URL}${val.url}` : val.url;
+        return `<img src="${escapeHTML(url)}" alt="${escapeHTML(val.alt || '')}" />`;
       }
       return '';
     default:
@@ -120,9 +121,12 @@ export async function getArticleBySlug(locale: string, slug: string): Promise<Ar
   // DEBUG LOG
   console.log(`[DEBUG] HTML for ${slug}:`, contentHtml.substring(0, 500) + '...');
 
-  const heroImageUrl = typeof article.heroImage === 'object' && article.heroImage?.url
-    ? article.heroImage.url
-    : '/assets/article-hero.avif';
+  let heroImageUrl = '/assets/article-hero.avif';
+  if (typeof article.heroImage === 'object' && article.heroImage?.url) {
+    heroImageUrl = (article.heroImage.url as string).startsWith('/')
+      ? `${CMS_URL}${article.heroImage.url}`
+      : (article.heroImage.url as string);
+  }
 
   const heroImageAlt = typeof article.heroImage === 'object' && article.heroImage?.alt
     ? (article.heroImage.alt as string)
@@ -174,9 +178,12 @@ export async function getAllArticles(locale: string = 'en'): Promise<Omit<Articl
   const data = await res.json();
 
   return (data.docs || []).map((article: Record<string, unknown>) => {
-    const heroImageUrl = typeof article.heroImage === 'object' && article.heroImage?.url
-      ? article.heroImage.url
-      : '/assets/article-hero.avif';
+    let heroImageUrl = '/assets/article-hero.avif';
+    if (typeof article.heroImage === 'object' && article.heroImage?.url) {
+      heroImageUrl = (article.heroImage.url as string).startsWith('/')
+        ? `${CMS_URL}${article.heroImage.url}`
+        : (article.heroImage.url as string);
+    }
 
     const heroImageAlt = typeof article.heroImage === 'object' && article.heroImage?.alt
       ? (article.heroImage.alt as string)
