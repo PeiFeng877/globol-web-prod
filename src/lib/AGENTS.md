@@ -1,11 +1,11 @@
-# src/lib/GEMINI.md - 工具与解析 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/lib/AGENTS.md - 工具与解析 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```
 lib/
 ├── ai/
-│   ├── GEMINI.md
+│   ├── AGENTS.md
 │   ├── chat-prompt.ts
 │   └── gateway.ts
 ├── constants.ts

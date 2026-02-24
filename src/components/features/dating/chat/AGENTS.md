@@ -1,10 +1,10 @@
-# src/components/features/dating/chat/GEMINI.md - AI 聊天子模块 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/components/features/dating/chat/AGENTS.md - AI 聊天子模块 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```
 chat/
-├── GEMINI.md
+├── AGENTS.md
 ├── ChatModal.tsx
 ├── ProfileChatLauncher.tsx
 ├── chat-storage.ts

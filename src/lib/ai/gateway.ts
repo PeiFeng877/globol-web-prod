@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 新增 AI Gateway 调用封装；变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 2026-02-08 新增 AI Gateway 调用封装；变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: system prompt + chat messages
  * OUTPUT: assistant reply text

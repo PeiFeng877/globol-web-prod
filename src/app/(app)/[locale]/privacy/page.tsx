@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: params: { locale }
  * OUTPUT: Privacy page

@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: 无
  * OUTPUT: 初始化 Firebase Analytics（无 UI）

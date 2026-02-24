@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: params: { locale, slug? }
  * OUTPUT: International dating listing page
@@ -14,6 +14,8 @@ import { profiles, getCountries, UserProfileView, toProfileView, type LocalizedT
 import { ProfileGrid } from '@/components/features/dating/ProfileGrid';
 import { getDictionary } from '@/i18n/server';
 import { locales } from '@/i18n/settings';
+import { BASE_URL } from '@/lib/constants';
+Sands
 
 interface PageProps {
   params: Promise<{
@@ -55,7 +57,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = getDictionary(locale);
   const gender = slug?.[0];
   const country = slug?.[1];
-  const baseUrl = 'https://www.globol.im';
+
 
   // Construct Canonical URL
   const langPrefix = locale === 'en' ? '' : `/${locale}`;
@@ -82,19 +84,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `${baseUrl}${path}`,
+      canonical: `${BASE_URL}${path}`,
       languages: Object.fromEntries([
-        ['x-default', `${baseUrl}/international-dating${filterSuffix}`],
+        ['x-default', `${BASE_URL}/international-dating${filterSuffix}`],
         ...locales.map(loc => [
           loc,
-          `${baseUrl}${loc === 'en' ? '' : '/' + loc}/international-dating${filterSuffix}`
+          `${BASE_URL}${loc === 'en' ? '' : '/' + loc}/international-dating${filterSuffix}`
         ])
       ])
     },
     openGraph: {
       title,
       description,
-      url: `${baseUrl}${path}`,
+      url: `${BASE_URL}${path}`,
       siteName: 'Globol',
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'website',
@@ -150,20 +152,18 @@ export default async function InternationalDatingPage({ params }: PageProps) {
 
   const homeLink = locale === 'en' ? '/' : `/${locale}`;
   const datingLink = locale === 'en' ? '/international-dating' : `/${locale}/international-dating`;
-  const baseUrl = 'https://www.globol.im';
-
   const breadcrumbs = [
     {
       '@type': 'ListItem',
       position: 1,
       name: t.common.home || 'Home',
-      item: `${baseUrl}${homeLink}`
+      item: `${BASE_URL}${homeLink}`
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: t.common.internationalDating || 'International Dating',
-      item: `${baseUrl}${datingLink}`
+      item: `${BASE_URL}${datingLink}`
     }
   ];
 
@@ -172,7 +172,7 @@ export default async function InternationalDatingPage({ params }: PageProps) {
       '@type': 'ListItem',
       position: 3,
       name: (gender === 'man' ? t.common.men : t.common.women) || (gender === 'man' ? 'Men' : 'Women'),
-      item: `${baseUrl}${datingLink}/${gender}`
+      item: `${BASE_URL}${datingLink}/${gender}`
     });
   }
 
@@ -182,7 +182,7 @@ export default async function InternationalDatingPage({ params }: PageProps) {
       '@type': 'ListItem',
       position: gender ? 4 : 3,
       name: countryName || country,
-      item: `${baseUrl}${datingLink}${gender ? '/' + gender : ''}/${country}`
+      item: `${BASE_URL}${datingLink}${gender ? '/' + gender : ''}/${country}`
     });
   }
 

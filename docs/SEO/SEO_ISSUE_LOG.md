@@ -1,5 +1,5 @@
 # SEO 问题历史日志 (SEO Issue Log)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 > **文档目标**: 记录 Globol 项目曾经发现和处理过的所有 SEO 问题，防止相同问题在功能迭代中复发。  
 > **更新规范**: 每次修复 SEO 问题后，必须在本文档中追加一条记录。  

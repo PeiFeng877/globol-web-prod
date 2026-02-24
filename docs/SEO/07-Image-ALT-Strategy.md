@@ -1,6 +1,6 @@
 # 07 - Image ALT 多语言与 AI 生成策略
 
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 现象层 (Phenomenon)
 **症状：** 图片通过 CMS 上传至云存储后，`alt` 属性大片空白；在多语言架构下，同一张图片在不同语种页面中难以锚定准确的语义描述。

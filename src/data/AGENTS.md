@@ -1,5 +1,5 @@
-# src/data/GEMINI.md - 数据层 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/data/AGENTS.md - 数据层 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```

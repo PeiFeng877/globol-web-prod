@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-09 支持 15 语种（含 Feed 与 Sidebar 翻译）；变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 2026-02-09 支持 15 语种（含 Feed 与 Sidebar 翻译）；变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: params: { locale, name }
  * OUTPUT: Profile detail page (Instagram Web-style)
@@ -25,6 +25,8 @@ import { locales } from '@/i18n/settings';
 import { getDictionary } from '@/i18n/server';
 import ProfileChatLauncher from '@/components/features/dating/chat/ProfileChatLauncher';
 import { formatRelativeTime } from '@/lib/date';
+import { BASE_URL } from '@/lib/constants';
+
 
 interface PageProps {
   params: Promise<{
@@ -61,7 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale, name } = await params;
   const t = getDictionary(locale);
   const profile = findProfileBySlug(name);
-  const baseUrl = 'https://www.globol.im';
+
 
   if (!profile) return { title: 'Profile Not Found | Globol' };
 
@@ -72,24 +74,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const slug = nameToSlug(profile.name);
   const canonicalPath = `${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${slug}`;
-  const avatarUrl = profile.avatar.startsWith('http') ? profile.avatar : `${baseUrl}${profile.avatar}`;
+  const avatarUrl = profile.avatar.startsWith('http') ? profile.avatar : `${BASE_URL}${profile.avatar}`;
 
   const languages = Object.fromEntries([
-    ['x-default', `${baseUrl}/international-dating/profile/${slug}`],
+    ['x-default', `${BASE_URL}/international-dating/profile/${slug}`],
     ...locales.map(loc => [
       loc,
-      `${baseUrl}${loc === 'en' ? '' : '/' + loc}/international-dating/profile/${slug}`
+      `${BASE_URL}${loc === 'en' ? '' : '/' + loc}/international-dating/profile/${slug}`
     ])
   ]);
 
   return {
     title, description,
     alternates: {
-      canonical: `${baseUrl}${canonicalPath}`,
+      canonical: `${BASE_URL}${canonicalPath}`,
       languages
     },
     openGraph: {
-      title, description, url: `${baseUrl}${canonicalPath}`, siteName: 'Globol',
+      title, description, url: `${BASE_URL}${canonicalPath}`, siteName: 'Globol',
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'profile',
       images: [{ url: avatarUrl }]
@@ -166,8 +168,7 @@ export default async function ProfileDetailPage({ params }: PageProps) {
 
   const homeLink = locale === 'en' ? '/' : `/${locale}`;
   const datingLink = locale === 'en' ? '/international-dating' : `/${locale}/international-dating`;
-  const baseUrl = 'https://www.globol.im';
-  const avatarUrl = profile.avatar.startsWith('http') ? profile.avatar : `${baseUrl}${profile.avatar}`;
+  const avatarUrl = profile.avatar.startsWith('http') ? profile.avatar : `${BASE_URL}${profile.avatar}`;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -182,9 +183,9 @@ export default async function ProfileDetailPage({ params }: PageProps) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t.common.home || 'Home', item: `${baseUrl}${homeLink}` },
-          { '@type': 'ListItem', position: 2, name: t.common.internationalDating || 'International Dating', item: `${baseUrl}${datingLink}` },
-          { '@type': 'ListItem', position: 3, name: profileView.name || 'Profile', item: `${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}` }
+          { '@type': 'ListItem', position: 1, name: t.common.home || 'Home', item: `${BASE_URL}${homeLink}` },
+          { '@type': 'ListItem', position: 2, name: t.common.internationalDating || 'International Dating', item: `${BASE_URL}${datingLink}` },
+          { '@type': 'ListItem', position: 3, name: profileView.name || 'Profile', item: `${BASE_URL}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}` }
         ]
       }
     ]
@@ -205,7 +206,7 @@ export default async function ProfileDetailPage({ params }: PageProps) {
           </div>
           <aside className="hidden lg:block space-y-6 sticky top-24 h-fit">
             <div className="flex items-center justify-between">
-              <Link href={`${baseUrl}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}`} className="flex items-center gap-3 group">
+              <Link href={`${BASE_URL}${locale === 'en' ? '' : '/' + locale}/international-dating/profile/${nameToSlug(profile.name)}`} className="flex items-center gap-3 group">
                 <div className="relative w-14 h-14 rounded-full overflow-hidden">
                   <Image src={profileView.avatar || '/assets/placeholder-user.jpg'} alt={profileView.name} fill className="object-cover" sizes="56px" priority />
                 </div>

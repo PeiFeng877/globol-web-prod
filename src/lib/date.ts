@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-09 使用 Intl.RelativeTimeFormat 支持全语种相对时间格式化；变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 2026-02-09 使用 Intl.RelativeTimeFormat 支持全语种相对时间格式化；变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: ISO timestamp string + locale
  * OUTPUT: Localized relative time string (e.g. "5 mins ago", "5 分钟前")

@@ -1,10 +1,10 @@
-# src/GEMINI.md - 源代码架构 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/AGENTS.md - 源代码架构 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```
 src/
-├── GEMINI.md
+├── AGENTS.md
 ├── app/          # Next.js App Router (页面, 布局, SEO)
 ├── components/   # UI 组件与业务展示组件
 ├── collections/  # Payload CMS 数据集合定义

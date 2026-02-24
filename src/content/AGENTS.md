@@ -1,5 +1,5 @@
-# src/content/GEMINI.md - 内容仓库 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/content/AGENTS.md - 内容仓库 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```

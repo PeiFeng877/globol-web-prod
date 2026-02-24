@@ -1,10 +1,10 @@
-# docs/GEMINI.md - 文档模块 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# docs/AGENTS.md - 文档模块 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```
 docs/
-├── GEMINI.md
+├── AGENTS.md
 ├── SEO/
 │   ├── 02-Content-Strategy.md
 │   ├── 03-Structured-Data.md
@@ -17,6 +17,7 @@ docs/
 │   ├── 08-Content-Generation-Architecture.md
 │   ├── 09-Content-Generation-Connection-Guide.md
 │   ├── Performance-Analysis-Report.md
+│   ├── 404-Analysis-Report.md
 │   └── README.md
 ├── testing/
 │   └── TESTING-STANDARD.md
@@ -25,7 +26,7 @@ docs/
 ├── analytics-monitoring.md
 ├── i18n-standard.md
 └── AI-Generation-Guidelines/
-    ├── GEMINI.md
+    ├── AGENTS.md
     ├── README.md
     └── templates/
         └── article-template.md
@@ -33,7 +34,7 @@ docs/
 
 ## 2. 🧩 模块 (Modules)
 - `AI-Generation-Guidelines/`: AI 生成内容规范与模板集合。
-- `SEO/`: SEO 执行策略文档集，包含内容策略、结构化数据、社群分享、图片 ALT 策略、内容规模化生成架构，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`)。
+- `SEO/`: SEO 执行策略文档集，包含内容策略、结构化数据、社群分享、图片 ALT 策略、内容规模化生成架构，以及所有审计日志 (`SEO_AUDIT.md`, `SEO_WORK_LOG.md`, `seo-audit-acceptance.md`, `404-Analysis-Report.md`)。
 - `testing/`: 测试规范与流程文档，定义小变更/大发版的测试流程与通过标准。
 - `SEO/SEO_ISSUE_LOG.md`: SEO 问题历史日志，记录所有发现与修复过的 SEO 问题、根因及预防机制，含可执行的上线前检查命令。
 - `Core-System-Architecture.md`: 核心系统架构与工作流宪法，详述底层数据库选型 (Supabase vs Vercel)、渲染缓存机制 (ISR)、Vercel 部署脱钩安全策略及多语言一键发布 SOP。
@@ -46,6 +47,7 @@ docs/
 - 任何新增模板或目录层级必须同步更新本文件与子模块 L2。
 
 ## 4. 🧾 变更日志 (Changelog)
+- 2026-02-24: 新增 `SEO/404-Analysis-Report.md`，基于 GSC 的未建立索引网址导出数据提供 404 诊断分析与处理建议。
 - 2026-02-24: 新增 `SEO/Performance-Analysis-Report.md`，首页 Core Web Vitals 劣化诊断报告，分析 Vercel 地理延迟、冷启动、Client Component LCP 等问题并给出优先修复清单。
 - 2026-02-24: 新增 `SEO/09-Content-Generation-Connection-Guide.md`，定义内容生成工具的数据库存储连接凭证与安全自动化流转生命周期。
 - 2026-02-23: 新增 `SEO/08-Content-Generation-Architecture.md`，定义基于前端解耦规模化内容生成管线、API 通信标准与专家级作者人设矩阵。

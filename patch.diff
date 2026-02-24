@@ -1,7 +1,7 @@
-diff --git a/docs/GEMINI.md b/docs/GEMINI.md
+diff --git a/docs/AGENTS.md b/docs/AGENTS.md
 index 5d13c8c..00542eb 100644
---- a/docs/GEMINI.md
-+++ b/docs/GEMINI.md
+--- a/docs/AGENTS.md
++++ b/docs/AGENTS.md
 @@ -10,6 +10,7 @@ docs/
  │   ├── 03-Structured-Data.md
  │   ├── 04-Social-Sharing.md
@@ -33,7 +33,7 @@ index 0000000..1c9875d
 +++ b/docs/SEO/SEO_ISSUE_LOG.md
 @@ -0,0 +1,128 @@
 +# SEO 问题历史日志 (SEO Issue Log)
-+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
++[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 +
 +> **文档目标**: 记录 Globol 项目曾经发现和处理过的所有 SEO 问题，防止相同问题在功能迭代中复发。  
 +> **更新规范**: 每次修复 SEO 问题后，必须在本文档中追加一条记录。  
@@ -1031,7 +1031,7 @@ index a366539..a47d761 100644
 --- a/src/app/(app)/[locale]/layout.tsx
 +++ b/src/app/(app)/[locale]/layout.tsx
 @@ -3,38 +3,93 @@
-  * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+  * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
   *
   * INPUT: children, params: { locale }
 - * OUTPUT: Localized layout with Navbar, Footer, and I18nProvider
@@ -1168,7 +1168,7 @@ index 8329183..0000000
 @@ -1,65 +0,0 @@
 -/**
 - * [PROTOCOL] L3 - GEB Fractal Documentation
-- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+- * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 - *
 - * INPUT: children: React.ReactNode
 - * OUTPUT: HTML shell + global layout
@@ -1231,19 +1231,19 @@ index 8329183..0000000
 -    </html>
 -  );
 -}
-diff --git a/src/app/GEMINI.md b/src/app/GEMINI.md
+diff --git a/src/app/AGENTS.md b/src/app/AGENTS.md
 index e610131..18e21fe 100644
---- a/src/app/GEMINI.md
-+++ b/src/app/GEMINI.md
+--- a/src/app/AGENTS.md
++++ b/src/app/AGENTS.md
 @@ -1,5 +1,6 @@
- # src/app/GEMINI.md - 路由与页面 (L2)
- [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
-+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ # src/app/AGENTS.md - 路由与页面 (L2)
+ [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
++[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  
  ## 1. 🗺 地图 (结构)
  ```
 @@ -25,8 +26,7 @@ app/
- │   │   ├── GEMINI.md
+ │   │   ├── AGENTS.md
  │   │   └── ai-chat/route.ts
  │   ├── favicon.ico
 -│   ├── globals.css

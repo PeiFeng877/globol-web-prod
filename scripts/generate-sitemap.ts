@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: Content from lib/content, data/profiles, i18n/settings
  * OUTPUT: public/sitemap.xml (static file, no trailing slashes)

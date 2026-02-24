@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 新增 AI 聊天 API 路由；变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 2026-02-08 新增 AI 聊天 API 路由；变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: profileId + locale + context messages + userMessage
  * OUTPUT: assistant reply payload

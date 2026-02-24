@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: params: { locale, slug }
  * OUTPUT: Article detail page
@@ -20,6 +20,8 @@ import { getArticleBySlug, getAllSlugs, getAdjacentArticles, getRelatedArticles,
 import { ShareButtons } from '@/components/ui/ShareButtons';
 import { getDictionary } from '@/i18n/server';
 import { locales } from '@/i18n/settings';
+import { BASE_URL } from '@/lib/constants';
+
 
 export const revalidate = 172800;
 
@@ -42,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title: article.title,
         description: article.subtitle,
-        images: [article.heroImage?.startsWith('http') ? article.heroImage : `https://globol.im${article.heroImage}`],
+        images: [article.heroImage?.startsWith('http') ? article.heroImage : `${BASE_URL}${article.heroImage}`],
       },
       alternates: {
         canonical: locale === 'en' ? `/date-ideas/${slug}` : `/${locale}/date-ideas/${slug}`,
@@ -95,19 +97,19 @@ export default async function ArticlePage({ params }: PageProps) {
     '@type': 'Article',
     headline: article.title,
     description: article.subtitle,
-    image: [article.heroImage?.startsWith('http') ? article.heroImage : `https://globol.im${article.heroImage}`],
+    image: [article.heroImage?.startsWith('http') ? article.heroImage : `${BASE_URL}${article.heroImage}`],
     datePublished: article.publishedAt,
     author: {
       '@type': 'Organization',
       name: 'Globol',
-      url: 'https://globol.im'
+      url: BASE_URL
     },
     publisher: {
       '@type': 'Organization',
       name: 'Globol',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://globol.im/assets/logo.webp'
+        url: `${BASE_URL}/assets/logo.webp`
       }
     },
     inLanguage: locale
@@ -137,13 +139,13 @@ export default async function ArticlePage({ params }: PageProps) {
             '@type': 'ListItem',
             position: 1,
             name: t.common.home || 'Home',
-            item: `https://globol.im${homeLink}`
+            item: `${BASE_URL}${homeLink}`
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: t.common.dateIdeas || 'Date Ideas',
-            item: `https://globol.im${dateIdeasLink}`
+            item: `${BASE_URL}${dateIdeasLink}`
           },
           {
             '@type': 'ListItem',

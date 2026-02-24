@@ -1,5 +1,5 @@
 # 测试规范 (Testing Standard)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 概述
 

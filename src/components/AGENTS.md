@@ -1,5 +1,5 @@
-# src/components/GEMINI.md - 组件体系 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/components/AGENTS.md - 组件体系 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```
@@ -13,7 +13,7 @@ components/
 │   ├── RecommendationGrid.tsx
 │   └── dating/
 │       ├── chat/
-│       │   ├── GEMINI.md
+│       │   ├── AGENTS.md
 │       │   ├── ChatModal.tsx
 │       │   ├── ProfileChatLauncher.tsx
 │       │   ├── chat-storage.ts

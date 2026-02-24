@@ -18,21 +18,21 @@
 
 - **拒绝冗余**: 我们移除了空的占位文件夹（`tests`, `assets` 在 src 下）和混乱的 README。
 - **单一真相源 (Single Source of Truth)**: 
-    - **代码结构**: `src/GEMINI.md`
-    - **全局协议**: `GEMINI.md`
+    - **代码结构**: `src/AGENTS.md`
+    - **全局协议**: `AGENTS.md`
 - **静态优先**: 资源放在 `public/`，内容放在 `src/content/`。
 
 ## 3. 📂 目录结构 (Directory Structure)
 
 ```
 .
-├── GEMINI.md           # 项目宪法与协议 (L1)
+├── AGENTS.md           # 项目宪法与协议 (L1)
 ├── README.md           # 你在这里 (人类入口)
 ├── docs/               # 深度文档 (SEO 策略)
 ├── public/             # 静态资源 (图片, 图标)
 │   └── assets/         # App 图片
 ├── src/
-│   ├── GEMINI.md       # 源代码架构 (L2)
+│   ├── AGENTS.md       # 源代码架构 (L2)
 │   ├── app/            # Next.js 应用路由与页面
 │   ├── components/     # React 组件 (原子化设计风格)
 │   ├── content/        # Markdown 内容 (我们的"数据库")

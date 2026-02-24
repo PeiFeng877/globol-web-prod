@@ -1,6 +1,6 @@
 # 08 - SEO 规模化内容生成与分发架构 (Content Generation & Distribution Architecture)
 
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 业务背景 (Background)
 随着站点从单一静态发布向 Programmatic SEO (pSEO) 及高频内容营销演进，靠人力在前端源码或 Payload CMS 后台逐篇手写文章已无法满足流量爆发需求。我们需要一套**规模化、自动化且独立于核心 Web 应用**的生成管线。

@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: 浏览器环境变量 (NEXT_PUBLIC_FIREBASE_*)
  * OUTPUT: Firebase App 与 Analytics 初始化函数

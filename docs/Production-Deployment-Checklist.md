@@ -1,5 +1,5 @@
 # 生产环境部署清单 (Production Deployment Checklist)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 本文档用于记录 Globol 项目所有线上云端资源的配置状态。**在您下一次准备让 Vercel 正式发布页面并连接真数据库时，请务必严格按照此清单执行！**（我已经收到了提示要求，会在后续你打算部署时主动提醒你）
 

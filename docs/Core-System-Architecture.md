@@ -1,5 +1,5 @@
 # 核心系统架构与内容工作流 (Core System Architecture & Workflow)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 本文档旨在统一阐述当前 Globol 网站的底层技术选型、数据库选型原因、SEO 性能设计以及核心的内容运营发布流程。
 

@@ -1,10 +1,10 @@
-# src/i18n/GEMINI.md - 国际化模块 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+# src/i18n/AGENTS.md - 国际化模块 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 ## 1. 🗺 地图 (结构)
 ```
 i18n/
-├── GEMINI.md
+├── AGENTS.md
 ├── client.ts
 ├── server.ts
 ├── settings.ts

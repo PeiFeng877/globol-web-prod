@@ -1,5 +1,5 @@
 # SEO 审计与验收记录
-[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 
 日期: 2026-02-05
 项目: Globol 官方网站

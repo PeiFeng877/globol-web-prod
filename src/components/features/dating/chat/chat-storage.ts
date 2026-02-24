@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 新增聊天本地存储工具；变更时更新此头部，然后检查 GEMINI.md
+ * [PROTOCOL]: 2026-02-08 新增聊天本地存储工具；变更时更新此头部，然后检查 AGENTS.md
  *
  * INPUT: profileId + chat session
  * OUTPUT: Persistent localStorage session state
