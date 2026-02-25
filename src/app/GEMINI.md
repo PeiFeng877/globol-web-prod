@@ -1,6 +1,6 @@
-# src/app/AGENTS.md - 路由与页面 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+# src/app/GEMINI.md - 路由与页面 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 ## 1. 🗺 地图 (结构)
 ```
@@ -23,7 +23,7 @@ app/
 │   │   ├── [...not-found]/page.tsx
 │   │   └── page.tsx
 │   ├── api/
-│   │   ├── AGENTS.md
+│   │   ├── GEMINI.md
 │   │   └── ai-chat/route.ts
 │   ├── favicon.ico
 │   └── globals.css

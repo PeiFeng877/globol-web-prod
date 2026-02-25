@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 优化头部单行、气泡自适应与上限下载提醒样式；变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-08 优化头部单行、气泡自适应与上限下载提醒样式；变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: profile/locale/open state
  * OUTPUT: modal chat UI + local persistence + send logic

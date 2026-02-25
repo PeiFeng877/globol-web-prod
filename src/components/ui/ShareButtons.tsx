@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: title + canonical url
  * OUTPUT: Share button group

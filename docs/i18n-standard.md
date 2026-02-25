@@ -1,5 +1,5 @@
 # docs/i18n-standard.md - 多语言体系规范 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 ## 1. 🗺 体系架构 (Architecture)
 

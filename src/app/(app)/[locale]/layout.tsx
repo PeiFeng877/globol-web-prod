@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: children, params: { locale }
  * OUTPUT: HTML shell + Localized layout with Navbar, Footer, and I18nProvider

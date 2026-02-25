@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-25 Footer 法务入口改为 CDN 直链，变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-25 Footer 法务入口改为 CDN 直链，变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: Locale dictionary
  * OUTPUT: Footer section

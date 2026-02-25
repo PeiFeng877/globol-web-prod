@@ -1,10 +1,10 @@
-# docs/AGENTS.md - 文档模块 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+# docs/GEMINI.md - 文档模块 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 ## 1. 🗺 地图 (结构)
 ```
 docs/
-├── AGENTS.md
+├── GEMINI.md
 ├── SEO/
 │   ├── 02-Content-Strategy.md
 │   ├── 03-Structured-Data.md
@@ -26,7 +26,7 @@ docs/
 ├── analytics-monitoring.md
 ├── i18n-standard.md
 └── AI-Generation-Guidelines/
-    ├── AGENTS.md
+    ├── GEMINI.md
     ├── README.md
     └── templates/
         └── article-template.md

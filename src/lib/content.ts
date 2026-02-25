@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: Payload CMS REST API (Lexical JSON)
  * OUTPUT: ArticleData + markdown helpers
@@ -107,7 +107,9 @@ function convertLexicalToHtml(node: Record<string, unknown> | null | undefined):
 // -------------------------------------------------------------
 
 export async function getArticleBySlug(locale: string, slug: string): Promise<ArticleData> {
-  const res = await fetch(`${CMS_URL}/api/articles?where[and][0][slug][equals]=${slug}&where[and][1][language][equals]=${locale}`);
+  const res = await fetch(`${CMS_URL}/api/articles?where[and][0][slug][equals]=${slug}&where[and][1][language][equals]=${locale}`, {
+    next: { tags: [`article-${slug}-${locale}`] }
+  });
   if (!res.ok) throw new Error(`CMS API Error: ${res.statusText}`);
   const data = await res.json();
 
@@ -173,7 +175,9 @@ export async function getAllSlugs(): Promise<string[]> {
 }
 
 export async function getAllArticles(locale: string = 'en'): Promise<Omit<ArticleData, 'contentHtml'>[]> {
-  const res = await fetch(`${CMS_URL}/api/articles?where[language][equals]=${locale}&limit=100&sort=-publishedAt`);
+  const res = await fetch(`${CMS_URL}/api/articles?where[language][equals]=${locale}&limit=100&sort=-publishedAt`, {
+    next: { tags: [`articles-${locale}`] }
+  });
   if (!res.ok) throw new Error(`CMS API Error: ${res.statusText}`);
   const data = await res.json();
 
@@ -252,13 +256,17 @@ export interface PseoPageData {
 
 export async function getPseoData(locale: string, citySlug: string, vibe: string): Promise<PseoPageData | null> {
   // 1. Get Destination
-  let res = await fetch(`${CMS_URL}/api/destinations?where[slug][equals]=${citySlug}`);
+  let res = await fetch(`${CMS_URL}/api/destinations?where[slug][equals]=${citySlug}`, {
+    next: { tags: [`destinations-${citySlug}`] }
+  });
   const destRes = res.ok ? await res.json() : { docs: [] };
   if (!destRes.docs || destRes.docs.length === 0) return null;
   const destination = destRes.docs[0] as unknown as Destination;
 
   // 2. Get Template
-  res = await fetch(`${CMS_URL}/api/pseo-templates?where[vibe][equals]=${vibe}`);
+  res = await fetch(`${CMS_URL}/api/pseo-templates?where[vibe][equals]=${vibe}`, {
+    next: { tags: [`pseo-templates-${vibe}`] }
+  });
   const templateRes = res.ok ? await res.json() : { docs: [] };
   if (!templateRes.docs || templateRes.docs.length === 0) return null;
   const template = templateRes.docs[0] as unknown as PseoTemplate;

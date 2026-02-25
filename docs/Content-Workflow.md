@@ -1,5 +1,5 @@
 # 内容管理流转指南 (Content Workflow Guidelines)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 针对当前最新重构的多语言 Payload CMS 架构，本指南解释了底层存储与核心发布流程的机制。
 

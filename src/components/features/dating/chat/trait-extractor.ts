@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 新增三条消息特征提取器；变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-08 新增三条消息特征提取器；变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: User messages + locale
  * OUTPUT: Trait summary + localized CTA sentence

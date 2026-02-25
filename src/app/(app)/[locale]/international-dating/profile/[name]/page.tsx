@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-09 支持 15 语种（含 Feed 与 Sidebar 翻译）；变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-09 支持 15 语种（含 Feed 与 Sidebar 翻译）；变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: params: { locale, name }
  * OUTPUT: Profile detail page (Instagram Web-style)

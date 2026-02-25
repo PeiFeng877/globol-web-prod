@@ -1,10 +1,10 @@
-# src/lib/ai/AGENTS.md - AI 网关子模块 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+# src/lib/ai/GEMINI.md - AI 网关子模块 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 ## 1. 🗺 地图 (结构)
 ```
 ai/
-├── AGENTS.md
+├── GEMINI.md
 ├── chat-prompt.ts
 ├── gateway.ts
 └── translation.ts

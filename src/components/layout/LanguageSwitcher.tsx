@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-25 默认语言切换改为无前缀路径，变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-25 默认语言切换改为无前缀路径，变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: Current locale + router
  * OUTPUT: Language switcher UI

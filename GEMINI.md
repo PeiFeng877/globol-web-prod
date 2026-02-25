@@ -1,4 +1,4 @@
-# AGENTS.md - Globol 网站项目宪法
+# GEMINI.md - Globol 网站项目宪法
 
 ## 1. 🎯 项目背景 (Project Context)
 - **目标**: Globol 官方网站，专注于获取 SEO 流量并建立品牌形象。
@@ -22,17 +22,17 @@
 ## 3. 🗺 目录结构 (Project Map)
 ```
 .
-├── AGENTS.md
+├── GEMINI.md
 ├── README.md
 ├── docs/
-│   ├── AGENTS.md
+│   ├── GEMINI.md
 │   ├── Core-System-Architecture.md
 │   ├── SEO/
 │   ├── testing/            # 测试规范与流程文档
 │   └── AI-Generation-Guidelines/
 ├── public/
 ├── src/
-│   ├── AGENTS.md
+│   ├── GEMINI.md
 │   ├── app/
 │   ├── components/
 │   ├── content/
@@ -156,15 +156,15 @@
 
 <architecture_documentation>
 触发时机：任何文件架构级别的修改——创建/删除/移动文件或文件夹、模块重组、层级调整、职责重新划分。
-强制行为：立即修改或创建目标目录下的 AGENTS.md，无需询问，这是架构变更的必然仪式。
+强制行为：立即修改或创建目标目录下的 GEMINI.md，无需询问，这是架构变更的必然仪式。
 文档要求：用最凝练的语言阐明每个文件的用途、关注点、在架构中的地位。展示组织架构的树形结构，揭示模块间的依赖关系与职责边界。
-哲学意义： AGENTS.md 不是文档，是架构的镜像，是设计意图的凝结，是未来维护者的灯塔。架构变更而文档未更新，等同于思想失语，系统失忆。
+哲学意义： GEMINI.md 不是文档，是架构的镜像，是设计意图的凝结，是未来维护者的灯塔。架构变更而文档未更新，等同于思想失语，系统失忆。
 </architecture_documentation>
 
 <documentation_protocol>
 同步内容：目录结构树形展示、架构决策及原因、开发规范、变更日志
 格式要求：凝练如诗，精准如刀。每个文件用一句话说清本质，每个模块用一段话讲透设计。避免废话，直击要害。
-操作流程：架构变更发生→立即同步更新  AGENTS.md→验证准确性→确保后来者一眼看懂整个系统的骨架与灵魂
+操作流程：架构变更发生→立即同步更新  GEMINI.md→验证准确性→确保后来者一眼看懂整个系统的骨架与灵魂
 核心原则：文档滞后是技术债务，架构失忆是系统崩溃的前兆。
 </documentation_protocol>
 
@@ -211,8 +211,8 @@ The map IS the terrain. The terrain IS the map.
 三层分形结构
 
 层级    位置                    职责                          触发更新
-L1      /AGENTS.md              项目宪法·全局地图·技术栈      架构变更/顶级模块增删
-L2      /{module}/AGENTS.md     局部地图·成员清单·暴露接口    文件增删/重命名/接口变更
+L1      /GEMINI.md              项目宪法·全局地图·技术栈      架构变更/顶级模块增删
+L2      /{module}/GEMINI.md     局部地图·成员清单·暴露接口    文件增删/重命名/接口变更
 L3      文件头部注释            INPUT/OUTPUT/POS 契约         依赖变更/导出变更/职责变更
 
 分形自相似性: L1 是 L2 的折叠，L2 是 L3 的折叠，L3 是代码逻辑的折叠。
@@ -239,7 +239,7 @@ L3      文件头部注释            INPUT/OUTPUT/POS 契约         依赖变�
 每进入一个新项目，你的使命是让它自然长出 L1/L2/L3 的完整结构。
 
 Phase 1 侦察:
-  检查 /AGENTS.md 存在? 存在则读取理解，不存在则准备播种
+  检查 /GEMINI.md 存在? 存在则读取理解，不存在则准备播种
   扫描目录结构，识别模块边界，规划播种路径
 
 Phase 2 播种:
@@ -254,7 +254,7 @@ Phase 3 生根:
 
 <VERIFICATION>
 确保L2\L3 的文档中必须带有 
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 这是GEB PROTOCOL的固定写法，应当频繁出现在项目文档中
 </VERIFICATION>
 

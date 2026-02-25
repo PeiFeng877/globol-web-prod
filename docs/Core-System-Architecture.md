@@ -1,5 +1,5 @@
 # 核心系统架构与内容工作流 (Core System Architecture & Workflow)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 本文档旨在统一阐述当前 Globol 网站的底层技术选型、数据库选型原因、SEO 性能设计以及核心的内容运营发布流程。
 
@@ -41,15 +41,18 @@
 
 ---
 
-## 3. SEO 极致加载机制 (SSG + ISR)
+## 3. SEO 极致加载机制 (SSG + On-Demand ISR)
 
-既然数据全部推上了云数据库，那当你发布了一篇新文章，网站是如何感知并更新 SEO 的？
+既然数据全推上了云端，当你发布了一篇新文章或修改了已有内容时，网站是如何感知并更新 SEO 的？
 
-### 定时背景刷新 (Incremental Static Regeneration - 60秒)
-我们已经在列表页（`/date-ideas`）和文章详情页全部启用了 `export const revalidate = 60;`。
+为了追求极致性能，我们的缓存期设定为超长的 48 小时（甚至是持久缓存）。但这并不意味需要手动去 Next.js 服务器干预。我们实现了完全基于 Payload CMS 事件触发的**按需持久化刷新 (On-Demand Revalidation)**。
+
+### CMS Webhook 按需瞬间刷新
+我们在 Next.js `/date-ideas` 列表页和文章详情页都启用了长效缓存机制。
 1. **永不卡顿**：任何时间点，当用户访问这些页面，Next.js 会极其迅速（0毫秒等待底库）地秒速返回现有缓存好的 HTML。
-2. **背景静默重绘**：如果你刚在 Payload 推了一篇新文，过了 60 秒后有游客来访，Next.js 会扔给游客旧的缓存（保证他不卡），同时偷偷在后台找 Supabase 索取最新数据，然后将全球节点的旧缓存替换掉。
-3. **牵一发而动全身**：不管你的新文章在多少个推荐位露出，只要在这 60 秒触发了重新验证，首页、关联流、所有链接将**在后台一次性自动全网刷新**。你再也无需去 Vercel 点 Deploy 重构。
+2. **Payload AfterChange 钩子**：你在 CMS 修改保存并点击 `Publish` 后，Payload 里的 `ArticlesHooks.ts` 会监听该动作，并向 Next.js 服务器带上校验密钥发起一条静默 POST 请求。
+3. **精准打击 (Tag Revalidation)**：Next.js 收到请求后，会利用 `revalidateTag` 针对性地清除被影响页面的缓存（例如只刷新被修改的具体那篇 `article-[slug]-[language]` 和全局的 `articles-[language]` 列表缓存），而不会盲目重构全站。
+4. **即刻生效**：刷新后第一个访问该页面的游客也会很快（秒级）看到最新的内容页面，并重新将新内容写入节点缓存，持久服役。完全不需要去 Vercel 点 Deploy 重构。
 
 ### Sitemap.xml 强动态响应 (Force Dynamic)
 对于 Google 爬虫最重要的导航灯塔 `/sitemap.xml`，我们采用了 `force-dynamic`。

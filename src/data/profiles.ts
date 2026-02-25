@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-09 全面支持 15 语种（含 Bio 与 Feed 动态）；恢复所有用户的多条动态；变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-09 全面支持 15 语种（含 Bio 与 Feed 动态）；恢复所有用户的多条动态；变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: Static profile records with 15-language support for all fields.
  * OUTPUT: profiles + view models + detail mocks + helper selectors.

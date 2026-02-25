@@ -1,10 +1,10 @@
-# src/app/api/AGENTS.md - API 路由子模块 (L2)
-[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+# src/app/api/GEMINI.md - API 路由子模块 (L2)
+[PROTOCOL]: 变更时更新此头部，然后检查 GEMINI.md
 
 ## 1. 🗺 地图 (结构)
 ```
 api/
-├── AGENTS.md
+├── GEMINI.md
 └── ai-chat/
     └── route.ts
 ```

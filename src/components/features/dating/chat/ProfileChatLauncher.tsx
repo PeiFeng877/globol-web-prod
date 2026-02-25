@@ -2,7 +2,7 @@
 
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 新增个人页聊天入口组件；变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-08 新增个人页聊天入口组件；变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: profile id/name/locale + button style
  * OUTPUT: Say Hi launcher and modal controller

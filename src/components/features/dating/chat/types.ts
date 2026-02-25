@@ -1,6 +1,6 @@
 /**
  * [PROTOCOL] L3 - GEB Fractal Documentation
- * [PROTOCOL]: 2026-02-08 新增聊天类型契约；变更时更新此头部，然后检查 AGENTS.md
+ * [PROTOCOL]: 2026-02-08 新增聊天类型契约；变更时更新此头部，然后检查 GEMINI.md
  *
  * INPUT: Chat roles/messages/session data
  * OUTPUT: Strongly typed chat contracts
